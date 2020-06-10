@@ -1,0 +1,48 @@
+2020-03-05 11:04:32 | [INFO]    | Discordia 2.8.0
+2020-03-05 11:04:32 | [INFO]    | Connecting to Discord...
+2020-03-05 11:04:34 | [ERROR]   | 401 - Unauthorized : GET https://discordapp.com/api/v7/users/@me
+2020-03-05 11:04:34 | [ERROR]   | Could not authenticate, check token: HTTP Error 0 : 401: Unauthorized
+2020-03-05 11:05:04 | [INFO]    | Discordia 2.8.0
+2020-03-05 11:05:04 | [INFO]    | Connecting to Discord...
+2020-03-05 11:05:04 | [ERROR]   | 401 - Unauthorized : GET https://discordapp.com/api/v7/users/@me
+2020-03-05 11:05:04 | [ERROR]   | Could not authenticate, check token: HTTP Error 0 : 401: Unauthorized
+2020-03-05 11:05:22 | [INFO]    | Discordia 2.8.0
+2020-03-05 11:05:22 | [INFO]    | Connecting to Discord...
+2020-03-05 11:05:25 | [ERROR]   | 401 - Unauthorized : GET https://discordapp.com/api/v7/users/@me
+2020-03-05 11:05:25 | [ERROR]   | Could not authenticate, check token: HTTP Error 0 : 401: Unauthorized
+2020-03-05 11:06:32 | [INFO]    | Discordia 2.8.0
+2020-03-05 11:06:32 | [INFO]    | Connecting to Discord...
+2020-03-05 11:06:32 | [INFO]    | Authenticated as Cubic-Bot#5652
+2020-03-05 11:06:32 | [INFO]    | Launching shard 0 (1 out of 1)...
+2020-03-05 11:06:33 | [INFO]    | Shard 0 : Connected to wss://gateway.discord.gg
+2020-03-05 11:06:33 | [INFO]    | Shard 0 : Received HELLO
+2020-03-05 11:06:33 | [INFO]    | Shard 0 : Received READY
+2020-03-05 11:12:16 | [WARNING] | Shard 0 : Unhandled gateway event: INVITE_CREATE
+2020-03-09 12:07:10 | [INFO]    | Discordia 2.8.0
+2020-03-09 12:07:10 | [INFO]    | Connecting to Discord...
+2020-03-09 12:07:10 | [INFO]    | Authenticated as Cuby#5652
+2020-03-09 12:07:10 | [INFO]    | Launching shard 0 (1 out of 1)...
+2020-03-09 12:07:10 | [INFO]    | Shard 0 : Connected to wss://gateway.discord.gg
+2020-03-09 12:07:10 | [INFO]    | Shard 0 : Received HELLO
+2020-03-09 12:07:11 | [INFO]    | Shard 0 : Received READY
+2020-06-09 12:14:28 | [INFO]    | Discordia 2.8.0
+2020-06-09 12:14:28 | [INFO]    | Connecting to Discord...
+2020-06-09 12:14:29 | [INFO]    | Authenticated as Cuby#5652
+2020-06-09 12:14:29 | [INFO]    | Launching shard 0 (1 out of 1)...
+2020-06-09 12:14:30 | [INFO]    | Shard 0 : Connected to wss://gateway.discord.gg
+2020-06-09 12:14:30 | [INFO]    | Shard 0 : Received HELLO
+2020-06-09 12:14:30 | [INFO]    | Shard 0 : Received READY
+2020-06-09 12:18:23 | [INFO]    | Discordia 2.8.0
+2020-06-09 12:18:23 | [INFO]    | Connecting to Discord...
+2020-06-09 12:18:23 | [INFO]    | Authenticated as Cuby#5652
+2020-06-09 12:18:23 | [INFO]    | Launching shard 0 (1 out of 1)...
+2020-06-09 12:18:24 | [INFO]    | Shard 0 : Connected to wss://gateway.discord.gg
+2020-06-09 12:18:24 | [INFO]    | Shard 0 : Received HELLO
+2020-06-09 12:18:24 | [INFO]    | Shard 0 : Received READY
+2020-06-10 07:42:21 | [INFO]    | Discordia 2.8.0
+2020-06-10 07:42:21 | [INFO]    | Connecting to Discord...
+2020-06-10 07:42:21 | [INFO]    | Authenticated as Cuby#5652
+2020-06-10 07:42:21 | [INFO]    | Launching shard 0 (1 out of 1)...
+2020-06-10 07:42:22 | [INFO]    | Shard 0 : Connected to wss://gateway.discord.gg
+2020-06-10 07:42:22 | [INFO]    | Shard 0 : Received HELLO
+2020-06-10 07:42:22 | [INFO]    | Shard 0 : Received READY
