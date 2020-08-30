@@ -5,6 +5,7 @@ return function(Data)
     local Commands = Data.Libs.Tables.Commands
     local WebHooks = Data.Libs.Tables.WebHooks
     local Coro = require("coro-http")
+    local Json = require("json")
     local LoggerLink = WebHooks.Logger
 
     Client:on("warning", function(MSG)
@@ -28,7 +29,16 @@ return function(Data)
          
          
          }
-        local Send = {}
-        Coro.request("POST", LoggerLink, )
+        local Send = {["content"] = "Warning", ["embed"] = Embed}
+        local Encode = Json.stringify(Send)
+        print(Encode)
+        coroutine.wrap(function()
+            local res, data = Coro.request("POST", LoggerLink, Encode)
+        end)()
+        print(res)
+        print(data)
     end)
+
+    Wait(3)
+    Client:emit("warning", "test")
 end
