@@ -14,6 +14,8 @@ local Shards = require("./Shards/Shards.lua")
 local Commands = require("./Libs/Tables/Commands.lua")
 local WebHooks = require("./Libs/Tables/WebHooks.lua")
 
+
+
 local Token = "NjY1ODg2ODkyODAxMTMwNTE2.XmDO_A.KwrHtW9aatho7CIAgTSGfhgo1vo"
 local MusicToken = "NzUwMjQzMTgwNTE5MjI3NDQy.X03saQ.mtnicAE-55JkjlycBXcJh0YG4IY"
 local Prefix = "!"
@@ -74,3 +76,18 @@ MusicClient:on("ready", function()
 	local MusicConnection = MusicClient:getChannel("658677095534428166"):join()
 end)
 
+
+local http = require("http")
+
+-- "A web dyno must bind to its assigned $PORT within 60 seconds of startup."
+-- see https://devcenter.heroku.com/articles/dynos#web-dynos
+local port = process.env["PORT"]
+
+http.createServer(function(req, res)
+	local body = "Hello world\n"
+	res:setHeader("Content-Type", "text/plain")
+	res:setHeader("Content-Length", #body)
+	res:finish(body)
+end):listen(port)
+
+print("Server listening on port "..port)
