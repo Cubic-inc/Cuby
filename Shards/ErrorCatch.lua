@@ -8,36 +8,83 @@ return function(Data)
     local Json = require("json")
     local LoggerLink = WebHooks.Logger
 
+    
+
     Client:on("warning", function(MSG)
         local TimeTable = os.date("*t")
-        local TimeString = TimeTable.year .. "-" .. TimeTable.month .. "-" .. TimeTable.day .. " " .. TimeTable.hour .. ":" .. TimeTable.min
-        local Embed = {
+        local TimeString = os.date("%c")
+		
+		
+        local Embed = {{
 
-            title = "Warning!",
+            title = "Error!",
             description = "",
          
             fields = {
-                {name = "Message", value = MSG},
-                {name = "TimeStamp", value = TimeString},
+                {name = "Message", value = MSG .. "\n"},
+                {name = " ⠀ ", value = " ⠀ "},
+				{name = "Time", value = TimeString},
+				{name = " ⠀ ", value = " ⠀ "},
             },
          
             footer = {
                 text = "Cuby - For the discord server",
             },
          
-            color = require("discordia").Color.fromRGB(126, 211, 33).value,
+            timestamp = TimeString,
+
+            color = require("discordia").Color.fromRGB(252, 0, 0).value,
          
          
-         }
-        local Send = {["content"] = "Warning", ["embed"] = Embed}
+         }}
+        local Send = {content = "Warning", embeds = Embed}
         local Encode = Json.stringify(Send)
-        print(Encode)
+        --print(Encode)
         coroutine.wrap(function()
-            local res, data = Coro.request("POST", LoggerLink, Encode)
+            local res, data = Coro.request("POST", LoggerLink, {{"Content-Type", "application/json"}}, Encode)
         end)()
-        print(res)
-        print(data)
+        --print(res)
+        --print(data)
     end)
+	
+	Client:on("error", function(MSG)
+        local TimeTable = os.date("*t")
+        local TimeString = os.date("%c")
+		
+		print(TimeString)
+		
+        local Embed = {{
+
+            title = "Error!",
+            description = "",
+         
+            fields = {
+                {name = "Message", value = MSG .. "\n"},
+                {name = " ⠀ ", value = " ⠀ "},
+				{name = "Time", value = TimeString},
+				{name = " ⠀ ", value = " ⠀ "},
+            },
+         
+            footer = {
+                text = "Cuby - For the discord server",
+            },
+         
+            timestamp = TimeString,
+
+            color = require("discordia").Color.fromRGB(252, 0, 0).value,
+         
+         
+         }}
+        local Send = {content = "error", embeds = Embed}
+        local Encode = Json.stringify(Send)
+        --print(Encode)
+        coroutine.wrap(function()
+            local res, data = Coro.request("POST", LoggerLink, {{"Content-Type", "application/json"}}, Encode)
+        end)()
+        --print(res)
+        --print(data)
+    end)
+	
 
     Wait(3)
     Client:emit("warning", "test")

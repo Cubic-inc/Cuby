@@ -1,7 +1,7 @@
 return {
-  name = "Cubyv2",
+  name = "heroku-luvit/luvit-example",
   version = "1.0.0",
-  description = "Discord bot",
+  description = "Example luvit app for heroku",
   dependencies = {
     "luvit/luvit"
   },

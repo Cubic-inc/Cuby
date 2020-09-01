@@ -1,1 +1,1 @@
-web: luvit Bot.lua
+web: luvit .
