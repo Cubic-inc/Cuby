@@ -1177,3 +1177,27 @@
 2020-09-01 16:35:09 | [INFO]    | Voice : Connected to wss://eu-central16.discord.media
 2020-09-01 16:35:09 | [INFO]    | Voice : Received HELLO
 2020-09-01 16:35:09 | [INFO]    | Voice : Received READY
+2020-09-03 16:20:04 | [INFO]    | Discordia 2.8.0
+2020-09-03 16:20:04 | [INFO]    | Connecting to Discord...
+2020-09-03 16:20:04 | [INFO]    | Discordia 2.8.0
+2020-09-03 16:20:04 | [INFO]    | Connecting to Discord...
+2020-09-03 16:20:04 | [INFO]    | Authenticated as Cuby#5652
+2020-09-03 16:20:04 | [INFO]    | Authenticated as Cuby-Music#5095
+2020-09-03 16:20:04 | [INFO]    | Launching shard 0 (1 out of 1)...
+2020-09-03 16:20:04 | [INFO]    | Launching shard 0 (1 out of 1)...
+2020-09-03 16:20:04 | [INFO]    | Shard 0 : Connected to wss://gateway.discord.gg
+2020-09-03 16:20:04 | [INFO]    | Shard 0 : Received HELLO
+2020-09-03 16:20:04 | [INFO]    | Shard 0 : Connected to wss://gateway.discord.gg
+2020-09-03 16:20:04 | [INFO]    | Shard 0 : Received HELLO
+2020-09-03 16:20:05 | [INFO]    | Shard 0 : Received READY
+2020-09-03 16:20:13 | [INFO]    | Discordia 2.8.0
+2020-09-03 16:20:13 | [INFO]    | Connecting to Discord...
+2020-09-03 16:20:13 | [INFO]    | Discordia 2.8.0
+2020-09-03 16:20:13 | [INFO]    | Connecting to Discord...
+2020-09-03 16:20:13 | [INFO]    | Authenticated as Cuby#5652
+2020-09-03 16:20:13 | [INFO]    | Authenticated as Cuby-Music#5095
+2020-09-03 16:20:13 | [INFO]    | Launching shard 0 (1 out of 1)...
+2020-09-03 16:20:13 | [INFO]    | Shard 0 : Connected to wss://gateway.discord.gg
+2020-09-03 16:20:13 | [INFO]    | Shard 0 : Received HELLO
+2020-09-03 16:20:13 | [INFO]    | Launching shard 0 (1 out of 1)...
+2020-09-03 16:20:13 | [INFO]    | Shard 0 : Received READY
