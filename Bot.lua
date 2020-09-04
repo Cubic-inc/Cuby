@@ -2,7 +2,7 @@ local Discordia = require("discordia")
 local Client = Discordia.Client()
 local MusicClient = Discordia.Client()
 
-
+local http = require("http")
 local Json = require("json")
 local Io = require("io")
 local Coro = require("coro-http")
@@ -76,3 +76,12 @@ MusicClient:on("ready", function()
 	local MusicConnection = MusicClient:getChannel("658677095534428166"):join()
 end)
 
+local port = process.env["PORT"] or 3000
+print(port)
+
+http.createServer(function(req, res)
+	local body = "Hello world\n"
+	res:setHeader("Content-Type", "text/plain")
+	res:setHeader("Content-Length", #body)
+	res:finish(body)
+end):listen(port)
