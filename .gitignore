@@ -1,3 +1,6 @@
 gateway.json
 discordia.log
-deps
+deps/
+lit.exe
+luvi.exe
+luvit.exe
