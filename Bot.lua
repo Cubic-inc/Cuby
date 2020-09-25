@@ -6,7 +6,7 @@ local http = require("http")
 local Json = require("json")
 local Io = require("io")
 local Coro = require("coro-http")
-local Spawn = require("coro-spawn")
+--local Spawn = require("coro-spawn")
 
 local Wait = require("./Libs/Code/Wait.lua")
 local TableToString = require("./Libs/Code/TableToString.lua")
@@ -25,6 +25,7 @@ Client:on("ready", function()
 	local Data = {
 		
 		Client = Client,
+		MusicClient = MusicClient,
 		Prefix = Prefix,
 		Libs = {
 			Code = {
@@ -73,7 +74,7 @@ MusicClient:on("ready", function()
 	--MusicClient.voice:loadSodium('libsodium-x86')
 	print(MusicClient.voice)
 
-	local MusicConnection = MusicClient:getChannel("658677095534428166"):join()
+	--local MusicConnection = MusicClient:getChannel("658677095534428166"):join()
 end)
 
 local port = process.env["PORT"] or 3000

@@ -16,6 +16,12 @@ local Shards = {
         Function  = require("./VoiceLogger.lua")
     },
 
+    {
+        Name = "Pinger",
+        Function  = require("./Pinger.lua")
+    },
+
+
 }
 
 return Shards

@@ -13,6 +13,7 @@ return {
 	{
         Name = "stop",
         Desc = "Stops bot",
+	Enabled = false,
         Aliases = {},
         Function = function(Data)
             Data.PreMSG:setContent("Stopping bot")
