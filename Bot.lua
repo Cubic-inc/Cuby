@@ -74,6 +74,11 @@ MusicClient:on("ready", function()
 	print(MusicClient.voice)
 
 	local MusicConnection = MusicClient:getChannel("658677095534428166"):join()
+	--MusicClient.voice:loadOpus('libopus')
+	--MusicClient.voice:loadSodium('libsodium')
+
+
+
 end)
 
 local port = process.env["PORT"] or 3000

@@ -26,10 +26,10 @@ return function(Data)
 				
 				fields = {
 				
-					{name = " ⠀ ", value = " ⠀ "},
-					{name = "Channel:", value = Channel.name},
-					{name = " ⠀ ", value = " ⠀ "},
-					{name = "Time", value = os.date("%c")},
+					{name = " ⠀ ", value = " Channel: "},
+					{name = Channel.name, value = ""},
+					{name = " ⠀ ", value = " Time: "},
+					{name = os.date("%c"), value = ""},
 				
 				}
             }

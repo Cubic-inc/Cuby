@@ -86,6 +86,6 @@ return function(Data)
     end)
 	
 
-    Wait(3)
-    Client:emit("warning", "test")
+    --Wait(3)
+    --Client:emit("warning", "test")
 end
