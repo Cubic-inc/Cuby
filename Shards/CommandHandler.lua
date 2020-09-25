@@ -33,7 +33,7 @@ return function(Data)
     
             MSGData.Args = Args
             MSGData.Client = Data.Client
-			MSGData.MusicClient = Data.MusicClient
+       	    MSGData.MusicClient = Data.MusicClient
             MSGData.OrgMSG = MSG
             MSGData.Author = MSG.author
             MSGData.Guild = MSG.guild
@@ -42,6 +42,7 @@ return function(Data)
             MSGData.PreMSG = PreMSG
             MSGData.Wait = Wait
             MSGData.TableToString = TableToString
+	    MSGData.ShardData = Data
     
             --MSG:reply({content = "test", tts = true})
             
@@ -69,7 +70,7 @@ return function(Data)
                 
             else
                 PreMSG:setContent("Command Not found")
-                Wait(1)
+                Wait(5000)
                 PreMSG:delete()
             end
             
