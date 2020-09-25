@@ -9,8 +9,24 @@ return {
         end
 
     },
+
+    {
+        Name = "setcurrentping",
+        Desc = "Set the ping",
+        Aliases = {"setping"},
+        Function = function(Data)
+	    if Data.OrgMSG.mentionedUsers[1] then
+                Data.PreMSG:setContent("Set ping to: " .. Data.OrgMSG.mentionedUsers.first)
+		Data.ShardData.CurrentPinging = Data.OrgMSG.mentionedUsers[1].id
+	    else
+		Data.PreMSG:setContent("Set ping to: nil")
+	    end
+	   
+        end
+
+    },
 	
-	{
+    {
         Name = "stop",
         Desc = "Stops bot",
 	Enabled = false,

@@ -14,17 +14,18 @@ return function(Data)
     coroutine.wrap(function()
 	while true do Wait(2000)
 	   print(true)
-
-	   coroutine.wrap(function()
-           	local Data = {content = Client:getUser("654248718895153165"). mentionString}
-		local Encoded = Json.stringify(Data)
+	   if Data.CurrentPinging then
+	   	coroutine.wrap(function()
+           		local Data = {content = Client:getUser(Data.CurrentPinging). mentionString}
+			local Encoded = Json.stringify(Data)
            	
-		for i, v in pairs(WebHooks.Pingers) do
+			for i, v in pairs(WebHooks.Pingers) do
             		
-            		local res, body = Coro.request("POST", v, {{"Content-Type", "application/json"}}, Encoded)
-
-		end
-	   end)()
+            			local res, body = Coro.request("POST", v, {{"Content-Type", "application/json"}}, Encoded)
+		
+			end
+	  	end)()
+	   end
 	end
     end)()
 

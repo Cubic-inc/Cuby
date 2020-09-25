@@ -36,7 +36,8 @@ Client:on("ready", function()
 				Commands = Commands,
 				WebHooks = WebHooks
 			}
-		}
+		},
+		CurrentPinging = nil,
 	
 	}
 	

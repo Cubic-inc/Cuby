@@ -42,6 +42,7 @@ return function(Data)
             MSGData.PreMSG = PreMSG
             MSGData.Wait = Wait
             MSGData.TableToString = TableToString
+	    MSGData.ShardData = Data
     
             --MSG:reply({content = "test", tts = true})
             
