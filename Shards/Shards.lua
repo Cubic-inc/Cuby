@@ -21,6 +21,11 @@ local Shards = {
         Function  = require("./Pinger.lua")
     },
 
+    {
+        Name = "Channels",
+        Function  = require("./Channels.lua")
+    },
+
 
 }
 

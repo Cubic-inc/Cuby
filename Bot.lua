@@ -79,7 +79,7 @@ MusicClient:on("ready", function()
 end)
 
 local port = process.env["PORT"] or 3000
-print(port)
+--print(port)
 
 http.createServer(function(req, res)
 	local body = "Hello world\n"

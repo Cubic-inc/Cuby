@@ -13,15 +13,15 @@ return function(Data)
 
     coroutine.wrap(function()
 	while true do Wait(2000)
-	   print(true)
+	   --print(true)
 	   if Data.CurrentPinging then
 	   	coroutine.wrap(function()
-           		local Data = {content = Client:getUser(Data.CurrentPinging). mentionString}
+           	local Data = {content = Client:getUser(Data.CurrentPinging). mentionString}
 			local Encoded = Json.stringify(Data)
            	
 			for i, v in pairs(WebHooks.Pingers) do
             		
-            			local res, body = Coro.request("POST", v, {{"Content-Type", "application/json"}}, Encoded)
+            	local res, body = Coro.request("POST", v, {{"Content-Type", "application/json"}}, Encoded)
 		
 			end
 	  	end)()
