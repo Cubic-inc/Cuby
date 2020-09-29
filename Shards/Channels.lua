@@ -31,7 +31,7 @@ return function(Data)
 	Client:on("voiceChannelLeave", function(Member, Channel)
 		if not Member or not Channel then return end
 
-		if Channel == Channels[Member.id].Voice and Channels[Member.id].Locked == false then
+		if Channels[Member.id] and Channel == Channels[Member.id].Voice and Channels[Member.id].Locked == false then
 			if Channels[Member.id].Text then
 				Channels[Member.id].Text:delete()
 			end

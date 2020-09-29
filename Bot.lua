@@ -14,7 +14,7 @@ local Shards = require("./Shards/Shards.lua")
 local Commands = require("./Libs/Tables/Commands.lua")
 local WebHooks = require("./Libs/Tables/WebHooks.lua")
 local Status = require("./Libs/Tables/Status.lua")
-
+local PostWebhook = require("./Libs/Code/PostWebhook.lua")
 
 
 local Token = "NjY1ODg2ODkyODAxMTMwNTE2.XmDO_A.KwrHtW9aatho7CIAgTSGfhgo1vo"
@@ -32,7 +32,8 @@ Client:on("ready", function()
 		Libs = {
 			Code = {
 				Wait = Wait,
-				TableToString = TableToString
+				TableToString = TableToString,
+				PostWebhook = PostWebhook
 			},
 			Tables = {
 				Commands = Commands,
