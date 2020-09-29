@@ -38,11 +38,13 @@ return function(Data)
             MSGData.Author = MSG.author
             MSGData.Guild = MSG.guild
             MSGData.Content = MSG.content
+            MSGData.CleanContent = MSG.cleanContent
             MSGData.Member = MSG.member
             MSGData.PreMSG = PreMSG
             MSGData.Wait = Wait
             MSGData.TableToString = TableToString
-	    MSGData.ShardData = Data
+            MSGData.ShardData = Data
+            MSGData.Mentioned = MSG.mentionedUsers
     
             --MSG:reply({content = "test", tts = true})
             

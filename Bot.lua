@@ -13,12 +13,14 @@ local TableToString = require("./Libs/Code/TableToString.lua")
 local Shards = require("./Shards/Shards.lua")
 local Commands = require("./Libs/Tables/Commands.lua")
 local WebHooks = require("./Libs/Tables/WebHooks.lua")
+local Status = require("./Libs/Tables/Status.lua")
 
 
 
 local Token = "NjY1ODg2ODkyODAxMTMwNTE2.XmDO_A.KwrHtW9aatho7CIAgTSGfhgo1vo"
 local MusicToken = "NzUwMjQzMTgwNTE5MjI3NDQy.X03saQ.mtnicAE-55JkjlycBXcJh0YG4IY"
 local Prefix = "!"
+local Guild = "657227821047087105"
 
 Client:on("ready", function()
 
@@ -34,10 +36,11 @@ Client:on("ready", function()
 			},
 			Tables = {
 				Commands = Commands,
-				WebHooks = WebHooks
+				WebHooks = WebHooks,
+				Status = Status
 			}
 		},
-		CurrentPinging = nil,
+		CurrentPinging = nil--"658293584847699978",
 	
 	}
 	

@@ -15,20 +15,29 @@ return {
         Desc = "Set the ping",
         Aliases = {"setping"},
         Function = function(Data)
-	    if Data.OrgMSG.mentionedUsers[1] then
-                Data.PreMSG:setContent("Set ping to: " .. Data.OrgMSG.mentionedUsers.first)
-		Data.ShardData.CurrentPinging = Data.OrgMSG.mentionedUsers[1].id
-	    else
-		Data.PreMSG:setContent("Set ping to: nil")
-	    end
+            --print(Data.ShardData.Libs.Code.TableToString(Data.OrgMSG.mentionedUsers.first.username))
+
+            local Mentioned = Data.Mentioned
+            print(#Mentioned)
+            print(Data.cleanContent)
+            --print(Data.ShardData.Libs.Code.TableToString(Data.Mentioned))
+            if Mentioned[1] then
+                Data.PreMSG:setContent("Set ping to user: " .. tostring(Mentioned[1].name))
+                print(Mentioned[1].tag)
+                Data.ShardData.CurrentPinging = Mentioned[1].id
+            else
+                Data.PreMSG:setContent("Set ping to: nil")
+            end
+            
+            --Data.ShardData.CurrentPinging = 533536581055938580
 	   
         end
 
     },
 	
     {
-        Name = "stop",
-        Desc = "Stops bot",
+    Name = "stop",
+    Desc = "Stops bot",
 	Enabled = false,
         Aliases = {},
         Function = function(Data)
