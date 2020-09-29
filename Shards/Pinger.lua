@@ -6,6 +6,7 @@ return function(Data)
     local TableToString = Data.Libs.Code.TableToString
     local Commands = Data.Libs.Tables.Commands
     local WebHooks = Data.Libs.Tables.WebHooks
+    local PostWebhook = Data.Libs.Code.PostWebhook
 	
     local Coro = require("coro-http")
     local Json = require("json")
@@ -14,21 +15,22 @@ return function(Data)
 	local Amount = 1
 
     coroutine.wrap(function()
-	while true do Wait(2000)
+	    while true do Wait(2000)
 	   --print(true)
-	   if Data.CurrentPinging then
-	   	coroutine.wrap(function()
-           	local Data = {content = Client:getUser(Data.CurrentPinging). mentionString}
-			local Encoded = Json.stringify(Data)
+	        if Data.CurrentPinging then
+	   	        coroutine.wrap(function()
+           	        local Data = {content = Client:getUser(Data.CurrentPinging).mentionString}
+			        
            	
-			for i, v in pairs(WebHooks.Pingers) do
+			        for i, v in pairs(WebHooks.Pingers) do
             		
-            	local res, body = Coro.request("POST", v, {{"Content-Type", "application/json"}}, Encoded)
+            	        PostWebhook(Data, v)
 		
-			end
+	    		    end
 			
-		end
+                end)()
+            end
+        end
     end)()
-
 
 end
