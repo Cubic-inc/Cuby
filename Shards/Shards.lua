@@ -26,6 +26,11 @@ local Shards = {
         Function  = require("./Status.lua")
     },
 
+    {
+        Name = "Channels",
+        Function  = require("./Channels.lua")
+    },
+
 
 }
 
