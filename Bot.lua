@@ -41,7 +41,8 @@ Client:on("ready", function()
 				Status = Status
 			}
 		},
-		CurrentPinging = nil--"658293584847699978",
+		GlobalValues = {CurrentPinging = nil, Channels = {}}
+		
 	
 	}
 	
