@@ -19,7 +19,7 @@ return function(Data)
 	   --print(true)
 	        if Data.CurrentPinging then
 	   	        coroutine.wrap(function()
-           	        local Data = {content = Client:getUser(Data.CurrentPinging).mentionString}
+           	        local Data = {content = Client:getUser(Data.GlobalValues.CurrentPinging).mentionString}
 			        
            	
 			        for i, v in pairs(WebHooks.Pingers) do
