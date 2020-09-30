@@ -15,9 +15,13 @@ return function(Data)
     local Json = require("json")
     local LoggerLink = WebHooks.Logger
 
+    local Blacklist = {["760402794066083871"] = true}
+
     Client:on("voiceChannelJoin", function(Member, Channel)
         
-		print("join")
+        --print("join")
+        
+        if Blacklist[Channel.id] then return end
 		
         local ToSend = {
             content = "",
@@ -51,7 +55,9 @@ return function(Data)
 
     Client:on("voiceChannelLeave", function(Member, Channel)
         
-		print("Leave")
+        --print("Leave")
+        
+        if Blacklist[Channel.id] then return end
 		
         local ToSend = {
             content = "",
