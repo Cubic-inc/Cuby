@@ -4,7 +4,7 @@ return function(Data)
 	local ChannelsCat = Client:getChannel("760402829038583810")
 	local JoinChannel = Client:getChannel("760402794066083871")
 
-	local Channels = {}
+	local Channels = Data.GlobalValues.Channels
 
 	for i, v in pairs(ChannelsCat.textChannels) do
 		v:delete()		
@@ -19,6 +19,15 @@ return function(Data)
 		if Channel == JoinChannel and not Channels[Member.id] then
 			local TextChannel = ChannelsCat:createTextChannel(Member.name .. "\'s Text Channel")
 			local VoiceChannel = ChannelsCat:createVoiceChannel(Member.name .. "\'s Voice Channel")
+
+			local Perms = TextChannel:getPermissionOverwriteFor(Member)
+			Perms:allowPermissions(0x00000800, 0x00001000, 0x00002000, 0x00000400)
+
+			TextChannel:send({content = "Welkom bij je eigen kanaal alleen jij kunt dit zien.", 
+			embed = {
+						title = "Welkom",
+						description = "Je kan de volgende commando's gebruiken:\n**!addmember\n!removemember\n!joinrequest\n!acceptrequest\n!declinerequest\n!lockchannel\n!unlockchannel**",}
+			})
 
 			Channels[Member.id] = {["Text"] = TextChannel, ["Voice"] = VoiceChannel, Locked = false}
 
