@@ -6,13 +6,7 @@ return function(Data)
 
 	local Channels = Data.GlobalValues.Channels
 
-	for i, v in pairs(ChannelsCat.textChannels) do
-		v:delete()		
-	end
-
-	for i, v in pairs(ChannelsCat.voiceChannels) do
-		v:delete()		
-	end
+	
 
 
 	Client:on("voiceChannelJoin", function(Member, Channel)
@@ -33,7 +27,7 @@ return function(Data)
 
 			Member:setVoiceChannel(VoiceChannel.id)
 		elseif Channel == JoinChannel and Channels[Member.id] then
-			Member:setVoiceChannel(VoiceChannel.id)
+			Member:setVoiceChannel(Channels[Member.id].Voice.id)
 		end
 	end)
 
@@ -51,4 +45,16 @@ return function(Data)
 			Channels[Member.id] = nil
 		end
 	end)
+	
+	for i, v in pairs(ChannelsCat.textChannels) do
+		v:delete()		
+	end
+
+	for i, v in pairs(ChannelsCat.voiceChannels) do
+		for i, b in pairs(v.connectedMembers) do
+			b:setVoiceChannel(JoinChannel.id)
+		end
+
+		v:delete()		
+	end
 end
