@@ -50,6 +50,17 @@ return {
 			os.Exit()
         end
 
+    },
+
+    {
+        Name = "lockchannel",
+        Desc = "lock your channel",
+        Enabled = true,
+        Aliases = {},
+        Function = function(Data)
+            
+        end
+    
     }
 
 
