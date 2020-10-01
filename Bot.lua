@@ -22,8 +22,16 @@ local MusicToken = "NzUwMjQzMTgwNTE5MjI3NDQy.X03saQ.mtnicAE-55JkjlycBXcJh0YG4IY"
 local Prefix = "!"
 local Guild = "657227821047087105"
 
+local IsReady = false
+
 Client:on("ready", function()
 
+	
+
+	if IsReady == true then return end
+	IsReady = true
+
+	
 	local Data = {
 		
 		Client = Client,

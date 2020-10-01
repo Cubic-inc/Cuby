@@ -30,7 +30,7 @@ return function(Data)
                 title = "Channel Join",
 				
 				author = {
-					name = Member.user.name,
+					name = Member.user.tag,
 					icon_url = Member.user.avatarURL
 				},
 				
@@ -66,7 +66,7 @@ return function(Data)
                 title = "Channel Leave",
 				
 				author = {
-					name = Member.user.name,
+					name = Member.user.tag,
 					icon_url = Member.user.avatarURL
 				},
 				

@@ -23,7 +23,7 @@ return {
             --print(Data.ShardData.Libs.Code.TableToString(Data.Mentioned))
             if Mentioned[1] then
                 Data.PreMSG:setContent("Set ping to user: " .. tostring(Mentioned[1].name))
-                print(Mentioned[1].tag)
+                
                 Data.ShardData.CurrentPinging = Mentioned[1].id
             else
                 Data.PreMSG:setContent("Set ping to: nil")
@@ -34,37 +34,13 @@ return {
         end
 
     },
-	
-    {
-    Name = "stop",
-    Desc = "Stops bot",
-	Enabled = false,
-        Aliases = {},
-        Function = function(Data)
-            Data.PreMSG:setContent("Stopping bot")
-			
-			Data.MusicClient:getChannel("658677095534428166"):leave()
-			
-			Data.Client:stop()
-			Data.MusicClient:stop()
-			os.Exit()
-        end
-
-    },
 
     {
         Name = "lockchannel",
         Desc = "lock your channel",
         Enabled = true,
         Aliases = {},
-        Function = function(Data)
-            if Data.ShardData.GlobalValues.Channels[Data.Author.id] then
-                Data.ShardData.GlobalValues.Channels[Data.Author.id].Locked = true
-                Data.PreMSG:setContent("Je channel is nu **GELOCKED** (Gebruik !unlockchannel om ongedaan te maken)")
-            else
-                Data.PreMSG:setContent("Je hebt op het moment geen kanaal")
-            end
-        end
+        Function = require("./Commands/ChannelCommands.lua").Lock
     
     },
 
@@ -73,16 +49,27 @@ return {
         Desc = "unlock your channel",
         Enabled = true,
         Aliases = {},
-        Function = function(Data)
-            if Data.ShardData.GlobalValues.Channels[Data.Author.id] then
-                Data.ShardData.GlobalValues.Channels[Data.Author.id].Locked = false
-                Data.PreMSG:setContent("Je channel is nu **GEUNLOCKED** (Gebruik !lockchannel om ongedaan te maken)")
-            else
-                Data.PreMSG:setContent("Je hebt op het moment geen kanaal")
-            end
-        end
+        Function = require("./Commands/ChannelCommands.lua").Unlock
     
-    }
+    },
+
+    {
+        Name = "crab",
+        Desc = "?",
+        Enabled = true,
+        Aliases = {},
+        Function = require("./Commands/Crab.lua")
+    
+    },
+
+    {
+        Name = "cool",
+        Desc = "?",
+        Enabled = true,
+        Aliases = {"koel", "koud", "warm"},
+        Function = require("./Commands/Cool.lua")
+    
+    },
 
 
 
