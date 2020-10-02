@@ -41,7 +41,6 @@ return {
         Enabled = true,
         Aliases = {},
         Function = require("./Commands/ChannelCommands.lua").Lock
-    
     },
 
     {
@@ -50,7 +49,6 @@ return {
         Enabled = true,
         Aliases = {},
         Function = require("./Commands/ChannelCommands.lua").Unlock
-    
     },
 
     {
@@ -59,7 +57,6 @@ return {
         Enabled = true,
         Aliases = {},
         Function = require("./Commands/Crab.lua")
-    
     },
 
     {
@@ -68,7 +65,6 @@ return {
         Enabled = true,
         Aliases = {"koel", "koud", "warm"},
         Function = require("./Commands/Cool.lua")
-    
     },
 
 

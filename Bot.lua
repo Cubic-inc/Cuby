@@ -47,6 +47,12 @@ Client:on("ready", function()
 				Commands = Commands,
 				WebHooks = WebHooks,
 				Status = Status
+			},
+			Strings = {
+				Roles = {
+					Admin = "760223306417700875",
+					Moderator = "760223388185788429",
+				}
 			}
 		},
 		GlobalValues = {CurrentPinging = nil, Channels = {}}
@@ -100,3 +106,7 @@ http.createServer(function(req, res)
 	res:setHeader("Content-Length", #body)
 	res:finish(body)
 end):listen(port)
+
+--print(require("./Libs/Code/Save").GetData("Levels", "test"))
+
+--https://script.google.com/macros/s/AKfycbyxt-m0JKxrvY2dxm4LdTLK_5wvv_Xusdb9WQ0qRhZKU4Tk4kkA/exec
