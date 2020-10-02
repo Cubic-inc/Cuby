@@ -49,17 +49,21 @@ return function(Data)
             --MSG:reply({content = "test", tts = true})
             
             local CommandFound = false
-            
+            local CommandTable = nil
             
             for i, v in pairs(Commands) do
                 if v.Name == Command then
-                    v.Function(MSGData)
+                    CommandTable = v
+                    
+                    --v.Function(MSGData)
                     CommandFound = true
                     break
                 else
                     for i, b in pairs(v.Aliases) do
                         if Command == b then
-                            v.Function(MSGData)
+                            CommandTable = v
+                            
+                            --v.Function(MSGData)
                             CommandFound = true
                             break
                         end
@@ -67,9 +71,46 @@ return function(Data)
                 end
             end
             
+            local Respons = ""
+			local Executed = false
+			
+			--:Cube1::Cube2: 
+			--:Cube3::Cube4:
             
             if CommandFound then
+                if CommandTable.Perms.User == true then
+                    CommandTable.Function(MSGData)
+					Executed = true
+                end
+				
                 
+                if CommandTable.Perms.Owner == true and MSGData.Author.id == Data.Client.owner.id then
+                    CommandTable.Function(MSGData)
+					Executed = true
+                elseif CommandTable.Perms.Owner == true and Executed == false then
+                    Respons = "Alleen **__CoreBite__** kan dit Commando uitvoeren."
+                end
+				
+			
+				if CommandTable.Perms.Admin == true and MSGData.Member:hasRole(Data.Libs.Strings.Roles.Admin) and Executed == false then
+                    CommandTable.Function(MSGData)
+					Executed = true
+                elseif CommandTable.Perms.Admin == true and Executed == false then
+                    Respons = "Je moet minstens **__ADMIN__** zijn om dit commando uit te voeren."
+                end
+				
+				
+                if CommandTable.Perms.Moderator == true and MSGData.Member:hasRole(Data.Libs.Strings.Roles.Moderator) and Executed == false then
+                    CommandTable.Function(MSGData)
+					Executed = true
+                elseif CommandTable.Perms.Moderator == true and Executed == false then
+                    Respons = "Je moet minstens **__MODERATOR__** zijn om dit commando uit te voeren."
+                end
+				
+				
+				if Executed == false then
+					MSGData.PreMSG:setContent(Respons)
+				end
             else
                 PreMSG:setContent("Command Not found")
                 Wait(5000)
