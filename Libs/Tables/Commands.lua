@@ -49,7 +49,13 @@ return {
         Perms = {Owner = true, Admin = true, Moderator = true, User = false},
         Aliases = {},
         Function = function(Data)
-			
+            
+
+            if Data.Mentioned then
+                Data.PreMSG:setContent(Data.Mentioned[1].user.tag .. " Is gewarned")
+            else
+                Data.PreMSG:setContent("Specificeer een user")
+            end
 		end
     },
 

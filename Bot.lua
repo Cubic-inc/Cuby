@@ -15,6 +15,7 @@ local Commands = require("./Libs/Tables/Commands.lua")
 local WebHooks = require("./Libs/Tables/WebHooks.lua")
 local Status = require("./Libs/Tables/Status.lua")
 local PostWebhook = require("./Libs/Code/PostWebhook.lua")
+local IteratorToArray = require("./Libs/Code/IteratorToArray.lua")
 
 
 local Token = "NjY1ODg2ODkyODAxMTMwNTE2.XmDO_A.KwrHtW9aatho7CIAgTSGfhgo1vo"
@@ -41,7 +42,8 @@ Client:on("ready", function()
 			Code = {
 				Wait = Wait,
 				TableToString = TableToString,
-				PostWebhook = PostWebhook
+				PostWebhook = PostWebhook,
+				IteratorToArray = IteratorToArray,
 			},
 			Tables = {
 				Commands = Commands,
