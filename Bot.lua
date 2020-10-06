@@ -89,16 +89,6 @@ MusicClient:setGame({name = "Muziek", type = 1})
 
 
 
-
-
-MusicClient:on("ready", function()
-	--MusicClient.voice:loadOpus('libopus-x86')
-	--MusicClient.voice:loadSodium('libsodium-x86')
-	print(MusicClient.voice)
-
-	--local MusicConnection = MusicClient:getChannel("658677095534428166"):join()
-end)
-
 local port = process.env["PORT"] or 3000
 --print(port)
 
@@ -111,7 +101,7 @@ end):listen(port)
 
 local Save = require("./Libs/Code/Save.lua")
 local DataBase = Save:GetDatabase("Levels")
-print(DataBase:GetAsync("test"))
+print("line 114", DataBase:GetAsync("test"))
 
 --print(require("./Libs/Code/Save").GetData("Levels", "test"))
 

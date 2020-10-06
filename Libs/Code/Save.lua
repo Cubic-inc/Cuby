@@ -8,32 +8,43 @@ local scriptId = "AKfycbyxt-m0JKxrvY2dxm4LdTLK_5wvv_Xusdb9WQ0qRhZKU4Tk4kkA"
 local url = "https://script.google.com/macros/s/" .. scriptId .. "/exec"
 local Coro = require("coro-http")
 local Json = require("json")
+local Wait = require("./Wait.lua")
 
 local Module = {}
 
 
 function DoGet(sheet, key)
 	local Link = url .. "?sheet=" .. sheet .. "&key=" .. key
-	coroutine.wrap(function()
-		local Res, Body = Coro.request("GET", Link)
+	local ToReturn
+	local Res, Body
 	
-		print(Res, Body)
+	Res, Body = pcall(function()
+		return Coro.request("GET", Link)
 
-		local Data = Json.parse(Body)
+	end)
 
-		if Data.result == "success" then
-			return Data.value
-		else
-			warn("Database error:", Data.error)
-			return
-		end
-	end)()
+	print(Res, Body)
+
+	local Data = Json.parse(Body)
+
+	if Data.result == "success" then
+		ToReturn = Data.value
+	else
+		print("Database error:", Data.error)
+		
+	end
+	print(ToReturn)
+
+	return ToReturn
 end
 
 function DoPost(sheet, key, data)
-	local json = httpService:UrlEncode(encodeJson(data))
-	local retJson = httpService:PostAsync(url, "sheet=" .. sheet .. "&key=" .. key .. "&value=" .. json, 2)
-	local data = decodeJson(retJson)
+	local SendData = Json.encode(data)
+
+	local Link = url, "sheet=" .. sheet .. "&key=" .. key .. "&value=" .. json
+	local Res, Body = Coro.request("POST", Link, {{"Content-Type", "application/json"}}, SendData)
+
+	local Data = Json.decode(Body)
 	print(retJson)
 	if data.result == "success" then
 		return true

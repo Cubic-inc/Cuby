@@ -1,11 +1,11 @@
 return function(Data, Link)
-    local res, body
+    local Res, Body
     local Json = require("json")
     local StringData = Json.stringify(Data)
     local Coro = require("coro-http")
     coroutine.wrap(function()
         
-        res, body = Coro.request("POST", Link, {{"Content-Type", "application/json"}}, StringData)
+        Res, Body = Coro.request("POST", Link, {{"Content-Type", "application/json"}}, StringData)
         
     end)()
 
