@@ -109,6 +109,10 @@ http.createServer(function(req, res)
 	res:finish(body)
 end):listen(port)
 
+local Save = require("./Libs/Code/Save.lua")
+local DataBase = Save:GetDatabase("Levels")
+print(DataBase:GetAsync("test"))
+
 --print(require("./Libs/Code/Save").GetData("Levels", "test"))
 
 --https://script.google.com/macros/s/AKfycbyxt-m0JKxrvY2dxm4LdTLK_5wvv_Xusdb9WQ0qRhZKU4Tk4kkA/exec

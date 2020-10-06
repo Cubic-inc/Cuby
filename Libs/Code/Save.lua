@@ -9,27 +9,52 @@ local url = "https://script.google.com/macros/s/" .. scriptId .. "/exec"
 local Coro = require("coro-http")
 local Json = require("json")
 
+local Module = {}
 
 
-return {
+function DoGet(sheet, key)
+	local Link = url .. "?sheet=" .. sheet .. "&key=" .. key
+	coroutine.wrap(function()
+		local Res, Body = Coro.request("GET", Link)
+	
+		print(Res, Body)
 
-	GetData = function(sheet, key)
-		local Link = url .. "?sheet=" .. sheet .. "&key=" .. key
-		coroutine.wrap(function()
-			Res, Dat = Coro.request("GET", Link)
-		end)()
-		local Data = Json.decode(Dat)
+		local Data = Json.parse(Body)
+
 		if Data.result == "success" then
 			return Data.value
 		else
 			warn("Database error:", Data.error)
 			return
 		end
+	end)()
+end
+
+function DoPost(sheet, key, data)
+	local json = httpService:UrlEncode(encodeJson(data))
+	local retJson = httpService:PostAsync(url, "sheet=" .. sheet .. "&key=" .. key .. "&value=" .. json, 2)
+	local data = decodeJson(retJson)
+	print(retJson)
+	if data.result == "success" then
+		return true
+	else
+		print("Database error:", data.error)
+		return false
 	end
+end
 
-}
+function Module:GetDatabase(sheet)
+	local database = {}
+	function database:PostAsync(key, value)
+		return DoPost(sheet, key, value)
+	end
+	function database:GetAsync(key)
+		return DoGet(sheet, key)
+	end
+	return database
+end
 
-
+return Module
 
 --[[
 game:WaitForChild'NetworkServer'
