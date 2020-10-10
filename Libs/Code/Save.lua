@@ -15,34 +15,31 @@ local Module = {}
 
 function DoGet(sheet, key)
 	local Link = url .. "?sheet=" .. sheet .. "&key=" .. key
-	local ToReturn
-	local Res, Body
+
 	
-	Res, Body = pcall(function()
-		return Coro.request("GET", Link)
 
-	end)
-
-	print(Res, Body)
-
-	local Data = Json.parse(Body)
-
-	if Data.result == "success" then
-		ToReturn = Data.value
-	else
-		print("Database error:", Data.error)
+	local Res, Body = Coro.request("GET", Link)
+	Data = Json.parse(Body)
 		
+	print(Res, Body)
+	if Data.result == "success" then
+		return Data.value
+	else
+		print("Database error:", Data.error)	
 	end
-	print(ToReturn)
 
-	return ToReturn
+
+
+
+	--return Data
 end
 
+--[[
 function DoPost(sheet, key, data)
 	local SendData = Json.encode(data)
 
-	local Link = url, "sheet=" .. sheet .. "&key=" .. key .. "&value=" .. json
-	local Res, Body = Coro.request("POST", Link, {{"Content-Type", "application/json"}}, SendData)
+	local Link = url, "sheet=" .. sheet .. "&key=" .. key .. "&value=" .. SendData
+	local Res, Body = Coro.request("POST", url, {{"Content-Type", "application/json"}}, "sheet=" .. sheet .. "&key=" .. key .. "&value=" .. SendData)
 
 	local Data = Json.decode(Body)
 	print(retJson)
@@ -50,6 +47,19 @@ function DoPost(sheet, key, data)
 		return true
 	else
 		print("Database error:", data.error)
+		return false
+	end
+end]]
+
+function DoPost(sheet, key, data)
+	local json = Json.encode(data)
+	local Res, Body = Coro.request("POST", url, {{"Content-Type", "application/json"}}, "sheet=" .. sheet .. "&key=" .. key .. "&value=" .. json)
+	local data = Json.decode(Body)
+	print(Body)
+	if data.result == "success" then
+		return true
+	else
+		warn("Database error:", data.error)
 		return false
 	end
 end

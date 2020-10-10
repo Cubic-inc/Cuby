@@ -25,6 +25,8 @@ local Guild = "657227821047087105"
 
 local IsReady = false
 
+
+
 Client:on("ready", function()
 
 	
@@ -99,9 +101,12 @@ http.createServer(function(req, res)
 	res:finish(body)
 end):listen(port)
 
+coroutine.wrap(function()
 local Save = require("./Libs/Code/Save.lua")
 local DataBase = Save:GetDatabase("Levels")
-print("line 114", DataBase:GetAsync("test"))
+print("line 114", DataBase:PostAsync("test", "baba"))
+print("line 114", DataBase:GetAsync("test", "baba"))
+end)()
 
 --print(require("./Libs/Code/Save").GetData("Levels", "test"))
 

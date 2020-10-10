@@ -3,12 +3,11 @@ return {
     {
         Name = "ping",
         Desc = "Pong",
-        Perms = {Owner = true, Admin = false, Moderator = false, User = false},
+        Perms = {Owner = true, Admin = true, Moderator = true, User = true},
         Aliases = {"test"},
         Function = function(Data)
             Data.PreMSG:setContent("Pong")
         end
-
     },
 
     {
@@ -49,6 +48,16 @@ return {
         Perms = {Owner = true, Admin = true, Moderator = true, User = false},
         Aliases = {},
         Function = require("./Commands/Warn.lua")
+    },
+
+    {
+        Name = "blank",
+        Desc = "?",
+        Perms = {Owner = true, Admin = true, Moderator = true, User = false},
+        Aliases = {},
+        Function = function(Data)
+            Data.PreMSG:setContent("*poof * '⠀'")
+        end
     },
 
 

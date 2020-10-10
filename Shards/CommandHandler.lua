@@ -15,7 +15,7 @@ return function(Data)
         
         if String.sub(Text, 1, 1) == Data.Prefix then
 
-            local PreMSG = MSG:reply("Working please wait")
+            local PreMSG = MSG:reply("Laden")
 
             local Args = {}
             local MSGData = {}
@@ -84,7 +84,7 @@ return function(Data)
                 end
 				
                 
-                if CommandTable.Perms.Owner == true and MSGData.Author.id == Data.Client.owner.id then
+                if CommandTable.Perms.Owner == true and MSGData.Author.id == Data.Client.owner.id and Executed == false then
                     CommandTable.Function(MSGData)
 					Executed = true
                 elseif CommandTable.Perms.Owner == true and Executed == false then
@@ -109,7 +109,10 @@ return function(Data)
 				
 				
 				if Executed == false then
-					MSGData.PreMSG:setContent(Respons)
+                    MSGData.PreMSG:setContent(Respons)
+                    print(MSGData.Author.name .. " probeerde het commando: " .. Command .. " geen permissie")
+                else
+                    print(MSGData.Author.name .. " heeft successvol het commando " .. Command .. " uitgevoerd!")
 				end
             else
                 PreMSG:setContent("Command Not found")
