@@ -8,7 +8,7 @@ return function(Data)
             Data.PreMSG:setContent("**" .. MentionedArray[1].tag .. "** is gewarned: Geen Rede Gegeven")
         end
 
-
+        local Reason = Data.Args[1] or "Geen Rede"
 
         local ToSend = {
             content = "",
@@ -16,20 +16,9 @@ return function(Data)
             {
                 title = "User Warn",
                 
-                
-                fields = {
-                
-                    {name = " ⠀ ", value = " Moderator: "},
-                    {name = Data.Author.tag, value = " ⠀ "},
-                    {name = " ⠀ ", value = " Offender: "},
-                    {name = MentionedArray[1].tag, value = " ⠀ "},
-                    {name = " ⠀ ", value = " Reason: "},
-                    {name = Data.Args[1] or "Geen Rede", value = " ⠀ "},
-                    {name = " ⠀ ", value = " Time: "},
-                    {name = os.date("%c"), value = " ⠀ "},
-                
-                },
-                
+                description = "**Moderator** | " .. Data.Author.tag .. "\n**Overtreder** | " .. MentionedArray[1].tag .. "\n**Rede** | " .. Reason .. "\n**Time** | " .. os.date("%c"),
+
+
                 color = 0xff7e00
             }
         }}

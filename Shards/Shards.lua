@@ -12,7 +12,7 @@ local Shards = {
     },
 
     {
-        Name = "VoiceLogger",
+        Name = "Logger",
         Function  = require("./VoiceLogger.lua")
     },
 

@@ -28,20 +28,9 @@ return function(Data)
             embeds = {
             {
                 title = "Channel Join",
+
+                description = "**Channel** | " .. Channel.name .. "\n**Member** | " .. Member.tag .. "\n**Time** | " .. os.date("%c"),
 				
-				author = {
-					name = Member.user.tag,
-					icon_url = Member.user.avatarURL
-				},
-				
-				fields = {
-				
-					{name = " ⠀ ", value = " Channel: "},
-					{name = Channel.name, value = " ⠀ "},
-					{name = " ⠀ ", value = " Time: "},
-					{name = os.date("%c"), value = " ⠀ "},
-				
-                },
                 
                 color = 0x00FF00,
             }
@@ -65,19 +54,31 @@ return function(Data)
             {
                 title = "Channel Leave",
 				
-				author = {
-					name = Member.user.tag,
-					icon_url = Member.user.avatarURL
-				},
+				description = "**Channel** | " .. Channel.name .. "\n**Member** | " .. Member.tag .. "\n**Time** | " .. os.date("%c"),
+                
+                
+                color = 0xFF0000
+            }
+        }}
+		
+        local one, two = PostWebhook(ToSend, LoggerLink)
+        --print(one)
+        --print(two)
+
+    end)
+
+    Client:on("messageDelete", function(Message)
+        
+        --print("Leave")
+		
+        local ToSend = {
+            content = "",
+            embeds = {
+            {
+                title = "Message Delete",
 				
-				fields = {
+				description = "**Text** | " .. Message.cleanContent .. "\n**Author** | " .. Message.author.tag .. "\n**Time** | " .. os.date("%c"),
 				
-					{name = " ⠀ ", value = " Channel: "},
-					{name = Channel.name, value = " ⠀ "},
-					{name = " ⠀ ", value = " Time: "},
-					{name = os.date("%c"), value = " ⠀ "},
-				
-                },
                 
                 color = 0xFF0000
             }
