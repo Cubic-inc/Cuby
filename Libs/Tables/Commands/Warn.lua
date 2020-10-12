@@ -5,7 +5,7 @@ return function(Data)
         if Data.Args[1] then
             Data.PreMSG:setContent("**" .. MentionedArray[1].tag .. "** is gewarned: " .. Data.Args[1])
         else
-            Data.PreMSG:setContent("**" .. MentionedArray[1].tag .. "** is gewarned: Geen Rede")
+            Data.PreMSG:setContent("**" .. MentionedArray[1].tag .. "** is gewarned: Geen Rede Gegeven")
         end
 
 

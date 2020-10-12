@@ -1,6 +1,7 @@
 local Discordia = require("discordia")
 local Client = Discordia.Client()
 local MusicClient = Discordia.Client()
+local MilkClient = Discordia.Client()
 
 local http = require("http")
 local Json = require("json")
@@ -20,6 +21,7 @@ local IteratorToArray = require("./Libs/Code/IteratorToArray.lua")
 
 local Token = "NjY1ODg2ODkyODAxMTMwNTE2.XmDO_A.KwrHtW9aatho7CIAgTSGfhgo1vo"
 local MusicToken = "NzUwMjQzMTgwNTE5MjI3NDQy.X03saQ.mtnicAE-55JkjlycBXcJh0YG4IY"
+local MilkToken = "NzY1MTAyNjE4NDM1MTI1MjU5.X4P7Vw.GSJ19XqoSYZWrivKU2PpqAbqTHY"
 local Prefix = "!"
 local Guild = "657227821047087105"
 
@@ -39,6 +41,7 @@ Client:on("ready", function()
 		
 		Client = Client,
 		MusicClient = MusicClient,
+		MilkClient = MilkClient,
 		Prefix = Prefix,
 		Libs = {
 			Code = {
@@ -59,7 +62,7 @@ Client:on("ready", function()
 				}
 			}
 		},
-		GlobalValues = {CurrentPinging = nil, Channels = {}}
+		GlobalValues = {CurrentPinging = nil, Channels = {}, Milk = true}
 		
 	
 	}
@@ -85,10 +88,13 @@ end)()
 --]]
 
 Client:run("Bot " .. Token)
-MusicClient:run("Bot " .. MusicToken)
 Client:setGame({name = "deze discord", type = 2})
-MusicClient:setGame({name = "Muziek", type = 1})
 
+MusicClient:run("Bot " .. MusicToken)
+MusicClient:setGame({name = "Muziek", type = 0})
+
+MilkClient:run("Bot " .. MilkToken)
+MilkClient:setGame({name = "Melk", type = 1})
 
 
 local port = process.env["PORT"] or 3000
@@ -101,12 +107,13 @@ http.createServer(function(req, res)
 	res:finish(body)
 end):listen(port)
 
+--[[
 coroutine.wrap(function()
 local Save = require("./Libs/Code/Save.lua")
 local DataBase = Save:GetDatabase("Levels")
 print("line 114", DataBase:PostAsync("test", "baba"))
 print("line 114", DataBase:GetAsync("test", "baba"))
-end)()
+end)()]]
 
 --print(require("./Libs/Code/Save").GetData("Levels", "test"))
 

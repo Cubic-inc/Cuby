@@ -1,11 +1,15 @@
 return function(Data)
     local Client = Data.Client
+    --local MusicClient
+
+
     local Prefix = Data.Prefix
     local Wait = Data.Libs.Code.Wait
     local Commands = Data.Libs.Tables.Commands
     local WebHooks = Data.Libs.Tables.WebHooks
     local String = string
     local Table = table
+    Client:getChannel("685066367526895658"):broadcastTyping()
 
     Client:on("messageCreate", function(MSG)
         local Text = string.lower(MSG.content)
@@ -15,7 +19,7 @@ return function(Data)
         
         if String.sub(Text, 1, 1) == Data.Prefix then
 
-            local PreMSG = MSG:reply("Laden")
+            --local PreMSG = MSG:reply("Laden")
 
             local Args = {}
             local MSGData = {}
@@ -33,14 +37,15 @@ return function(Data)
     
             MSGData.Args = Args
             MSGData.Client = Data.Client
-       	    MSGData.MusicClient = Data.MusicClient
+            MSGData.MusicClient = Data.MusicClient
+            MSGData.MilkClient = Data.MilkClient
             MSGData.OrgMSG = MSG
             MSGData.Author = MSG.author
             MSGData.Guild = MSG.guild
             MSGData.Content = MSG.content
             MSGData.CleanContent = MSG.cleanContent
             MSGData.Member = MSG.member
-            MSGData.PreMSG = PreMSG
+            MSGData.PreMSG = nil
             MSGData.Wait = Wait
             MSGData.TableToString = TableToString
             MSGData.ShardData = Data
@@ -70,7 +75,23 @@ return function(Data)
                     end
                 end
             end
+
+            local PreMSG
+
+            if CommandFound == true then
+                if CommandTable.Client == 1 then
+                    PreMSG = Data.Client:getChannel(Channel.id):send("Laden")
+                elseif CommandTable.Client == 2 then
+                    PreMSG = Data.MusicClient:getChannel(Channel.id):send("Laden")
+                elseif CommandTable.Client == 3 then
+                    PreMSG = Data.MilkClient:getChannel(Channel.id):send("Laden")
+                else
+                    PreMSG = Data.Client:getChannel(Channel.id):send("Laden")
+                end
+            end
             
+            MSGData.PreMSG = PreMSG
+
             local Respons = ""
 			local Executed = false
 			
