@@ -61,7 +61,7 @@ function DoPost(sheet, key, data)
 	local json = Query.urlencode(Json.encode(data))
 
 	local Link = url .. "?sheet=" .. sheet .. "&key=" .. key .. "&value=" .. json
-	local Res, Body = Coro.request("POST", url, {{"Content-Type", "application/json"}, {"content-length", 0}}, nil)
+	local Res, Body = Coro.request("POST", url, {{"Content-Type", "application/json"}, {"content-length", #json}})
 	
 	print(Body)
 	--154 332
