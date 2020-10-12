@@ -19,9 +19,9 @@ local PostWebhook = require("./Libs/Code/PostWebhook.lua")
 local IteratorToArray = require("./Libs/Code/IteratorToArray.lua")
 
 
-local Token = "NjY1ODg2ODkyODAxMTMwNTE2.XmDO_A.KwrHtW9aatho7CIAgTSGfhgo1vo"
-local MusicToken = "NzUwMjQzMTgwNTE5MjI3NDQy.X03saQ.mtnicAE-55JkjlycBXcJh0YG4IY"
-local MilkToken = "NzY1MTAyNjE4NDM1MTI1MjU5.X4P7Vw.GSJ19XqoSYZWrivKU2PpqAbqTHY"
+local Token = require("./Tokens.lua").Client
+local MusicToken = require("./Tokens.lua").MusicClient
+local MilkToken = require("./Tokens.lua").MilkClient
 local Prefix = "!"
 local Guild = "657227821047087105"
 

@@ -2,15 +2,20 @@
 -- to enter any information other than this.
 
 local scriptId = "AKfycbyxt-m0JKxrvY2dxm4LdTLK_5wvv_Xusdb9WQ0qRhZKU4Tk4kkA"
+--local scriptId = "https://script.googleusercontent.com/macros/echo?user_content_key=L4rWDN4WqvVaSiK7wpsjA4FG2O9_IClggdgSZLMv750WyRN0iu3-c1z_Jc_M70mpXZZ-G3GCH27e1BN0Nqha9RflYA-OjYtYm5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnEDFO6BPtWYgAEBVbzJw3TocFXW2Z6yyWGR6W-GpumW2kwp8gGCltIGTrFQZa9DWDCkahCW402zG&amp;lib=MciwrQ4z5YUXuTcC_uw0F9z54jfneNAvo"
 
 -- Touch anything below and you'll upset the script, and that's not a good thing.
 
 local url = "https://script.google.com/macros/s/" .. scriptId .. "/exec"
+
 local Coro = require("coro-http")
 local Json = require("json")
 local Wait = require("./Wait.lua")
+local Query = require("querystring")
 
 local Module = {}
+
+
 
 
 function DoGet(sheet, key)
@@ -52,16 +57,24 @@ function DoPost(sheet, key, data)
 end]]
 
 function DoPost(sheet, key, data)
-	local json = Json.encode(data)
-	local Res, Body = Coro.request("POST", url, {{"Content-Type", "application/json"}}, "sheet=" .. sheet .. "&key=" .. key .. "&value=" .. json)
-	local data = Json.decode(Body)
+	--print(url)
+	local json = Query.urlencode(Json.encode(data))
+
+	local Link = url .. "?sheet=" .. sheet .. "&key=" .. key .. "&value=" .. json
+	local Res, Body = Coro.request("POST", url, {{"Content-Type", "application/json"}, {"content-length", 0}}, nil)
+	
 	print(Body)
+	--154 332
+
+	--[[
+	local data = Json.decode(Body)
+
 	if data.result == "success" then
 		return true
 	else
 		warn("Database error:", data.error)
 		return false
-	end
+	end]]
 end
 
 function Module:GetDatabase(sheet)
