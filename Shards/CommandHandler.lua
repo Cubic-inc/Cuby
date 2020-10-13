@@ -2,7 +2,6 @@ return function(Data)
     local Client = Data.Client
     --local MusicClient
 
-
     local Prefix = Data.Prefix
     local Wait = Data.Libs.Code.Wait
     local Commands = Data.Libs.Tables.Commands
