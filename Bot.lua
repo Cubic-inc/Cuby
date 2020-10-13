@@ -100,12 +100,13 @@ MilkClient:setGame({name = "!bier", type = 2})
 local port = process.env["PORT"] or 3000
 --print(port)
 
+--[[
 http.createServer(function(req, res)
 	local body = ""
 	res:setHeader("Content-Type", "text/html")
 	res:setHeader("Content-Length", #body)
 	res:finish(body)
-end):listen(port)
+end):listen(port)]]
 
 --[[
 coroutine.wrap(function()
