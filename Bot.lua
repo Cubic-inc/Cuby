@@ -94,7 +94,7 @@ MusicClient:run("Bot " .. MusicToken)
 MusicClient:setGame({name = "Muziek", type = 0})
 
 MilkClient:run("Bot " .. MilkToken)
-MilkClient:setGame({name = "naar !Milk", type = 2})
+MilkClient:setGame({name = "!bier", type = 2})
 
 
 local port = process.env["PORT"] or 3000
