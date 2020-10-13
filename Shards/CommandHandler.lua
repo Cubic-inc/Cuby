@@ -9,14 +9,14 @@ return function(Data)
     local WebHooks = Data.Libs.Tables.WebHooks
     local String = string
     local Table = table
-    Client:getChannel("685066367526895658"):broadcastTyping()
+    --Client:getChannel("685066367526895658"):broadcastTyping()
 
     Client:on("messageCreate", function(MSG)
         local Text = string.lower(MSG.content)
         local Channel = MSG.channel
         local Author = MSG.author
         
-        
+        local Error = pcall(function()
         if String.sub(Text, 1, 1) == Data.Prefix then
 
             --local PreMSG = MSG:reply("Laden")
@@ -50,6 +50,8 @@ return function(Data)
             MSGData.TableToString = TableToString
             MSGData.ShardData = Data
             MSGData.Mentioned = MSG.mentionedUsers
+
+            --if not MSGData.Member then return end
     
             --MSG:reply({content = "test", tts = true})
             
@@ -145,7 +147,10 @@ return function(Data)
             
     
         end
-    
-        
+        end)
+
+        if Error then
+            --print("error while handling command")
+        end
     end)
 end
