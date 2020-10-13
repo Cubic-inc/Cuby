@@ -16,7 +16,7 @@ return function(Data)
             {
                 title = "User Warn",
                 
-                description = "**Moderator** | " .. Data.Author.tag .. "\n**Overtreder** | " .. MentionedArray[1].tag .. "\n**Rede** | " .. Reason .. "\n**Time** | " .. os.date("%c"),
+                description = "**Moderator** | `" .. Data.Author.tag .. "`\n**Overtreder** | `" .. MentionedArray[1].tag .. "`\n**Rede** | " .. Reason .. "\n**Time** | `" .. os.date("%c") .. "`",
 
 
                 color = 0xff7e00

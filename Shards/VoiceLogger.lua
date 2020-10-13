@@ -29,7 +29,7 @@ return function(Data)
             {
                 title = "Channel Join",
 
-                description = "**Channel** | " .. Channel.name .. "\n**Member** | " .. Member.tag .. "\n**Time** | " .. os.date("%c"),
+                description = "**Channel** | `" .. Channel.name .. "`\n**Member** | `" .. Member.tag .. "`\n**Time** | `" .. os.date("%c") .. "`",
 				
                 
                 color = 0x00FF00,
@@ -54,7 +54,7 @@ return function(Data)
             {
                 title = "Channel Leave",
 				
-				description = "**Channel** | " .. Channel.name .. "\n**Member** | " .. Member.tag .. "\n**Time** | " .. os.date("%c"),
+				description = "**Channel** | `" .. Channel.name .. "`\n**Member** | `" .. Member.tag .. "`\n**Time** | `" .. os.date("%c") .. "`",
                 
                 
                 color = 0xFF0000
@@ -77,7 +77,7 @@ return function(Data)
             {
                 title = "Message Delete",
 				
-				description = "**Text** | " .. Message.cleanContent .. "\n**Author** | " .. Message.author.tag .. "\n**Time** | " .. os.date("%c"),
+				description = "**Text** | `" .. Message.cleanContent .. "`\n**Author** | `" .. Message.author.tag .. "`\n**Time** | `" .. os.date("%c") .. "`",
 				
                 
                 color = 0xFF0000
