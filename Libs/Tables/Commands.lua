@@ -72,7 +72,7 @@ return {
         Desc = "?",
         Client = 3,
         Perms = {Owner = true, Admin = true, Moderator = true, User = true},
-        Aliases = {},
+        Aliases = {"404"},
         Function = function(Data)
             local GlobalData = Data.ShardData.GlobalValues
 
