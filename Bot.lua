@@ -101,8 +101,8 @@ local port = process.env["PORT"] or 3000
 --print(port)
 
 http.createServer(function(req, res)
-	local body = "Hello world\n"
-	res:setHeader("Content-Type", "text/plain")
+	local body = ""
+	res:setHeader("Content-Type", "text/html")
 	res:setHeader("Content-Length", #body)
 	res:finish(body)
 end):listen(port)

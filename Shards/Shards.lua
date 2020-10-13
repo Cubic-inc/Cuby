@@ -8,7 +8,6 @@ local Shards = {
     {
         Name = "ErrorCatch",
         Function = require("./ErrorCatch.lua")
-
     },
 
     {
