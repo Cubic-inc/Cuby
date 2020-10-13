@@ -22,6 +22,7 @@ return function(Data)
         --print("join")
         
         if Blacklist[Channel.id] then return end
+        if Member.user.bot == true then return end
 		
         local ToSend = {
             content = "",
@@ -47,6 +48,7 @@ return function(Data)
         --print("Leave")
         
         if Blacklist[Channel.id] then return end
+        if Member.user.bot == true then return end
 		
         local ToSend = {
             content = "",
@@ -70,7 +72,9 @@ return function(Data)
     Client:on("messageDelete", function(Message)
         
         --print("Leave")
-		
+        
+        if Message.author.bot == true then return end
+
         local ToSend = {
             content = "",
             embeds = {
