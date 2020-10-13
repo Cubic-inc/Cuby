@@ -68,7 +68,7 @@ return {
     },
 
     {
-        Name = "milk",
+        Name = "bier",
         Desc = "?",
         Client = 3,
         Perms = {Owner = true, Admin = true, Moderator = true, User = true},
@@ -79,15 +79,15 @@ return {
             if not Data.Args[1] then
                 Data.PreMSG:setContent("Geen sub commando gegeven")
             elseif string.lower(Data.Args[1]) == "drink" and GlobalData.Milk == true then
-                Data.PreMSG:setContent(":milk: Slurp Slurp ")
+                Data.PreMSG:setContent(":beer: Slurp Slurp ")
                 GlobalData.Milk = false
             elseif string.lower(Data.Args[1]) == "drink" and GlobalData.Milk == false then
-                Data.PreMSG:setContent(":milk: Het Glas is leeg :frowning2: ")
+                Data.PreMSG:setContent(":beer: Het Glas is leeg :frowning2: ")
             elseif string.lower(Data.Args[1]) == "fill" and GlobalData.Milk == false then
-                Data.PreMSG:setContent(":milk: Klok Klok")
+                Data.PreMSG:setContent(":beer: Klok Klok")
                 GlobalData.Milk = true
             elseif string.lower(Data.Args[1]) == "fill" and GlobalData.Milk == true then
-                Data.PreMSG:setContent(":milk: Het glas is al vol :frowning2: ")
+                Data.PreMSG:setContent(":beer: Het glas is al vol :frowning2: ")
             end
 
         end
