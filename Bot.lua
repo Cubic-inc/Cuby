@@ -74,7 +74,7 @@ Client:on("ready", function()
 			
 			v.Function(Data)
 			
-			print("Shard " .. v.Name .. " ready")
+			print("Runner " .. v.Name .. " ready!")
 		end
     
 end)
