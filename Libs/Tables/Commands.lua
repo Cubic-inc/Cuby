@@ -85,6 +85,18 @@ return {
         Function = require("./Commands/Mute.lua")
     },
 
+    {
+        Name = "p",
+        Desc = "?",
+        Client = 1,
+        Perms = {Owner = true, Admin = true, Moderator = true, User = false},
+        Aliases = {"play", },
+        Function = function(Data)
+            Data.OrgMSG:hideEmbeds()
+            Data.PreMSG:delete()
+        end
+    },
+
 
 
 }
