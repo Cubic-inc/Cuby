@@ -20,7 +20,7 @@ return function(Data)
   }, function (req, res)
     --p(req) -- Log the entire request table for debugging fun
 
-    local File = io.open("././WebsitePages/test.html", "r")
+    local File = io.open("././WebsitePages/Home.html", "r")
 
     --print(File:read("*a"))
 

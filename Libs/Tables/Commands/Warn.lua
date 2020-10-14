@@ -27,7 +27,7 @@ return function(Data)
                 embed = {
                 
                     
-                    description = "**" .. MentionedArray[1].tag .. "** is gewarned | `Geen Rede Gegeven `",
+                    description = ":white_check_mark: **" .. MentionedArray[1].tag .. "** is gewarned | `Geen Rede Gegeven `",
     
     
                     color = 0xff7e00
