@@ -16,7 +16,7 @@ return function(Data)
 
                 color = 0xff7e00
             }
-            }
+            }}
 
             Data.PreMSG:update(ToSend)
         else
