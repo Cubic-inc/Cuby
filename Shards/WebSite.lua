@@ -22,7 +22,7 @@ return function(Data)
 
     local File = io.open("././WebsitePages/test.html", "r")
 
-    print(File:read("*a"))
+    --print(File:read("*a"))
 
     res.body = File:read("*a")
     File:close()
