@@ -36,6 +36,28 @@ return function(Data)
     res.code = 200
   end)
 
+  .route({
+    method = "GET", -- Filter on HTTP verb
+    path = "/bot/", -- Filter on url patterns and capture some parameters.
+  }, function (req, res)
+    local File = io.open("././WebsitePages/Bot.html", "r")
+    res.body = File:read("*a")
+    File:close()
+    res.headers["Content-Type"] = "text/html"
+    res.code = 200
+  end)
+
+  .route({
+    method = "GET", -- Filter on HTTP verb
+    path = "/partner/", -- Filter on url patterns and capture some parameters.
+  }, function (req, res)
+    local File = io.open("././WebsitePages/Partner.html", "r")
+    res.body = File:read("*a")
+    File:close()
+    res.headers["Content-Type"] = "text/html"
+    res.code = 200
+  end)
+
   -- Actually start the server
   .start()
 
