@@ -5,7 +5,7 @@ return function(Data)
   -- Bind to localhost on port 3000 and listen for connections.
   .bind({
     host = "0.0.0.0",
-    port = process.env["PORT"] or 3000
+    port = process.env["PORT"] or 8080
   })
 
   -- Include a few useful middlewares.  Weblit uses a layered approach.
@@ -19,8 +19,14 @@ return function(Data)
     path = "/", -- Filter on url patterns and capture some parameters.
   }, function (req, res)
     --p(req) -- Log the entire request table for debugging fun
-    res.body = nil
-    res.headers.Location = "././WebsitePages.html"
+
+    local File = io.open("././WebsitePages/test.html", "r")
+
+    print(File:read("*a"))
+
+    res.body = File:read("*a")
+    File:close()
+    res.headers["Content-Type"] = "text/html"
     res.code = 200
   end)
 
