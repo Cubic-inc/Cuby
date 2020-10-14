@@ -18,12 +18,18 @@ return function(Data)
     method = "GET", -- Filter on HTTP verb
     path = "/", -- Filter on url patterns and capture some parameters.
   }, function (req, res)
-    --p(req) -- Log the entire request table for debugging fun
-
     local File = io.open("././WebsitePages/Home.html", "r")
+    res.body = File:read("*a")
+    File:close()
+    res.headers["Content-Type"] = "text/html"
+    res.code = 200
+  end)
 
-    --print(File:read("*a"))
-
+  .route({
+    method = "GET", -- Filter on HTTP verb
+    path = "/discord/", -- Filter on url patterns and capture some parameters.
+  }, function (req, res)
+    local File = io.open("././WebsitePages/Discord.html", "r")
     res.body = File:read("*a")
     File:close()
     res.headers["Content-Type"] = "text/html"
