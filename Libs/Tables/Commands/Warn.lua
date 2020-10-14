@@ -3,11 +3,38 @@ return function(Data)
 
     if MentionedArray[1] then
         if Data.Args[1] then
-            Data.PreMSG:setContent("**" .. MentionedArray[1].tag .. "** is gewarned: " .. table.concat(Data.Args, " "))
+            
 
+            local ToSend = {
+                content = "",
+                embed = {
+                
+                    
+                    description = "**" .. MentionedArray[1].tag .. "** is gewarned | `" .. table.concat(Data.Args, " ") .. "`",
+    
+    
+                    color = 0xff7e00
+                
+            }}
+
+            Data.PreMSG:update(ToSend)
             
         else
-            Data.PreMSG:setContent("**" .. MentionedArray[1].tag .. "** is gewarned: Geen Rede Gegeven")
+            
+
+            local ToSend = {
+                content = "",
+                embed = {
+                
+                    
+                    description = "**" .. MentionedArray[1].tag .. "** is gewarned | `Geen Rede Gegeven `",
+    
+    
+                    color = 0xff7e00
+                
+            }}
+
+            Data.PreMSG:update(ToSend)
         end
 
         local Reason = table.concat(Data.Args, " ") or "Geen Rede"
