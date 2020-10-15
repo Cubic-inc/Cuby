@@ -63,7 +63,7 @@ return {
         Perms = {Owner = true, Admin = true, Moderator = true, User = true},
         Aliases = {},
         Function = function(Data)
-            Data.PreMSG:setContent("**poof** '⠀'")
+            Data.PreMSG:setContent(":boom: **poof** '⠀'")
         end
     },
 
