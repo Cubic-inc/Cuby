@@ -90,7 +90,7 @@ return {
         Desc = "?",
         Client = 1,
         Perms = {Owner = true, Admin = true, Moderator = true, User = false},
-        Aliases = {"play", },
+        Aliases = {"play", "pn"},
         Function = function(Data)
             Data.OrgMSG:hideEmbeds()
             Data.PreMSG:delete()

@@ -36,6 +36,7 @@ return function(Data)
     res.code = 200
   end)
 
+  --[[
   .route({
     method = "GET", -- Filter on HTTP verb
     path = "/bot/", -- Filter on url patterns and capture some parameters.
@@ -45,7 +46,7 @@ return function(Data)
     File:close()
     res.headers["Content-Type"] = "text/html"
     res.code = 200
-  end)
+  end)]]
 
   .route({
     method = "GET", -- Filter on HTTP verb

@@ -1,49 +1,94 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-    }
-        
-    .topnav {
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <title>Cubic inc - Home</title>
+  <style>
+  
+  /* Add a black background color to the top navigation */
+.topnav {
+  position: relative;
+  background-color: #333;
+  overflow: hidden;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+/* Centered section inside the top navigation */
+.topnav-centered a {
+  float: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Right-aligned section inside the top navigation */
+.topnav-right {
+  float: right;
+}
+
+
+  </style>
+
+  <style>
+
+    .topbar {
       overflow: hidden;
-      background-color: #2C2F33;
+      background-color: #373d44;
     }
-        
-    .topnav a {
-      float: left;
-      color: #f2f2f2;
-      text-align: center;
-      padding: 14px 16px;
-      text-decoration: none;
-      font-size: 17px;
+
+    body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
     }
-    
-    .topnav a:hover {
-      background-color: #ddd;
-      color: black;
-    }
-    
-    .topnav a.active {
-      background-color: #4CAF50;
-      color: white;
-    }
-    </style>
+
+  </style>
+
 </head>
+<body>
 
-<body>  
+  
 
-    <div class="topnav">
-        <a href="/"><img src="https://media.discordapp.net/attachments/762660805534679050/762661612372099072/Logo_Smaller_can.png?width=641&height=641" style="width:45px; height:45px" title="home" alt="home"></a>
-        <a class="active" href="">Discord</a>
-        <a href="/bot/">Bot</a>
-        <a href="/partner/">Partner</a>
-      </div>
+<div class="topnav">
 
-    <iframe src="https://discord.com/widget?id=657227821047087105&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+  
+  <a href="/discord/">DISCORD</a>
+
+  <div class="topnav-right"><a href="/partner/">PARTNER</a></div>
+
+  <div class="topnav-centered">
+    <img href="/" src="https://media.discordapp.net/attachments/762660805534679050/762661612372099072/Logo_Smaller_can.png?width=641&height=641" width="45" height="45">
+  </div>
+  
+</div>
+
+<div class="topbar" style="padding-left:16px">
+  <h1 style="text-align: center;"><img src="https://cdn.discordapp.com/attachments/762660805534679050/762661612372099072/Logo_Smaller_can.png" alt="logo" width="500" height="500" /></h1>
+  <h1 style="text-align: center;"><span style="color: #ffffff;">CUBIC INC</span</h1>
+</div>
+
+
 </body>
 </html>
-
