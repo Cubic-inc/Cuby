@@ -37,7 +37,13 @@ return function(Data)
             Data.PreMSG:update(ToSend)
         end
 
-        local Reason = table.concat(Data.Args, " ") or "Geen Rede"
+        local Reason
+
+        if Data.Args[1] then
+            Reason = table.concat(Data.Args, " ")
+        else
+            Reason = "Geen Rede"
+        end
 
         local ToSend = {
             content = "",
@@ -45,8 +51,15 @@ return function(Data)
             {
                 title = "User Warn",
                 
-                description = "**Moderator** | `" .. Data.Author.tag .. "`\n**Overtreder** | `" .. MentionedArray[1].tag .. "`\n**Rede** | `" .. Reason .. "`\n**Time** | `" .. os.date("%c") .. "`",
+                
+                fields = {
 
+                    {name = "**Moderator**", value = "`" .. Data.Author.tag .. "`", inline = true},
+                    {name = "**Overtreder**", value = "`" .. MentionedArray[1].tag .. "`", inline = true},
+                    {name = "**Rede**", value = "`" .. Reason .. "`", inline = true},
+                    {name = "**Tijd**", value = "`" .. os.date("%c") .. "`", inline = true}
+
+                },
 
                 color = 0xff7e00
             }
