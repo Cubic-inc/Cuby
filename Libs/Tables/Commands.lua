@@ -97,6 +97,15 @@ return {
         end
     },
 
+    {
+        Name = "info",
+        Desc = "gets the info of the bot",
+        Client = 1,
+        Perms = {Owner = true, Admin = true, Moderator = true, User = true},
+        Aliases = {"data", "uptime", "time"},
+        Function = require("./Commands/Info.lua")
+    },
+
 
 
 }
