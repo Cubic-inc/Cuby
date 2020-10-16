@@ -21,7 +21,7 @@ return function(Data)
                 Data.PreMSG:setEmbed({description = ":white_check_mark: **" .. Member.tag .. "** Is Gemute | " .. Rede})
             end
 
-            Data.PreMSG:setContent("Klaar!")
+            Data.PreMSG:setContent("⠀")
         end
     else
         Data.PreMSG:setContent("Je moet iemand pingen!")
