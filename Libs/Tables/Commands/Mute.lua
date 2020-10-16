@@ -8,7 +8,7 @@ return function(Data)
             --Data.PreMSG:setContent("")
 
             if Data.Args[1] then
-                local Rede = table.concat(Data.Args[1], " ")
+                local Rede = table.concat(Data.Args, " ")
             else
                 local Rede = "Geen Rede Gegeven"
             end
