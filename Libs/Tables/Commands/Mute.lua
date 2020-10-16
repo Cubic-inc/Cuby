@@ -7,18 +7,18 @@ return function(Data)
             
             --Data.PreMSG:setContent("")
 
-            if Data.Args[1] then
-                local Rede = table.concat(Data.Args, " ")
-            else
-                local Rede = "Geen Rede Gegeven"
-            end
-
+            
             if Member:hasRole("765149108985266217") then
                 Member:removeRole("765149108985266217")
                 Data.PreMSG:setEmbed({description = ":white_check_mark: **" .. Member.tag .. "** Is Geunmute"})
             else
                 Member:addRole("765149108985266217")
-                Data.PreMSG:setEmbed({description = ":white_check_mark: **" .. Member.tag .. "** Is Gemute | " .. Rede})
+                if Data.Args[1] then
+                Data.PreMSG:setEmbed({description = ":white_check_mark: **" .. Member.tag .. "** Is Gemute | " .. table.concat(Data.Args, " ")})
+                else
+                    Data.PreMSG:setEmbed({description = ":white_check_mark: **" .. Member.tag .. "** Is Gemute | " .. "Geen Rede Gegeven"})
+                end
+
             end
 
             Data.PreMSG:setContent("⠀")
