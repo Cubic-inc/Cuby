@@ -7,7 +7,7 @@ return function(Data)
             
             Data.PreMSG:setContent("")
 
-            local Rede = Data.Args[1] or "Geen Rede Gegeven"
+            local Rede = table.concat(Data.Args[1], " ") or "Geen Rede Gegeven"
 
             if Member:hasRole("765149108985266217") then
                 Member:removeRole("765149108985266217")
