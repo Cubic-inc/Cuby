@@ -1,20 +1,20 @@
 return function(Data)
 
-    require('weblit-app')
+    local App = require('weblit-app')
 
   -- Bind to localhost on port 3000 and listen for connections.
-  .bind({
+  App.bind({
     host = "0.0.0.0",
     port = process.env["PORT"] or 8080
   })
 
   -- Include a few useful middlewares.  Weblit uses a layered approach.
-  .use(require('weblit-logger'))
-  .use(require('weblit-auto-headers'))
-  .use(require('weblit-etag-cache'))
+  App.use(require('weblit-logger'))
+  App.use(require('weblit-auto-headers'))
+  App.use(require('weblit-etag-cache'))
 
   -- This is a custom route handler
-  .route({
+  App.route({
     method = "GET", -- Filter on HTTP verb
     path = "/", -- Filter on url patterns and capture some parameters.
   }, function (req, res)
@@ -25,7 +25,7 @@ return function(Data)
     res.code = 200
   end)
 
-  .route({
+  App.route({
     method = "GET", -- Filter on HTTP verb
     path = "/discord/", -- Filter on url patterns and capture some parameters.
   }, function (req, res)
@@ -48,7 +48,7 @@ return function(Data)
     res.code = 200
   end)]]
 
-  .route({
+  App.route({
     method = "GET", -- Filter on HTTP verb
     path = "/partner/", -- Filter on url patterns and capture some parameters.
   }, function (req, res)
@@ -60,7 +60,7 @@ return function(Data)
   end)
 
   -- Actually start the server
-  .start()
+  App.start()
 
 
 end
