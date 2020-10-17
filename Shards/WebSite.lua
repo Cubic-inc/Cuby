@@ -5,7 +5,7 @@ return function(Data)
   -- Bind to localhost on port 3000 and listen for connections.
   App.bind({
     host = "0.0.0.0",
-    port = process.env["PORT"] or 8080
+    port = process.env["PORT"] or 3000
   })
 
   -- Include a few useful middlewares.  Weblit uses a layered approach.
