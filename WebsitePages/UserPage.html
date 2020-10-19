@@ -75,7 +75,44 @@
       font-size: 16px;
       margin: 4px 2px;
       border-radius: 12px;
-    }   
+    } 
+
+  </style>
+  <style>
+    .card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-width: 300px;
+    margin: auto;
+    text-align: center;
+    }
+
+    .title {
+    color: grey;
+    font-size: 18px;
+    }
+
+    button {
+    border: none;
+    outline: 0;
+    display: inline-block;
+    padding: 8px;
+    color: white;
+    background-color: #000;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+    font-size: 18px;
+    }
+
+    a {
+    text-decoration: none;
+    font-size: 22px;
+    color: black;
+    }
+
+    button:hover, a:hover {
+    opacity: 0.7;
+    }
 
   </style>
 
@@ -87,9 +124,9 @@
 <div class="topnav">
 
   
-  <a href="/discord/">DISCORD</a>
+  <a href="/discord">DISCORD</a>
 
-  <div class="topnav-right"><a href="/partner/">PARTNER</a></div>
+  <div class="topnav-right"><a href="/partner">PARTNER</a></div>
 
   <div class="topnav-centered">
     <a href="/"><img src="https://media.discordapp.net/attachments/762660805534679050/762661612372099072/Logo_Smaller_can.png?width=641&height=641" style="width:45px; height:45px" title="home" alt="home"></a>  </div>
@@ -97,8 +134,14 @@
 
 </div>
 
-<div class="topbar" style="padding-left:16px; text-align: center;">
-  <h1 style="text-align: center;"><span style="color: #ffffff;">CUBIC INC</span</h1>
+
+
+
+<div class="card">
+  <img src="{iconurl}" alt="icon" style="width:100%">
+  <h1>{tag}</h1>
+  <p class="title">{inserver}</p>
+  <p>{joinlink}</p>
 </div>
 
 

@@ -17,6 +17,7 @@ local WebHooks = require("./Libs/Tables/WebHooks.lua")
 local Status = require("./Libs/Tables/Status.lua")
 local PostWebhook = require("./Libs/Code/PostWebhook.lua")
 local IteratorToArray = require("./Libs/Code/IteratorToArray.lua")
+local ReplaceString = require("./Libs/Code/ReplaceString.lua")
 
 
 local Token = require("./Tokens.lua").Client
@@ -49,6 +50,7 @@ Client:on("ready", function()
 				TableToString = TableToString,
 				PostWebhook = PostWebhook,
 				IteratorToArray = IteratorToArray,
+				ReplaceString = ReplaceString,
 			},
 			Tables = {
 				Commands = Commands,
@@ -119,3 +121,9 @@ end)()]]
 --print(require("./Libs/Code/Save").GetData("Levels", "test"))
 
 --https://script.google.com/macros/s/AKfycbyxt-m0JKxrvY2dxm4LdTLK_5wvv_Xusdb9WQ0qRhZKU4Tk4kkA/exec
+
+--[[
+print(ReplaceString("Hallo {name} en welkom bij {comp}", {
+	["name"] = "thimen",
+	["comp"] = "cubic",
+}))]]
