@@ -60,7 +60,7 @@ return function(Data)
 
     
 
-    res.body = 
+    res.body = ""
     
     res.headers["Content-Type"] = "text/html"
     res.code = 200
