@@ -16,7 +16,7 @@ local Commands = require("./Libs/Tables/Commands.lua")
 local WebHooks = require("./Libs/Tables/WebHooks.lua")
 local Status = require("./Libs/Tables/Status.lua")
 local PostWebhook = require("./Libs/Code/PostWebhook.lua")
-local IteratorToArray = require("./Libs/Code/IteratorToArray.lua")
+local CalcLevel = require("./Libs/Code/CalcLevel.lua")
 local ReplaceString = require("./Libs/Code/ReplaceString.lua")
 
 
@@ -49,8 +49,9 @@ Client:on("ready", function()
 				Wait = Wait,
 				TableToString = TableToString,
 				PostWebhook = PostWebhook,
-				IteratorToArray = IteratorToArray,
+				CalcLevel = CalcLevel,
 				ReplaceString = ReplaceString,
+				Save = require("./Libs/Code/Save.lua")
 			},
 			Tables = {
 				Commands = Commands,
@@ -126,3 +127,18 @@ print(ReplaceString("Hallo {name} en welkom bij {comp}", {
 	["name"] = "thimen",
 	["comp"] = "cubic",
 }))]]
+
+local Count = 100
+local Xp = 300
+
+--[[
+local LevelTable = {}
+
+for i = 0, 10, 1 do
+	LevelTable[i] = i * Count + ((i - 1) * Count)
+	print("Level " .. i .. "\nXp " .. LevelTable[i])
+end]]
+
+
+Lvl = CalcLevel(Xp)
+print(Lvl)
