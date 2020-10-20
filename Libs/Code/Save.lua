@@ -15,7 +15,7 @@ local Module = {}
 
 
 function DoGet(Store, Key)
-	local URL = Link .. "/cubydatastore/get/" .. Store .. "/" .. Key 
+	local URL = Link .. "/nL7shgcKnNXaqB8w2WZ5swpFeeUtGm2acMYqbhAy8Sv3fSY9nSAGjANgqeFNtsS9/get/" .. Store .. "/" .. Key 
 
 	
 
@@ -24,7 +24,11 @@ function DoGet(Store, Key)
 		
 	--print(Res, Body)
 	if Data.status == "ok" then
-		return Json.decode(Query.urldecode(Data.data))
+		if Data.data then
+			return Json.decode(Data.data)
+		else
+			return nil
+		end
 	else
 		print("Database error:", Data.error)	
 		return
@@ -39,13 +43,13 @@ end
 function DoPost(Store, Key, data)
 
 	local URL
-	print(type(data))
+	--print(type(data))
 	if type(data) == "table" then
-		URL = Link .. "/cubydatastore/save/" .. Store .. "/" .. Key .. "/" .. Json.encode(data)
+		URL = Link .. "/nL7shgcKnNXaqB8w2WZ5swpFeeUtGm2acMYqbhAy8Sv3fSY9nSAGjANgqeFNtsS9/save/" .. Store .. "/" .. Key .. "/" .. Json.encode(data)
 	else
-		URL = Link .. "/cubydatastore/save/" .. Store .. "/" .. Key .. "/" .. data
+		URL = Link .. "/nL7shgcKnNXaqB8w2WZ5swpFeeUtGm2acMYqbhAy8Sv3fSY9nSAGjANgqeFNtsS9/save/" .. Store .. "/" .. Key .. "/" .. data
 	end
-	print(URL)
+	--print(URL)
 	
 
 	local Res, Body = Coro.request("GET", URL)
@@ -53,7 +57,7 @@ function DoPost(Store, Key, data)
 		
 	--print(Res, Body)
 	if Data.status == "ok" then
-		return Json.decode(Query.urldecode(Data.data))
+		return Json.decode(Data.data)
 	else
 		print("Database error:", Data.error)	
 		return
