@@ -82,19 +82,19 @@ return function(Data)
             if CommandFound == true then
                 if CommandTable.Client == 1 then
                     Data.Client:getChannel(Channel.id):broadcastTyping()
-                    PreMSG = Data.Client:getChannel(Channel.id):send("Laden")
+                    PreMSG = Data.Client:getChannel(Channel.id):send("loading")
                     
                 elseif CommandTable.Client == 2 then
                     Data.MusicClient:getChannel(Channel.id):broadcastTyping()
-                    PreMSG = Data.MusicClient:getChannel(Channel.id):send("Laden")
+                    PreMSG = Data.MusicClient:getChannel(Channel.id):send("loading")
                     
                 elseif CommandTable.Client == 3 then
                     Data.MilkClient:getChannel(Channel.id):broadcastTyping()
-                    PreMSG = Data.MilkClient:getChannel(Channel.id):send("Laden")
+                    PreMSG = Data.MilkClient:getChannel(Channel.id):send("loading")
                     
                 else
                     Data.Client:getChannel(Channel.id):broadcastTyping()
-                    PreMSG = Data.Client:getChannel(Channel.id):send("Laden")
+                    PreMSG = Data.Client:getChannel(Channel.id):send("loading")
                     
                 end
             end
