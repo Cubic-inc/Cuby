@@ -1,2 +1,2 @@
-language = "undefined"
+language = "bash"
 run = "curl -L https://github.com/luvit/lit/raw/master/get-lit.sh | sh\nclear\n./luvit Bot.lua"
