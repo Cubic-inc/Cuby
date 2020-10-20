@@ -10,8 +10,8 @@ return function(Data)
     
 
     Data.Client:on("messageCreate", function(MSG)
-        if MSG.channel.id == "685066367526895658" or MSG.channel.id == "759717939631882280" or MSG.channel.id == "758701430642311188" then print("Channel ignored") return end
-        if MSG.author.bot then print("no bot users") return end
+        if MSG.channel.id == "685066367526895658" or MSG.channel.id == "759717939631882280" or MSG.channel.id == "758701430642311188" then --[[print("Channel ignored")]] return end
+        if MSG.author.bot then --[[print("no bot users")]] return end
         
         local CurrentXp = DataBase:GetAsync(MSG.author.id) or 0
         local CurrentLevel = CalcLevel(CurrentXp)
