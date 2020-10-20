@@ -106,6 +106,15 @@ return {
         Function = require("./Commands/Info.lua")
     },
 
+    {
+        Name = "level",
+        Desc = "verkijg je level",
+        Client = 1,
+        Perms = {Owner = true, Admin = true, Moderator = true, User = true},
+        Aliases = {"rank", "lvl"},
+        Function = require("./Commands/Level.lua")
+    },
+
 
 
 }
