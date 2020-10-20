@@ -127,7 +127,7 @@ print(ReplaceString("Hallo {name} en welkom bij {comp}", {
 	["name"] = "thimen",
 	["comp"] = "cubic",
 }))]]
-
+--[[
 local Count = 100
 local Xp = 300
 
@@ -139,6 +139,6 @@ for i = 0, 10, 1 do
 	print("Level " .. i .. "\nXp " .. LevelTable[i])
 end]]
 
-
+--[[
 Lvl = CalcLevel(Xp)
-print(Lvl)
+print(Lvl)]]
