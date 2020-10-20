@@ -114,8 +114,7 @@ end):listen(port)]]
 coroutine.wrap(function()
 local Save = require("./Libs/Code/Save.lua")
 local DataBase = Save:GetDatabase("Levels")
-print("line 114", DataBase:PostAsync("test", "baba"))
-print("line 114", DataBase:GetAsync("test", "baba"))
+print("line 114", DataBase:PostAsync("bonk", {}))
 end)()]]
 
 --print(require("./Libs/Code/Save").GetData("Levels", "test"))
