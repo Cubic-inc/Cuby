@@ -18,6 +18,8 @@ return function(Data)
         --print(CurrentLevel)
         --print(CurrentXp)
 
+        if not LastMSGs[MSG.author.id] then return end
+
         if LastMSGs[MSG.author.id].Content ~= MSG.content then
 
             local NewXp = CurrentXp + XpMsgAdd
