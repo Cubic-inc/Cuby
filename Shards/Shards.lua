@@ -36,7 +36,7 @@ local Shards = {
     },
 
     {
-        Name = "Levels",
+        Name = "AutoMod",
         Function  = require("./Levels.lua")
     },
 
