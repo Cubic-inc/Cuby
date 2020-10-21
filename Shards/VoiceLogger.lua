@@ -99,7 +99,7 @@ return function(Data)
                 
                 fields = {
 
-                    {name = "**Channel**", value = "`" .. Message.cleanContent .. "`", inline = true},
+                    {name = "**Content**", value = "`" .. Message.cleanContent .. "`", inline = true},
                     {name = "**Member**", value = "`" .. Message.author.tag .. "`", inline = true},
                     {name = "**Tijd**", value = "`" .. os.date("%c") .. "`", inline = true}
 
