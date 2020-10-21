@@ -73,4 +73,58 @@ return function(Data)
         --print(LastMSGs[MSG.author.id].Times)
     end)
 
+    local SwearWords = {
+        "rko",
+        "kanker",
+        "tering",
+        "klootzak",
+        "kutwijf",
+        "kuttenkop",
+        "loser",
+        "lummel",
+        "lul",
+        "piemel",
+        "kaashoer",
+        "hoer",
+        "mongool",
+        "klootviool",
+        "eikel",
+        "oen",
+        "kankerhoer",
+        "kankerhond",
+        "kankerlijder",
+        "kankerlijer",
+        "kankernicht",
+        "kapsoneslijer",
+        "mietje",
+        "bitch",
+        "kutwijf",
+        "kutvent",
+        "kontkruiper",
+        "kontneuker",
+
+
+    }
+
+
+
+    Data.Client:on("messageCreate", function(MSG)
+        if MSG.author.bot then --[[print("no bot users")]] return end
+        
+        local Found = false
+
+        for i, v in pairs(SwearWords) do
+            if string.find(string.lower(MSG.content), v) then
+                Found = true
+                break
+            end
+        end
+
+        if Found == true then
+            Data.Libs.Code.Warn(nil, MSG.channel, MSG.author, Data.Client.user, "Schelden")
+            MSG:delete()
+        end
+
+    end)
+
 end
