@@ -26,7 +26,6 @@ return function(MSG, Channel, Member, Moderator, Reason, Data)
             MSG:update(ToSend)
         end
 
-        local Reason
 
 
         local ToSend = {
@@ -41,11 +40,11 @@ return function(MSG, Channel, Member, Moderator, Reason, Data)
                     {name = "**Moderator**", value = "`" .. Moderator.tag .. "`", inline = true},
                     {name = "**Overtreder**", value = "`" .. Member.tag .. "`", inline = true},
                     {name = "**Rede**", value = "`" .. Reason .. "`", inline = true},
-                    {name = "**Tijd**", value = "`" .. os.date("%c") .. "`", inline = true}
+                    {name = "**Tijd**", value = "`" .. os.date("%c") .. "`", inline = true},
+                    {name = "**Link**", value = "[Message](" .. MSG.link .. ")", inline = true},
 
                 },
 
-                footer = {text = "[Message](" .. MSG.link .. ")"},
 
                 color = 0xff7e00
             }
@@ -53,7 +52,7 @@ return function(MSG, Channel, Member, Moderator, Reason, Data)
 
 
 
-        Data.ShardData.Libs.Code.PostWebhook(ToSend, require("././Tables.WebHooks.lua"))
+        require("./PostWebhook.lua")(ToSend, require("../Tables/WebHooks.lua").Logger)
     else
         MSG:setContent("Specificeer een user")
     end
