@@ -65,6 +65,10 @@ return function(Data)
             LastMSGs[MSG.author.id].Times = 0
         end
 
+        if LastMSGs[MSG.author.id].Times >= 3 then
+            Data.Libs.Code.Warn(nil, MSG.channel, MSG.author, Data.Client.user, "Berichten herhalen")
+        end
+
         LastMSGs[MSG.author.id].Content = MSG.content
         --print(LastMSGs[MSG.author.id].Times)
     end)
