@@ -18,6 +18,7 @@ local Status = require("./Libs/Tables/Status.lua")
 local PostWebhook = require("./Libs/Code/PostWebhook.lua")
 local CalcLevel = require("./Libs/Code/CalcLevel.lua")
 local ReplaceString = require("./Libs/Code/ReplaceString.lua")
+local Warn = require("./Libs/Code/Warn.lua")
 
 
 local Token = require("./Tokens.lua").Client
@@ -51,7 +52,8 @@ Client:on("ready", function()
 				PostWebhook = PostWebhook,
 				CalcLevel = CalcLevel,
 				ReplaceString = ReplaceString,
-				Save = require("./Libs/Code/Save.lua")
+				Save = require("./Libs/Code/Save.lua"),
+				Warn = Warn
 			},
 			Tables = {
 				Commands = Commands,
@@ -93,8 +95,8 @@ end)()
 Client:run("Bot " .. Token)
 Client:setGame({name = "deze discord", type = 2})
 
-MusicClient:run("Bot " .. MusicToken)
-MusicClient:setGame({name = "Muziek", type = 0})
+--MusicClient:run("Bot " .. MusicToken)
+--MusicClient:setGame({name = "Muziek", type = 0})
 
 MilkClient:run("Bot " .. MilkToken)
 MilkClient:setGame({name = "!bier", type = 2})
