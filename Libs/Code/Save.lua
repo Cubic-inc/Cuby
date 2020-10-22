@@ -102,11 +102,11 @@ function Module:GetDatabase(sheet)
 	end
 
 	function database:GetStoreAsync(key)
-		return DoGetStore(string.lower(sheet), key)
+		return DoGetStore(string.lower(sheet))
 	end
 
 	function database:GetAsync(key)
-		return DoGet(string.lower(sheet))
+		return DoGet(string.lower(sheet), key)
 	end
 	return database
 end
