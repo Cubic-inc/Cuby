@@ -20,7 +20,7 @@ function DoGet(Store, Key)
 
 	local Res, Body = Coro.request("GET", URL)
 	Data = Json.parse(Body)
-	print(Body)
+	--print(Body)
 		
 	--print(Res, Body)
 	if Data.status == "ok" then
