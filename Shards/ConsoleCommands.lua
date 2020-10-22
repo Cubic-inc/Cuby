@@ -1,3 +1,8 @@
+return function()
+
+end
+
+--[[
 return function(Data)
     coroutine.wrap(function()
 
@@ -65,4 +70,4 @@ return function(Data)
 
     end)()
 
-end
+end]]
