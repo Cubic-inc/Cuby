@@ -38,7 +38,7 @@ return function(Data)
             end,
         }
 
-        local LastRoundCommand = false
+        local LastRoundCommand = true
         
         while true do
             
