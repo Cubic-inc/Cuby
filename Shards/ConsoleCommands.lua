@@ -41,7 +41,7 @@ return function(Data)
         
         while true do
             print()
-            io.write("insert next command: ")
+            print("insert next command: ")
             local Command = io.read()
 
             if Command then
