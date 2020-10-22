@@ -52,7 +52,8 @@ function DoPost(Store, Key, data)
 	
 	local Res, Body = Coro.request("GET", URL)
 	Data = Json.parse(Body)
-	
+	--print(Body)
+	--print(URL)
 
 	
 

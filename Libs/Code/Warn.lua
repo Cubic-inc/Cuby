@@ -63,23 +63,30 @@ return function(MSG, Channel, Member, Moderator, Reason, Data)
             end
         end
 
+        local Query = require("querystring")
+
         local SaveData = {
             Id = HighestId + 1,
             Overtreder = Member.id,
             Rede = Reason,
             Tijd = os.date("%c"),
-            Moderator = Moderator.id
-
+            Moderator = Moderator.id,
+            Link = Query.urlencode(MSG.link)
         }
 
 
-        
-        OlderWarns[HighestId + 1] = SaveData
+        if #OlderWarns ~= 0 then
+            OlderWarns[HighestId + 1] = SaveData
+            SaveData.Id = HighestId + 1
+        else
+            OlderWarns[HighestId] = SaveData
+            SaveData.Id = HighestId
+        end
         --table.insert(OlderWarns, SaveData.Id, SaveData)
 
-        coroutine.wrap(function()
-        Base:PostAsync(Member.id, OlderWarns)
-        end)()
+        --coroutine.wrap(function()
+            Base:PostAsync(Member.id, OlderWarns)
+        --end)()
 
 
         require("./PostWebhook.lua")(ToSend, require("../Tables/WebHooks.lua").Logger)
