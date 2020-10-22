@@ -1,5 +1,8 @@
 return function(MSG, Channel, Member, Moderator, Reason, Data)
 
+    local Base = require("./Save.lua"):GetDatabase("warnings")
+
+
     if not MSG then 
         if not Channel then return end
         MSG = Channel:send("Loading")
@@ -50,6 +53,33 @@ return function(MSG, Channel, Member, Moderator, Reason, Data)
             }
         }}
 
+        local OlderWarns = Base:GetAsync(Member.id) or {}
+
+        local HighestId = 1
+
+        for i, v in pairs(OlderWarns) do
+            if v.Id > HighestId then
+                HighestId = v.Id
+            end
+        end
+
+        local SaveData = {
+            Id = HighestId + 1,
+            Overtreder = Member.id,
+            Rede = Reason,
+            Tijd = os.date("%c"),
+            Moderator = Moderator.id
+
+        }
+
+
+        
+        OlderWarns[HighestId + 1] = SaveData
+        --table.insert(OlderWarns, SaveData.Id, SaveData)
+
+        coroutine.wrap(function()
+        Base:PostAsync(Member.id, OlderWarns)
+        end)()
 
 
         require("./PostWebhook.lua")(ToSend, require("../Tables/WebHooks.lua").Logger)
