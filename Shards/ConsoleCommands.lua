@@ -38,11 +38,16 @@ return function(Data)
             end,
         }
 
+        local LastRoundCommand = false
         
         while true do
+            
+            if LastRoundCommand then
+                LastRoundCommand = true
             print()
             print("insert next command: ")
             local Command = io.read()
+            end
 
             if Command then
                 Command = string.lower(Command)
@@ -52,7 +57,9 @@ return function(Data)
                 else
                     print("Command not found")
                 end
-            end
+            else
+                LastRoundCommand = false
+            end 
 
         end
 
