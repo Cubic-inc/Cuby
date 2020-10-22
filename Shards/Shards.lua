@@ -40,6 +40,11 @@ local Shards = {
         Function  = require("./Levels.lua")
     },
 
+    {
+        Name = "ConsoleCommands",
+        Function  = require("./ConsoleCommands.lua")
+    },
+
 
 }
 
