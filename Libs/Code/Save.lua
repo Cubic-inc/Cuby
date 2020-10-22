@@ -17,17 +17,14 @@ local Module = {}
 function DoGet(Store, Key)
 	local URL = Link .. "/nL7shgcKnNXaqB8w2WZ5swpFeeUtGm2acMYqbhAy8Sv3fSY9nSAGjANgqeFNtsS9/get/" .. Store .. "/" .. Key 
 
-	print(1)
 
 	local Res, Body = Coro.request("GET", URL)
 	Data = Json.parse(Body)
 	print(Body)
-	print(2)
 		
 	--print(Res, Body)
 	if Data.status == "ok" then
 		if Data.data then
-			print(3)
 			return Data.data
 		else
 			return nil
@@ -44,7 +41,6 @@ function DoGet(Store, Key)
 end
 
 function DoPost(Store, Key, data)
-	print(1)
 	local URL
 	--print(type(data))
 	if type(data) == "table" then
@@ -54,21 +50,15 @@ function DoPost(Store, Key, data)
 	end
 	--print(URL)
 	
-	print(2)
 	local Res, Body = Coro.request("GET", URL)
 	Data = Json.parse(Body)
-	print(Body, Data)
-	print(Body)
-	print(URL)
-	print(3)
+	
 
 	
 
-	print(4)
 		
 	--print(Res, Body)
 	if Data.status == "ok" then
-		print(5)
 		return true
 	else
 		print("Database error:", Data.error)	
@@ -79,17 +69,17 @@ end
 function DoGetStore(Store, Key)
 	local URL = Link .. "/nL7shgcKnNXaqB8w2WZ5swpFeeUtGm2acMYqbhAy8Sv3fSY9nSAGjANgqeFNtsS9/getstore/" .. Store
 
-	print(1)
+	--print(1)
 
 	local Res, Body = Coro.request("GET", URL)
 	Data = Json.parse(Body)
-	print(Body)
-	print(2)
+	--print(Body)
+	--print(2)
 		
 	--print(Res, Body)
 	if Data.status == "ok" then
 		if Data.data then
-			print(3)
+			--print(3)
 			return Data.data
 		else
 			return nil
