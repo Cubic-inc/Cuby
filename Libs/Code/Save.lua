@@ -17,15 +17,18 @@ local Module = {}
 function DoGet(Store, Key)
 	local URL = Link .. "/nL7shgcKnNXaqB8w2WZ5swpFeeUtGm2acMYqbhAy8Sv3fSY9nSAGjANgqeFNtsS9/get/" .. Store .. "/" .. Key 
 
-	
+	print(1)
 
 	local Res, Body = Coro.request("GET", URL)
 	Data = Json.parse(Body)
+	print(Body)
+	print(2)
 		
 	--print(Res, Body)
 	if Data.status == "ok" then
 		if Data.data then
-			return Json.decode(Data.data)
+			print(3)
+			return Data.data
 		else
 			return nil
 		end
@@ -41,27 +44,65 @@ function DoGet(Store, Key)
 end
 
 function DoPost(Store, Key, data)
-
+	print(1)
 	local URL
 	--print(type(data))
 	if type(data) == "table" then
-		URL = Link .. "/nL7shgcKnNXaqB8w2WZ5swpFeeUtGm2acMYqbhAy8Sv3fSY9nSAGjANgqeFNtsS9/save/" .. Store .. "/" .. Key .. "/" .. Json.encode(data)
+		URL = Link .. "/nL7shgcKnNXaqB8w2WZ5swpFeeUtGm2acMYqbhAy8Sv3fSY9nSAGjANgqeFNtsS9/save/" .. Store .. "/" .. Key .. "/" .. Query.urlencode(Json.encode(data))
 	else
 		URL = Link .. "/nL7shgcKnNXaqB8w2WZ5swpFeeUtGm2acMYqbhAy8Sv3fSY9nSAGjANgqeFNtsS9/save/" .. Store .. "/" .. Key .. "/" .. data
 	end
 	--print(URL)
 	
-
+	print(2)
 	local Res, Body = Coro.request("GET", URL)
 	Data = Json.parse(Body)
+	print(Body, Data)
+	print(Body)
+	print(URL)
+	print(3)
+
+	
+
+	print(4)
 		
 	--print(Res, Body)
 	if Data.status == "ok" then
-		return Json.decode(Data.data)
+		print(5)
+		return true
+	else
+		print("Database error:", Data.error)	
+		return false
+	end
+end
+
+function DoGetStore(Store, Key)
+	local URL = Link .. "/nL7shgcKnNXaqB8w2WZ5swpFeeUtGm2acMYqbhAy8Sv3fSY9nSAGjANgqeFNtsS9/getstore/" .. Store
+
+	print(1)
+
+	local Res, Body = Coro.request("GET", URL)
+	Data = Json.parse(Body)
+	print(Body)
+	print(2)
+		
+	--print(Res, Body)
+	if Data.status == "ok" then
+		if Data.data then
+			print(3)
+			return Data.data
+		else
+			return nil
+		end
 	else
 		print("Database error:", Data.error)	
 		return
 	end
+
+
+
+
+	--return Data
 end
 
 function Module:GetDatabase(sheet)
@@ -69,8 +110,13 @@ function Module:GetDatabase(sheet)
 	function database:PostAsync(key, value)
 		return DoPost(string.lower(sheet), key, value)
 	end
+
+	function database:GetStoreAsync(key)
+		return DoGetStore(string.lower(sheet), key)
+	end
+
 	function database:GetAsync(key)
-		return DoGet(string.lower(sheet), key)
+		return DoGet(string.lower(sheet))
 	end
 	return database
 end
