@@ -17,7 +17,7 @@ return {
   "luvit/http-codec",
   "luvit/resource",
   "luvit/secure-socket",
-  
+  "creationix/weblit"
   },
 }
 
