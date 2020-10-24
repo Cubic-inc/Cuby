@@ -1,6 +1,35 @@
 return function(Data)
 
-    local App = require('weblit-app')
+
+  function LoadPage(Path)
+
+    local File = io.open(Path, "r")
+    local HTML = File:read("*a")
+
+    local CssFile = io.open("././WebsitePages/Styles/TopBar.css", "r")
+    local CssString = CssFile:read("*a")
+
+    local TopFile = io.open("././WebsitePages/TopBar.html", "r")
+    local TopHtml = TopFile:read("*a")
+
+
+    local HTMLReplaced = Data.Libs.Code.ReplaceString(HTML, {topcss = CssString, tophtml = TopHtml})
+
+    --[[
+    print(Path)
+    print(CssString)
+    print(TopHtml)
+    print(HTMLReplaced)]]
+
+    File:close()
+    CssFile:close()
+    TopFile:close()
+
+    return HTMLReplaced
+
+  end
+
+  local App = require('weblit-app')
 
 
   App.bind({
@@ -26,9 +55,9 @@ return function(Data)
     method = "GET", 
     path = "/",
   }, function (req, res)
-    local File = io.open("././WebsitePages/Home.html", "r")
-    res.body = File:read("*a")
-    File:close()
+
+    res.body = LoadPage("././WebsitePages/Home.html")
+
     res.headers["Content-Type"] = "text/html"
     res.code = 200
   end)
@@ -37,9 +66,9 @@ return function(Data)
     method = "GET",
     path = "/discord", 
   }, function (req, res)
-    local File = io.open("././WebsitePages/Discord.html", "r")
-    res.body = File:read("*a")
-    File:close()
+    
+    res.body = LoadPage("././WebsitePages/Discord.html")
+
     res.headers["Content-Type"] = "text/html"
     res.code = 200
   end)
@@ -49,9 +78,9 @@ return function(Data)
     method = "GET", 
     path = "/discord/redirect", 
   }, function (req, res)
-    local File = io.open("././WebsitePages/Logged.html", "r")
-    res.body = File:read("*a")
-    File:close()
+    
+    res.body = LoadPage("././WebsitePages/Discord.html")
+
     res.headers["Content-Type"] = "text/html"
     res.code = 200
   end)
@@ -78,9 +107,9 @@ return function(Data)
     method = "GET", -- Filter on HTTP verb
     path = "/partner", -- Filter on url patterns and capture some parameters.
   }, function (req, res)
-    local File = io.open("././WebsitePages/Partner.html", "r")
-    res.body = File:read("*a")
-    File:close()
+    
+    res.body = LoadPage("././WebsitePages/Partner.html")
+
     res.headers["Content-Type"] = "text/html"
     res.code = 200
   end)
