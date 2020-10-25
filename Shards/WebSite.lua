@@ -51,10 +51,7 @@ return function(Data)
   end)
 
   
-  App.route({
-    method = "GET", 
-    path = "/",
-  }, function (req, res)
+  App.route({method = "GET", path = "/"}, function (req, res)
 
     res.body = LoadPage("././WebsitePages/Home.html")
 
@@ -73,35 +70,6 @@ return function(Data)
     res.code = 200
   end)
 
-
-  App.route({
-    method = "GET", 
-    path = "/discord/redirect", 
-  }, function (req, res)
-    
-    res.body = LoadPage("././WebsitePages/Discord.html")
-
-    res.headers["Content-Type"] = "text/html"
-    res.code = 200
-  end)
-
-  App.route({
-    method = "GET", -- Filter on HTTP verb
-    path = "/discord/user/:id", -- Filter on url patterns and capture some parameters.
-  }, function (req, res)
-    local File = io.open("././WebsitePages/UserPage.html", "r")
-    local Read = File:read("*a")
-    File:close()
-
-    local User = Data.Client:getUser(req.params.id)
-
-    
-
-    res.body = ""
-    
-    res.headers["Content-Type"] = "text/html"
-    res.code = 200
-  end)
 
   App.route({
     method = "GET", -- Filter on HTTP verb

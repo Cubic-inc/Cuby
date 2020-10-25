@@ -1,12 +1,12 @@
 .nav{
-  border:30px solid #333;
+  border:30px solid #23272A;
   border-width:15px 0;
   list-style: none;
   margin:0 ;
   padding:0;
   text-align: center;
   overflow: hidden;
-  background-color: #333;
+  background-color: #23272A;
 }
 
 .nav a{
