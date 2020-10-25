@@ -11,7 +11,7 @@ local Query = require("querystring")
 
 local Module = {}
 
-
+local Token = require("././Tokens.lua").Save or os.getenv("SAVETOKEN")
 
 
 function DoGet(Store, Key)
