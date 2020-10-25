@@ -1,7 +1,7 @@
 -- The variable below is the ID of the script you've created, you won't need
 -- to enter any information other than this.
 
-local Link = "https://Database.scriptitwithcod.repl.run"
+local Link = "https://Database.scriptitwithcod.repl.co"
 
 
 local Coro = require("coro-http")
@@ -11,7 +11,7 @@ local Query = require("querystring")
 
 local Module = {}
 
-local Token = require("./././Tokens.lua").Save or os.getenv("SAVETOKEN")
+local Token = require("../Tokens").Save or os.getenv("SAVETOKEN")
 
 
 function DoGet(Store, Key)
