@@ -144,3 +144,5 @@ end]]
 --[[
 Lvl = CalcLevel(Xp)
 print(Lvl)]]
+
+--print(os.getenv("TOKEN"))
