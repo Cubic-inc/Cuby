@@ -21,9 +21,9 @@ local ReplaceString = require("./Libs/Code/ReplaceString.lua")
 local Warn = require("./Libs/Code/Warn.lua")
 
 
-local Token = require("./Tokens.lua").Client
+local Token = require("./Tokens.lua").Client or os.getenv("TOKEN")
 local MusicToken = require("./Tokens.lua").MusicClient
-local MilkToken = require("./Tokens.lua").MilkClient
+local MilkToken = require("./Tokens.lua").MilkClient or os.getenv("MILKTOKEN")
 local Prefix = "!"
 local Guild = "657227821047087105"
 
