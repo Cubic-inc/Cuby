@@ -11,11 +11,11 @@ local Query = require("querystring")
 
 local Module = {}
 
-local Token = require("././Tokens.lua").Save or os.getenv("SAVETOKEN")
+local Token = require("./././Tokens.lua").Save or os.getenv("SAVETOKEN")
 
 
 function DoGet(Store, Key)
-	local URL = Link .. "/nL7shgcKnNXaqB8w2WZ5swpFeeUtGm2acMYqbhAy8Sv3fSY9nSAGjANgqeFNtsS9/get/" .. Store .. "/" .. Key 
+	local URL = Link .. "/" .. Token .. "/get/" .. Store .. "/" .. Key 
 
 
 	local Res, Body = Coro.request("GET", URL)
@@ -44,9 +44,9 @@ function DoPost(Store, Key, data)
 	local URL
 	--print(type(data))
 	if type(data) == "table" then
-		URL = Link .. "/nL7shgcKnNXaqB8w2WZ5swpFeeUtGm2acMYqbhAy8Sv3fSY9nSAGjANgqeFNtsS9/save/" .. Store .. "/" .. Key .. "/" .. Query.urlencode(Json.encode(data))
+		URL = Link .. "/" .. Token .. "/save/" .. Store .. "/" .. Key .. "/" .. Query.urlencode(Json.encode(data))
 	else
-		URL = Link .. "/nL7shgcKnNXaqB8w2WZ5swpFeeUtGm2acMYqbhAy8Sv3fSY9nSAGjANgqeFNtsS9/save/" .. Store .. "/" .. Key .. "/" .. data
+		URL = Link .. "/" .. Token .. "/save/" .. Store .. "/" .. Key .. "/" .. data
 	end
 	--print(URL)
 	
@@ -68,7 +68,7 @@ function DoPost(Store, Key, data)
 end
 
 function DoGetStore(Store, Key)
-	local URL = Link .. "/nL7shgcKnNXaqB8w2WZ5swpFeeUtGm2acMYqbhAy8Sv3fSY9nSAGjANgqeFNtsS9/getstore/" .. Store
+	local URL = Link .. "/" .. Token .. "/getstore/" .. Store
 
 	--print(1)
 
