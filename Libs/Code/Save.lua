@@ -1,7 +1,7 @@
 -- The variable below is the ID of the script you've created, you won't need
 -- to enter any information other than this.
 
-local Link = "https://Database.scriptitwithcod.repl.co"
+local Link = "https://Database.scriptitwithcod.repl.run"
 
 
 local Coro = require("coro-http")
