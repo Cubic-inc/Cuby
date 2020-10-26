@@ -102,7 +102,9 @@ return function(Data)
         "kutvent",
         "kontkruiper",
         "kontneuker",
-
+        "7",
+        "zeven",
+        "seven"
 
     }
 
