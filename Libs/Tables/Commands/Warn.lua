@@ -27,7 +27,7 @@ return function(Data)
         end]]
 
         Data.ShardData.Libs.Code.Warn(Data.PreMSG, nil, MentionedArray[1], Data.Author, Reason, Data)
-    elseif SubCommand == "get" then
+    elseif SubCommand == "list" then
 
         
 
@@ -35,6 +35,8 @@ return function(Data)
 
         local Embed = {
             title = MentionedArray[1].name .. "'s Warnings",
+
+            --description = "",
 
             fields = {
 
@@ -49,10 +51,34 @@ return function(Data)
 
         for i, v in pairs(WarnData) do
 
-            local Field = {name = "Warning id: " .. v.Id, value = "Moderator: `" ..Data.ShardData.Client:getUser(v.Moderator).tag .. "`\nRede: `" .. v.Rede .. "`\nTijd: `" .. v.Tijd .. "`\nLink: [Message](" .. Query.urldecode(v.Link) .. ")", inline = true}
+            --Embed.description = Embed.description .. "**Warning id: " .. v.Id .. "**" .. "\nModerator: `" ..Data.ShardData.Client:getUser(v.Moderator).tag .. "`\nRede: `" .. v.Rede .. "`\nTijd: `" .. v.Tijd .. "`\nLink: [Message](" .. Query.urldecode(v.Link) .. ")"
+
+            local Field = {name = "**Warning id: " .. v.Id .. "**", value = "Moderator: `" ..Data.ShardData.Client:getUser(v.Moderator).tag .. "`\nRede: `" .. v.Rede .. "`\nTijd: `" .. v.Tijd .. "`\nLink: [Message](" .. Query.urldecode(v.Link) .. ")", inline = true}
             table.insert(Embed.fields, Field)
         end
         
+
+        Data.PreMSG:update({content = "", embed = Embed})
+
+    elseif SubCommand == "amount" then
+
+        --print(1)
+
+        local WarnData = Base:GetAsync(MentionedArray[1].id) or {}
+
+        --print(2)
+        local Embed = {
+            title = MentionedArray[1].name .. "Heeft:",
+
+            description = tostring(#WarnData) .. " Warnigns",
+
+        }
+        --print(2)
+
+        --local Query = require("querystring")
+        
+
+        --print(3)
 
         Data.PreMSG:update({content = "", embed = Embed})
 
