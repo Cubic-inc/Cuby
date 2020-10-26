@@ -44,13 +44,17 @@ function DoPost(Store, Key, data)
 	local URL
 	--print(type(data))
 	if type(data) == "table" then
-		URL = Link .. "/" .. Token .. "/save/" .. Store .. "/" .. Key .. "/" .. Query.urlencode(Json.encode(data))
+		URL = Link .. "/" .. Token .. "/save/" .. Store .. "/" .. Key 
 	else
-		URL = Link .. "/" .. Token .. "/save/" .. Store .. "/" .. Key .. "/" .. data
+		URL = Link .. "/" .. Token .. "/save/" .. Store .. "/" .. Key 
 	end
 	--print(URL)
 	
-	local Res, Body = Coro.request("GET", URL)
+	--local Res, Body = Coro.request("GET", URL)
+
+	local StringData = Query.urlencode(Json.encode(data))
+
+	Res, Body = Coro.request("POST", URL, {{"Content-Type", "application/json"}}, StringData)
 	Data = Json.parse(Body)
 	--print(Body)
 	--print(URL)

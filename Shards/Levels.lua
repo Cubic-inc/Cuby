@@ -102,9 +102,6 @@ return function(Data)
         "kutvent",
         "kontkruiper",
         "kontneuker",
-        "7",
-        "zeven",
-        "seven"
 
     }
 
@@ -121,6 +118,7 @@ return function(Data)
                 break
             end
         end
+
 
         if Found == true then
             Data.Libs.Code.Warn(nil, MSG.channel, MSG.author, Data.Client.user, "Schelden")

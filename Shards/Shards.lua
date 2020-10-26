@@ -45,6 +45,11 @@ local Shards = {
         Function  = require("./ConsoleCommands.lua")
     },
 
+    {
+        Name = "MiniGames",
+        Function  = require("./MiniGames.lua")
+    },
+
 
 }
 

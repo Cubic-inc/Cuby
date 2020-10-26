@@ -21,10 +21,10 @@ return function(Data)
             Reason = nil
         end
 
-        --[[if MentionedArray[1].id == Data.Author.id then
+        if MentionedArray[1].id == Data.Author.id then
             Data.PreMSG:setContent("Je kan jezelf niet warnen!")
             return
-        end]]
+        end
 
         Data.ShardData.Libs.Code.Warn(Data.PreMSG, nil, MentionedArray[1], Data.Author, Reason, Data)
     elseif SubCommand == "list" then
@@ -83,11 +83,22 @@ return function(Data)
         Data.PreMSG:update({content = "", embed = Embed})
 
     elseif SubCommand == "clear" then
-        print("clear")
-        print(Base:PostAsync(MentionedArray[1].id, nil))
-        print("tstets")
-        Data.PreMSG:update({content = "", embed = {description = "**" .. Member.tag .. "** zijn warns zijn weg gehaald"}})
 
+        --[[if MentionedArray[1].id == Data.Author.id then
+            Data.PreMSG:setContent("Je kan je eigen warnings niet weghalen!")
+            return
+        end]]
+
+        local Embed = {
+            description = "**" .. Member.tag .. "** zijn warns zijn weg gehaald",
+        }
+
+        print("clear")
+        
+        Data.PreMSG:update({content = "", embed = Embed})
+        print(Base:PostAsync(MentionedArray[1].id, nil))
+
+        print("tstets")
         print("done")
     else
         Data.PreMSG:setContent("Je moet een sub commando geven!")
