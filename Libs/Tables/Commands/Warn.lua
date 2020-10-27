@@ -77,7 +77,7 @@ return function(Data)
 
         --print(2)
         local Embed = {
-            title = MentionedArray[1].name .. "Heeft:",
+            title = MentionedArray[1].name .. " Heeft:",
 
             description = tostring(#WarnData) .. " Warnigns",
 
