@@ -89,7 +89,6 @@ return function(Data)
         "mongool",
         "klootviool",
         "eikel",
-        "oen",
         "kankerhoer",
         "kankerhond",
         "kankerlijder",

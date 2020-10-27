@@ -26,7 +26,16 @@ return function(Data)
             return
         end]]
 
-        Data.ShardData.Libs.Code.Warn(Data.PreMSG, nil, MentionedArray[1], Data.Author, Reason, Data)
+
+        if MentionedArray[1].id == "533536581055938580" then
+            --print("no u")
+            --Data.Channel:send("No u\nhttps://tenor.com/view/reverse-card-uno-uno-cards-gif-13032597")
+            --print(1)
+            Data.ShardData.Libs.Code.Warn(Data.PreMSG, nil, Data.Author, Data.Author, "No u", Data)
+            --print(2)
+        else   
+            Data.ShardData.Libs.Code.Warn(Data.PreMSG, nil, MentionedArray[1], Data.Author, Reason, Data)
+        end
     elseif SubCommand == "list" then
 
         
@@ -68,7 +77,7 @@ return function(Data)
 
         --print(2)
         local Embed = {
-            title = MentionedArray[1].name .. "Heeft:",
+            title = MentionedArray[1].name .. " Heeft:",
 
             description = tostring(#WarnData) .. " Warnigns",
 
