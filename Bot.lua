@@ -1,4 +1,8 @@
 local Discordia = require("discordia")
+
+local Clock = Discordia.Clock()
+Clock:start()
+
 local Client = Discordia.Client()
 local MusicClient = Discordia.Client()
 local MilkClient = Discordia.Client()
@@ -67,10 +71,16 @@ Client:on("ready", function()
 				}
 			}
 		},
-		GlobalValues = {CurrentPinging = nil, Channels = {}, Milk = true}
+		GlobalValues = {CurrentPinging = nil, Channels = {}, Milk = true, HourWarnAmount = {}}
 		
 	
 	}
+
+
+
+	_G.Data = Data
+
+
 
 	for i, v in pairs(Shards) do
 			
@@ -90,6 +100,11 @@ Client:on("ready", function()
 	local emoji = Client:getGuild("657227821047087105").emojis:find(function(e) return e.name == 'plusbutton' end)
 
 	MSG:addReaction(emoji)]]
+
+end)
+
+Clock:on("hour", function()
+	_G.Data.GlobalValues.HourWarnAmount = {}
 
 end)
 

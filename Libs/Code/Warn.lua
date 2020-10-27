@@ -1,7 +1,7 @@
 return function(MSG, Channel, Member, Moderator, Reason, Data)
 
     local Base = require("./Save.lua"):GetDatabase("warnings")
-
+    
 
     if not MSG then 
         if not Channel then return end
@@ -29,7 +29,25 @@ return function(MSG, Channel, Member, Moderator, Reason, Data)
             MSG:update(ToSend)
         end
 
+        --print(-1)
+        local WarnAmount = _G.Data.GlobalValues.HourWarnAmount
+        --print(-2)
+        local NowAmount = WarnAmount[Member.id] or 0
+        --print(1)
 
+        WarnAmount[Member.id] = NowAmount + 1
+        --print(2)
+        print(WarnAmount[Member.id])
+        --print(3)
+
+        if WarnAmount[Member.id] == 5 then
+            WarnAmount[Member.id] = 0
+            MSG.channel:send({embed = {title = "Auto Mute", description = "Gebruiker heeft meer dan 5 warns in een uur behaald!"}})
+            MSG.channel.client:getGuild("657227821047087105"):getMember(Member.id):addRole("765149108985266217")
+            local Timer = require("timer")
+            Timer.sleep(60*60*1000)
+            MSG.channel.client:getGuild("657227821047087105"):getMember(Member.id):removeRole("765149108985266217")
+        end
 
         local ToSend = {
             content = "",
@@ -52,6 +70,8 @@ return function(MSG, Channel, Member, Moderator, Reason, Data)
                 color = 0xff7e00
             }
         }}
+
+        
 
         local OlderWarns = Base:GetAsync(Member.id) or {}
 

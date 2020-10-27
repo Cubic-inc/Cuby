@@ -12,19 +12,19 @@ return function(Data)
     local SubCommand = Data.Args[1]
     table.remove(Data.Args, 1)
 
-    print(SubCommand)
+    --print(SubCommand)
 
-    if SubCommand == "add" then
+    if SubCommand == "add" or SubCommand == nil then
         if Data.Args[1] then
             Reason = table.concat(Data.Args, " ")
         else
             Reason = nil
         end
 
-        if MentionedArray[1].id == Data.Author.id then
+        --[[if MentionedArray[1].id == Data.Author.id then
             Data.PreMSG:setContent("Je kan jezelf niet warnen!")
             return
-        end
+        end]]
 
         Data.ShardData.Libs.Code.Warn(Data.PreMSG, nil, MentionedArray[1], Data.Author, Reason, Data)
     elseif SubCommand == "list" then
