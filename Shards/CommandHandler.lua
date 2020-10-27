@@ -44,6 +44,7 @@ return function(Data)
             MSGData.Content = MSG.content
             MSGData.CleanContent = MSG.cleanContent
             MSGData.Member = MSG.member
+            MSGData.Channel = MSG.Channel
             MSGData.PreMSG = nil
             MSGData.Wait = Wait
             MSGData.TableToString = TableToString
