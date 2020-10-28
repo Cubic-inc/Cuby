@@ -5,7 +5,7 @@ return function(Data)
     local CurrentXp = DataBase:GetAsync(Data.Author.id) or 0
     local CurrentLevel = CalcLevel(CurrentXp)
 
-    Data.PreMSG:setContent(Data.Author.mentionString .. " jij bent level **" .. CurrentLevel .. "**!\nJe hebt ook " .. CurrentXp .. " XP!")
+    Data.PreMSG:setContent(Data.Author.mentionString .. " jij bent level **" .. CurrentLevel .. "**!\nen Je hebt " .. CurrentXp .. " XP!")
     
 
 end
