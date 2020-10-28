@@ -13,16 +13,16 @@ local Io = require("io")
 local Coro = require("coro-http")
 --local Spawn = require("coro-spawn")
 
-local Wait = require("./Libs/Code/Wait.lua")
-local TableToString = require("./Libs/Code/TableToString.lua")
-local Shards = require("./Shards/Shards.lua")
-local Commands = require("./Libs/Tables/Commands.lua")
-local WebHooks = require("./Libs/Tables/WebHooks.lua")
-local Status = require("./Libs/Tables/Status.lua")
-local PostWebhook = require("./Libs/Code/PostWebhook.lua")
-local CalcLevel = require("./Libs/Code/CalcLevel.lua")
-local ReplaceString = require("./Libs/Code/ReplaceString.lua")
-local Warn = require("./Libs/Code/Warn.lua")
+local Wait = require("Code/Wait")
+local TableToString = require("Code/TableToString")
+local Shards = require("./Shards/Shards")
+local Commands = require("Tables/Commands")
+local WebHooks = require("Tables/WebHooks")
+local Status = require("Tables/Status")
+local PostWebhook = require("Code/PostWebhook")
+local CalcLevel = require("Code/CalcLevel")
+local ReplaceString = require("Code/ReplaceString")
+local Warn = require("Code/Warn")
 
 
 local Token = require("./Tokens.lua").Client or os.getenv("TOKEN")
@@ -173,4 +173,12 @@ Lvl = CalcLevel(Xp)
 print(Lvl)]]
 
 --print(os.getenv("TOKEN"))
+
+local CommandHandler = require("Command"):Init(Client)
+local Command = CommandHandler.New()
+Command:SetName("Ping")
+local Arg = Command:NewArg()
+Arg:SetType("Member")
+Arg:SetReq(true)
+
 
