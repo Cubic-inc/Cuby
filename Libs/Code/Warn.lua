@@ -44,9 +44,11 @@ return function(MSG, Channel, Member, Moderator, Reason, Data)
             WarnAmount[Member.id] = 0
             MSG.channel:send({embed = {title = "Auto Mute", description = "Gebruiker heeft meer dan 5 warns in een uur behaald!"}})
             MSG.channel.client:getGuild("657227821047087105"):getMember(Member.id):addRole("765149108985266217")
-            local Timer = require("timer")
-            Timer.sleep(60*60*1000)
-            MSG.channel.client:getGuild("657227821047087105"):getMember(Member.id):removeRole("765149108985266217")
+            coroutine.wrap(function()
+                local Timer = require("timer")
+                Timer.sleep(15*60*1000)
+                MSG.channel.client:getGuild("657227821047087105"):getMember(Member.id):removeRole("765149108985266217")
+            end)()
         end
 
         local ToSend = {
