@@ -11,25 +11,28 @@ return function(Data)
     local Coro = require("coro-http")
     local Json = require("json")
     local LoggerLink = WebHooks.Logger
+    --print(1)
 
 	local Amount = 1
 
     coroutine.wrap(function()
 	    while true do Wait(2000)
 	   --print(true)
-	        if Data.CurrentPinging then
-	   	        coroutine.wrap(function()
+	        --if Data.CurrentPinging then
+                   coroutine.wrap(function()
+                    --print(12)
            	        local Data = {content = Client:getUser(Data.GlobalValues.CurrentPinging).mentionString}
-			        
+                       --print(13)
            	
 			        for i, v in pairs(WebHooks.Pingers) do
-            		
-            	        PostWebhook(Data, v)
+                        --print(14)
+                        PostWebhook(Data, v)
+                        
 		
 	    		    end
 			
                 end)()
-            end
+            --end
         end
     end)()
 
