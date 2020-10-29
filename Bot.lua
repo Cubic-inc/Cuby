@@ -3,7 +3,7 @@ local Discordia = require("discordia")
 local Clock = Discordia.Clock()
 Clock:start()
 
-local Client = Discordia.Client()
+local Client = Discordia.Client({cacheAllMembers = true})
 local MusicClient = Discordia.Client()
 local MilkClient = Discordia.Client()
 
@@ -174,12 +174,16 @@ print(Lvl)]]
 
 --print(os.getenv("TOKEN"))
 
---[[
+--
 local CommandHandler = require("Command"):Init(Client)
 local Command = CommandHandler.New()
 Command:SetName("Ping")
+Command:SetFunction(function(MSG)
+	MSG:reply("Pong!")
+end)
+
 local Arg = Command:NewArg()
 Arg:SetType("Member")
-Arg:SetReq(true)]]
+Arg:SetReq(true)
 
 

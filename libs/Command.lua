@@ -3,7 +3,7 @@ local Commands = {}
 
 function New(Client)
 
-    local Info = {Prefix = "!"}
+    local Info = {Prefix = "!", Args = {}}
     local NewCommand = {Info}
 
     Client:on("messageCreate", function(MSG)
@@ -21,16 +21,46 @@ function New(Client)
             print(C)
         end
 
-        for i, v in pairs(Args) do
-            
-        end
-
+        print(11)
         print(Args[1])
 
-        if Args[1] ~= Info.Name then --[[print("Command not found")]] return end
+        
+
+        if Args[1] ~= Info.Name then print("Command not found") return end
+
+        table.remove(Args, 1)
+
+        for i, v in pairs(Info.Args) do
+            print(i)
+            --print("arg")
+
+            if Args[i] then
+
+                if v.Type == "Member" then
+                    local Found = MSG.guild.members:find(function(Member)
+                        return Member.name == Args[i]
+                    end)
+
+                    if Found == nil then
+                        MSG:reply("An error occured while parsing argument **`" .. v.Name .. "`**")
+                        return
+                    end
+                end
+
+            else
+                if v.Req == true then
+                    MSG:reply("Argument **`" .. v.Name .. "`** Is required!")
+                    return
+                else
+                    print(v.Req)
+                end
+            end
+
+            print("arg", Args[i])
+        end
 
         if Info.Function then
-            Info.Function()
+            Info.Function(MSG, Args)
         else
             MSG:reply("An internal command error occured: `Command function not found`")
         end
@@ -50,7 +80,7 @@ function New(Client)
 
     function NewCommand:SetFunction(Function)
         Info.Function = Function
-        print("Function set: " .. Function)
+        print("Function set: " .. tostring(Function))
     end
 
     function NewCommand:SetAliases(TableAliases)
@@ -72,7 +102,7 @@ function New(Client)
     end
 
     function NewCommand:NewArg()
-        local Argument = {Type = "String", Req = false}
+        local Argument = {Type = "String", Req = false, Name = "Unknown"}
         local Arg = {}
 
         function Arg:SetType(StringType)
@@ -87,6 +117,9 @@ function New(Client)
             Argument.Name = Name
         end
 
+        table.insert(Info.Args, #Info.Args + 1, Argument)
+
+        print("New Arg made")
 
         return Arg
     end
