@@ -56,7 +56,7 @@ Client:on("ready", function()
 				PostWebhook = PostWebhook,
 				CalcLevel = CalcLevel,
 				ReplaceString = ReplaceString,
-				Save = require("./Libs/Code/Save.lua"),
+				Save = require("Code/Save"),
 				Warn = Warn
 			},
 			Tables = {
