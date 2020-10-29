@@ -18,7 +18,7 @@ return function(Data)
     coroutine.wrap(function()
 	    while true do Wait(2000)
 	   --print(true)
-	        --if Data.CurrentPinging then
+	        if Data.CurrentPinging then
                    coroutine.wrap(function()
                     --print(12)
            	        local Data = {content = Client:getUser(Data.GlobalValues.CurrentPinging).mentionString}
@@ -32,7 +32,7 @@ return function(Data)
 	    		    end
 			
                 end)()
-            --end
+            end
         end
     end)()
 
