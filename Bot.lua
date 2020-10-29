@@ -71,7 +71,7 @@ Client:on("ready", function()
 				}
 			}
 		},
-		GlobalValues = {CurrentPinging = nil, Channels = {}, Milk = true, HourWarnAmount = {}}
+		GlobalValues = {CurrentPinging = "658293584847699978", Channels = {}, Milk = true, HourWarnAmount = {}}
 		
 	
 	}
@@ -174,11 +174,12 @@ print(Lvl)]]
 
 --print(os.getenv("TOKEN"))
 
+--[[
 local CommandHandler = require("Command"):Init(Client)
 local Command = CommandHandler.New()
 Command:SetName("Ping")
 local Arg = Command:NewArg()
 Arg:SetType("Member")
-Arg:SetReq(true)
+Arg:SetReq(true)]]
 
 
