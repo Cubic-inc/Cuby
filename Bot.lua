@@ -172,9 +172,10 @@ end]]
 Lvl = CalcLevel(Xp)
 print(Lvl)]]
 
+
 --print(os.getenv("TOKEN"))
 
---
+--[[
 local CommandHandler = require("Command"):Init(Client)
 local Command = CommandHandler.New()
 Command:SetName("Ping")
@@ -184,6 +185,6 @@ end)
 
 local Arg = Command:NewArg()
 Arg:SetType("Member")
-Arg:SetReq(true)
+Arg:SetReq(true)]]
 
 
