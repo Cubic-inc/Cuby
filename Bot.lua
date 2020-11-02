@@ -16,7 +16,7 @@ local Coro = require("coro-http")
 local Wait = require("Code/Wait")
 local TableToString = require("Code/TableToString")
 local Shards = require("./Shards/Shards")
-local Commands = require("Tables/Commands")
+--local Commands = require("Tables/Commands")
 local WebHooks = require("Tables/WebHooks")
 local Status = require("Tables/Status")
 local PostWebhook = require("Code/PostWebhook")
@@ -42,8 +42,12 @@ Client:on("ready", function()
 	if IsReady == true then return end
 	IsReady = true
 
+	local CommandHandler = require("Command"):Init(Client)
+
 	
 	local Data = {
+
+		CommandHandler = CommandHandler,
 		
 		Client = Client,
 		MusicClient = MusicClient,
@@ -76,11 +80,7 @@ Client:on("ready", function()
 	
 	}
 
-
-
 	_G.Data = Data
-
-
 
 	for i, v in pairs(Shards) do
 			
@@ -89,102 +89,48 @@ Client:on("ready", function()
 		print("Runner " .. v.Name .. " ready!")
 	end
 
-		--[[
-	local Channel = Client:getChannel("769510813588914186")
+	local PingCommand = CommandHandler.New()
 
-	local MSG = Channel:send({content = "", embed = {
-		title = "**Amongo!**",
-		description = "Reageer met <:plusbutton:685867382144893013> om mee te doen met amongo"
-	}})
+	PingCommand:SetName("ping")
+	
+	PingCommand:SetFunction(function(MSG) MSG:reply("Pong! <:hotcomputer:685867382073196712>") end)
 
-	local emoji = Client:getGuild("657227821047087105").emojis:find(function(e) return e.name == 'plusbutton' end)
+	local InfoCommand = CommandHandler.New()
+	InfoCommand:SetName("info")
+	
+	InfoCommand:SetFunction(function(MSG)
+		MSG:reply({content = "⠀", embed = {
+			title = "Bot info",
+			author = {name = "Cuby", icon_url = Client.user.avatarURL},
+			fields = {
+				{name = "Version", value = "Unknown!", inline = true},
+				{name = "Uptime", value = "N/A", inline = true},
+				{name = "Creator", value = "<@533536581055938580>", inline = true},
+	
+			}
+		}})
+	end)
 
-	MSG:addReaction(emoji)]]
+	local CoolCommand = CommandHandler.New()
+	CoolCommand:SetName("cool")
+	
+	CoolCommand:SetFunction(function(MSG)
+		MSG:reply("Jij bent " .. math.random(0, 100) .. "% Cool :ice_cube: " .. Data.Author.mentionString)
+	end)
 
 end)
 
 Clock:on("hour", function()
 	_G.Data.GlobalValues.HourWarnAmount = {}
-
 end)
 
 
-
-
---[[
-coroutine.wrap(function()
-	local Data = {content = "test"}
-	local res, body = Coro.request("POST", WebHooks.Logger, {{"Content-Type", "application/json"}}, Json.stringify(Data))
-
-end)()
---]]
 
 Client:run("Bot " .. Token)
 Client:setGame({name = "deze discord", type = 2})
 
---MusicClient:run("Bot " .. MusicToken)
---MusicClient:setGame({name = "Muziek", type = 0})
-
 MilkClient:run("Bot " .. MilkToken)
 MilkClient:setGame({name = "!bier", type = 2})
 
-
-local port = process.env["PORT"] or 3000
---print(port)
-
---[[
-http.createServer(function(req, res)
-	local body = ""
-	res:setHeader("Content-Type", "text/html")
-	res:setHeader("Content-Length", #body)
-	res:finish(body)
-end):listen(port)]]
-
---[[
-coroutine.wrap(function()
-local Save = require("./Libs/Code/Save.lua")
-local DataBase = Save:GetDatabase("Levels")
-print("line 114", DataBase:PostAsync("bonk", {}))
-end)()]]
-
---print(require("./Libs/Code/Save").GetData("Levels", "test"))
-
---https://script.google.com/macros/s/AKfycbyxt-m0JKxrvY2dxm4LdTLK_5wvv_Xusdb9WQ0qRhZKU4Tk4kkA/exec
-
---[[
-print(ReplaceString("Hallo {name} en welkom bij {comp}", {
-	["name"] = "thimen",
-	["comp"] = "cubic",
-}))]]
---[[
-local Count = 100
-local Xp = 300
-
---[[
-local LevelTable = {}
-
-for i = 0, 10, 1 do
-	LevelTable[i] = i * Count + ((i - 1) * Count)
-	print("Level " .. i .. "\nXp " .. LevelTable[i])
-end]]
-
---[[
-Lvl = CalcLevel(Xp)
-print(Lvl)]]
-
-
---print(os.getenv("TOKEN"))
-
---[[
-local CommandHandler = require("Command"):Init(Client)
-local Command = CommandHandler.New()
-Command:SetName("Ping")
-Command:SetFunction(function(MSG)
-	MSG:reply("Pong!")
-end)
-
-local Arg = Command:NewArg()
-Arg:SetType("Member")
-Arg:SetReq(true)]]
 
 

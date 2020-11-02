@@ -1,4 +1,10 @@
-return function(Data)
+return function()
+
+end
+
+--[[
+    
+return function(MSG, Args, Raw)
     local MentionedArray = Data.OrgMSG.mentionedUsers:toArray()
 
     if not MentionedArray[1] then
@@ -114,4 +120,4 @@ return function(Data)
     end
 
    
-end
+end]]

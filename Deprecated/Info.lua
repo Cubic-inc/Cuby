@@ -1,10 +1,12 @@
-return function(Data)
+return function(MSG, Args, Raw)
 
-    Data.PreMSG:update({content = "⠀", embed = {
+
+
+    MSG:reply({content = "⠀", embed = {
 
         title = "Bot info",
 
-        author = {name = "Cuby", icon_url = Data.ShardData.Client.user.avatarURL},
+        author = {name = "Cuby", icon_url = _G.Data.Client.user.avatarURL},
 
         fields = {
             {name = "Version", value = "Unknown!", inline = true},

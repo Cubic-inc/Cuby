@@ -1,23 +1,8 @@
 local Shards = {
 
     {
-        Name = "CommandHandler",
-        Function  = require("./CommandHandler.lua")
-    },
-
-    {
-        Name = "ErrorCatch",
-        Function = require("./ErrorCatch.lua")
-    },
-
-    {
         Name = "Logger",
         Function  = require("./VoiceLogger.lua")
-    },
-
-    {
-        Name = "Pinger",
-        Function  = require("./Pinger.lua")
     },
 
     {
@@ -37,12 +22,7 @@ local Shards = {
 
     {
         Name = "AutoMod",
-        Function  = require("./Levels.lua")
-    },
-
-    {
-        Name = "ConsoleCommands",
-        Function  = require("./ConsoleCommands.lua")
+        Function  = require("./AutoMod.lua")
     },
 
     {

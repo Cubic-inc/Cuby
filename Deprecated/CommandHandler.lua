@@ -8,8 +8,33 @@ return function(Data)
     local WebHooks = Data.Libs.Tables.WebHooks
     local String = string
     local Table = table
+    local CommandHandler = Data.CommandHandler
     --Client:getChannel("685066367526895658"):broadcastTyping()
 
+    for i, v in pairs(Commands) do
+        local Command = CommandHandler.New()
+
+        Command:SetName(v.Name)
+        Command:SetDesc(v.Desc)
+        Command:SetAliases(v.Aliases)
+        Command:SetFunction(v.Function)
+
+        if v.Perms.User == true then
+            Command:SetMinPerm("User")
+        elseif v.Perms.Moderator == true then
+            Command:SetMinPerm("Mod")
+        elseif v.Perms.Admin == true then
+            Command:SetMinPerm("Admin")
+        elseif v.Perms.Owner == true then
+            Command:SetMinPerm("Owner")
+        end 
+
+
+        --print("done")
+    end
+    
+
+    --[[
     Client:on("messageCreate", function(MSG)
         local Text = string.lower(MSG.content)
         local Channel = MSG.channel
@@ -161,4 +186,7 @@ return function(Data)
             --print("error while handling command")
         end
     end)
+]]
+
 end
+

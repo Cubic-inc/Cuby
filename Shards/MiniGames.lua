@@ -24,9 +24,9 @@ return function(Data)
         Amongo = Reactions.Amongo.count
     }
 
-    print(Messages.Amongo.reactions:toArray()[1].count)
+    --print(Messages.Amongo.reactions:toArray()[1].count)
     for i, v in pairs(Messages.Amongo.reactions:toArray()) do
-        print(v)
+        --print(v)
     end
 
     Client:on("reactionAdd", function(Reaction, UserId)

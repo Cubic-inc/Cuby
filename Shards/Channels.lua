@@ -57,4 +57,36 @@ return function(Data)
 
 		v:delete()		
 	end
+
+	local Handler = Data.CommandHandler
+
+	local LockCommand = Handler.New()
+
+	LockCommand:SetName("lockchannel")
+
+	LockCommand:SetFunction(function(MSG, Args, Raw)
+		local Data = _G.Data
+
+        if Data.GlobalValues.Channels[MSG.author.id] then
+            Data.GlobalValues.Channels[MSG.author.id].Locked = true
+            MSG:reply("Je channel is nu **GELOCKED** (Gebruik !unlockchannel om ongedaan te maken)")
+        else
+            MSG:reply("Je hebt op het moment geen kanaal")
+        end
+	end)
+	
+	local UnLockCommand = Handler.New()
+
+	UnLockCommand:SetName("unlockchannel")
+
+	UnLockCommand:SetFunction(function(MSG)
+		local Data = _G.Data
+
+        if Data.GlobalValues.Channels[MSG.author.id] then
+            Data.GlobalValues.Channels[MSG.author.id].Locked = false
+            MSG:reply("Je channel is nu **GEUNLOCKED** (Gebruik !lockchannel om ongedaan te maken)")
+        else
+            MSG:reply("Je hebt op het moment geen kanaal")
+        end
+    end)
 end
