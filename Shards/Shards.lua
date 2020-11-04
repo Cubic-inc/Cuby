@@ -6,8 +6,8 @@ local Shards = {
     },
 
     {
-        Name = "Status",
-        Function  = require("./Status.lua")
+        Name = "Commands",
+        Function  = require("./Commands.lua")
     },
 
     {
