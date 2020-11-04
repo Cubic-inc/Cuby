@@ -3,7 +3,7 @@ local Discordia = require("discordia")
 local Clock = Discordia.Clock()
 Clock:start()
 
-local Client = Discordia.Client({cacheAllMembers = true})
+local Client = Discordia.Client({cacheAllMembers = false})
 local MusicClient = Discordia.Client()
 local MilkClient = Discordia.Client()
 
@@ -89,34 +89,7 @@ Client:on("ready", function()
 		print("Runner " .. v.Name .. " ready!")
 	end
 
-	local PingCommand = CommandHandler.New()
-
-	PingCommand:SetName("ping")
 	
-	PingCommand:SetFunction(function(MSG) MSG:reply("Pong! <:hotcomputer:685867382073196712>") end)
-
-	local InfoCommand = CommandHandler.New()
-	InfoCommand:SetName("info")
-	
-	InfoCommand:SetFunction(function(MSG)
-		MSG:reply({content = "⠀", embed = {
-			title = "Bot info",
-			author = {name = "Cuby", icon_url = Client.user.avatarURL},
-			fields = {
-				{name = "Version", value = "Unknown!", inline = true},
-				{name = "Uptime", value = "N/A", inline = true},
-				{name = "Creator", value = "<@533536581055938580>", inline = true},
-	
-			}
-		}})
-	end)
-
-	local CoolCommand = CommandHandler.New()
-	CoolCommand:SetName("cool")
-	
-	CoolCommand:SetFunction(function(MSG)
-		MSG:reply("Jij bent " .. math.random(0, 100) .. "% Cool :ice_cube: " .. Data.Author.mentionString)
-	end)
 
 end)
 
@@ -127,10 +100,10 @@ end)
 
 
 Client:run("Bot " .. Token)
-Client:setGame({name = "deze discord", type = 2})
+Client:setGame({name = "say woof again", type = 0})
 
 MilkClient:run("Bot " .. MilkToken)
-MilkClient:setGame({name = "!bier", type = 2})
+MilkClient:setGame({name = "beerbot.ga", type = 3})
 
 
 
