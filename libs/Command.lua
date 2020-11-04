@@ -63,7 +63,7 @@ function New(Client)
         end
 
         if Info.Perm == "Mod" then
-            if MSG.member:hasRole(GuildRoles[tonumber(MSG.guild.id)].Admin) then
+            if MSG.member:hasRole(GuildRoles[tonumber(MSG.guild.id)].Mod) then
 
             else
                 MSG:reply("<:__:667069785913163786> Alleen **__MODERATORS__** of hoger kunnen dit commando gebruiken!")
