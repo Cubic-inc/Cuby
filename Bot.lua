@@ -7,6 +7,8 @@ local Client = Discordia.Client({cacheAllMembers = false})
 local MusicClient = Discordia.Client()
 local MilkClient = Discordia.Client()
 
+_G.Client = Client
+
 local http = require("http")
 local Json = require("json")
 local Io = require("io")
@@ -97,13 +99,17 @@ Clock:on("hour", function()
 	_G.Data.GlobalValues.HourWarnAmount = {}
 end)
 
+coroutine.wrap(function()
+
+	local InfoBase = require("Code/Save"):GetDatabase("botinfo")
+	local Status = InfoBase:GetAsync("Status")
+
+	Client:run("Bot " .. Token)
+	Client:setGame({name = Status, type = 0})
+
+	MilkClient:run("Bot " .. MilkToken)
+	MilkClient:setGame({name = "beerbot.ga", type = 3})
 
 
-Client:run("Bot " .. Token)
-Client:setGame({name = "say woof again", type = 0})
 
-MilkClient:run("Bot " .. MilkToken)
-MilkClient:setGame({name = "beerbot.ga", type = 3})
-
-
-
+end)()

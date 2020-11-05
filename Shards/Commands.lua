@@ -8,6 +8,19 @@ return function(Data)
     SayAsCommand:SetFunction(function(MSG, Args, Raw)
         MSG:reply("" .. table.concat(Raw, " "))
         MSG:delete()
+	end)
+	
+	local SetStatus = Handler.New()
+    SetStatus:SetName("setstatus")
+    SetStatus:SetMinPerm("Owner")
+	SetStatus:SetFunction(function(MSG, Args, Raw)
+		
+		_G.Client:setGame({name = "" .. table.concat(Raw, " "), type = 0})
+
+		local Base = require("Code/Save"):GetDatabase("botinfo")
+		Base:PostAsync("Status", "" .. table.concat(Raw, " "))
+		
+        MSG:delete()
     end)
 
     local PingCommand = Handler.New()
