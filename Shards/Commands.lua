@@ -32,7 +32,7 @@ return function(Data)
 	local CoolCommand = Handler.New()
 	CoolCommand:SetName("cool")
 	CoolCommand:SetFunction(function(MSG)
-		MSG:reply("Jij bent " .. math.random(0, 100) .. "% Cool :ice_cube: " .. Data.Author.mentionString)
+		MSG:reply("Jij bent " .. math.random(0, 100) .. "% Cool :ice_cube: " .. MSG.author.mentionString)
     end) 
     
 
