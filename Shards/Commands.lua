@@ -112,6 +112,6 @@ return function(Data)
 		MSG:reply("Jij bent " .. math.random(0, 100) .. "% Cool :ice_cube: " .. MSG.author.mentionString)
     end) 
     
-	require("Code/StickyCommands")(Data)
+	--require("Code/StickyCommands")(Data)
 
 end
