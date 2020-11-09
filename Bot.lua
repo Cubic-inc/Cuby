@@ -108,7 +108,7 @@ coroutine.wrap(function()
 	Client:setGame({name = Status, type = 0})
 
 	MilkClient:run("Bot " .. MilkToken)
-	MilkClient:setGame({name = "beerbot.ga", type = 3})
+	MilkClient:setGame({name = "beerbot.ga", url = "https://www.youtube.com/watch?v=8gfLHpfjgDQ", type = 1})
 
 
 
