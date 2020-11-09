@@ -9,6 +9,70 @@ return function(Data)
         MSG:reply("" .. table.concat(Raw, " "))
         MSG:delete()
 	end)
+
+	local MisfortuneCommand = Handler.New()
+    MisfortuneCommand:SetName("Misfortune")
+	MisfortuneCommand:SetMinPerm("Owner")
+
+	local MisMemberArg = MisfortuneCommand:NewArg()
+	MisMemberArg:SetName("Member mension")
+	MisMemberArg:SetType("Member")
+	MisMemberArg:SetReq(true)
+
+    MisfortuneCommand:SetFunction(function(MSG, Args, Raw)
+		
+		local BaseLink = "https://sparkcommunity.eu/media/misfortune/"
+
+		local What = math.random(0, 8)
+		local Time = math.random(0, 10)
+
+		local WhatMeanings = {
+
+			[0] = "Vertrouwd",
+			[1] = "Niks",
+			[2] = "Ongeluk",
+			[3] = "Niks",
+			[4] = "Ongeluk",
+			[5] = "Niks",
+			[6] = "Ongeluk",
+			[7] = "Niks",
+			[8] = "Ongeluk",
+
+		}
+
+		local PngLink = BaseLink .. What .. ".png"
+		local GifLink = BaseLink .. What .. ".gif"
+
+		local Embed = {
+
+			title = "Het grote ongeluks rad",
+			description = "Aan het draaien voor: " .. Args[1].user.tag,
+			image = {url = GifLink},
+			thumbnail = {url = Args[1].user.avatarURL},
+
+		}
+
+		local Reply = MSG:reply({embed = Embed})
+
+		require("Timer").sleep(11000)
+
+		Embed.image.url = PngLink
+		Embed.description = Args[1].user.tag .. " heeft " .. WhatMeanings[What] .. " gewonnen!"
+
+		Reply:update({embed = Embed})
+
+		require("Timer").sleep(3000)
+		MSG:reply("Gefeliciteerd " .. Args[1].user.mentionString .. " je hebt " .. Time .. " Minuten lang " .. WhatMeanings[What] .. " Gewonnen!")
+
+		if WhatMeanings[What] == "Ongeluk" then
+			Args[1]:addRole("765149108985266217")
+			require("Timer").sleep(Time * 60 * 1000)
+			Args[1]:removeRole("765149108985266217")
+		elseif WhatMeanings[What] == "Vertrouwd" then
+
+		end
+
+	end)
 	
 	local SetStatus = Handler.New()
     SetStatus:SetName("setstatus")
@@ -48,6 +112,6 @@ return function(Data)
 		MSG:reply("Jij bent " .. math.random(0, 100) .. "% Cool :ice_cube: " .. MSG.author.mentionString)
     end) 
     
-
+	require("Code/StickyCommands")(Data)
 
 end
