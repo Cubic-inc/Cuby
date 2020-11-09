@@ -23,6 +23,7 @@ return function(Data)
         
         if Blacklist[Channel.id] then return end
         if Member.user.bot == true then return end
+        if not Channel then return end
 		
         local ToSend = {
             content = "",
@@ -56,6 +57,7 @@ return function(Data)
         
         if Blacklist[Channel.id] then return end
         if Member.user.bot == true then return end
+        if not Channel then return end
 		
         local ToSend = {
             content = "",
@@ -84,10 +86,10 @@ return function(Data)
     end)
 
     Client:on("messageDelete", function(Message)
-        
-        --print("Leave")
-        
+
+        if not Message then return end
         if Message.author.bot == true then return end
+        
 
         local ToSend = {
             content = "",
