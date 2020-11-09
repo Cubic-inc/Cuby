@@ -282,7 +282,7 @@ return function(Data)
     local MuteCommand = Handler.New()
 
     MuteCommand:SetName("mute")
-    MuteCommand:SetMinPerm("User")
+    MuteCommand:SetMinPerm("Mod")
     
     local MemberArg = MuteCommand:NewArg()
 
@@ -312,7 +312,7 @@ return function(Data)
     local LevelCommand = Handler.New()
 
     LevelCommand:SetName("level")
-    LevelCommand:SetMinPerm("Mod")
+    LevelCommand:SetMinPerm("User")
     
     LevelCommand:SetFunction(function(MSG, Args, Raw)
 
