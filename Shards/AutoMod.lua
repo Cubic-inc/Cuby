@@ -269,13 +269,13 @@ return function(Data)
             description = "**" .. Args[1].tag .. "** zijn warns zijn weg gehaald",
         }
 
-        print("clear")
+        --print("clear")
         
         MSG:reply({content = "", embed = Embed})
-        print(Base:PostAsync(Args[1].id, nil))
+        --print(Base:PostAsync(Args[1].id, nil))
 
-        print("tstets")
-        print("done")
+        --print("tstets")
+        --print("done")
     
     end)
 
