@@ -64,7 +64,7 @@ return function(Data)
 		Reply:update({embed = Embed})
 
 		require("Timer").sleep(3000)
-		MSG:reply("Gefeliciteerd " .. Args[1].user.mentionString .. " je hebt " .. Time .. " Minuten lang " .. WhatMeanings[What] .. " Gewonnen!")
+		MSG:reply("<a:misfortune:775672372653064204> Gefeliciteerd " .. Args[1].user.mentionString .. " je hebt " .. Time .. " Minuten lang " .. WhatMeanings[What] .. " Gewonnen!")
 
 		if WhatMeanings[What] == "Ongeluk" then
 			Args[1]:addRole("765149108985266217")

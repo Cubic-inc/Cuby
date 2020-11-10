@@ -93,6 +93,9 @@ Client:on("ready", function()
 
 	
 
+	local emoji = Client:getGuild("657227821047087105").emojis:find(function(e) return e.name == 'misfortune' end)
+	print(emoji.hash)
+
 end)
 
 Clock:on("hour", function()
