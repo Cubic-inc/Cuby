@@ -22,7 +22,7 @@ return {
                 grant_type = 'authorization_code',
                 client_id = Tokens.PARTNERAPPKEY or os.getenv("PARTNERAPPKEY"),
                 client_secret = Tokens.PARTNERAPPSECRET or os.getenv("PARTNERAPPSECRET"),
-                redirect_uri = "http://localhost:3000/discord/partnerhook/" .. Lang .. "/done",
+                redirect_uri = "http://cubic.redirectme.net/discord/partnerhook/" .. Lang .. "/done",
                 code = Code,
                 scope = "webhook.incoming"
             }
@@ -76,7 +76,7 @@ return {
           local Parms = {
     
             client_id = Tokens.PARTNERAPPKEY or os.getenv("PARTNERAPPKEY"),
-            redirect_uri= "http://localhost:3000/discord/partnerhook/" .. Lang .. "/done",
+            redirect_uri= "http://cubic.redirectme.net/discord/partnerhook/" .. Lang .. "/done",
             response_type = "code",
             scope = "webhook.incoming",
             
