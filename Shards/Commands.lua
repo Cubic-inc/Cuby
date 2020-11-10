@@ -102,9 +102,9 @@ return function(Data)
 	PingCommand:SetFunction(function(MSG) MSG:reply("Pong! <:hotcomputer:685867382073196712>") end)
 	
 	
-    local PingCommand = Handler.New()
-	PingCommand:SetName("steel-noodle")
-	PingCommand:SetFunction(function(MSG) MSG:reply("Noedel gestolen! Stik in huigen Tije") end)
+    local SteelNoodleCommand = Handler.New()
+	SteelNoodleCommand:SetName("steel-noodle")
+	SteelNoodleCommand:SetFunction(function(MSG) MSG:reply("Noedel gestolen! Stik in huigen Tije") end)
 	
 
 	local InfoCommand = Handler.New()
