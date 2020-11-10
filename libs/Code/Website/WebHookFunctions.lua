@@ -77,11 +77,17 @@ return {
           local Parms = {
     
             client_id = Tokens.PARTNERAPPKEY or os.getenv("PARTNERAPPKEY"),
-            redirect_uri = "https%3A%2F%2Fcubic.redirectme.net%2Fdiscord%2Fpartnerhook%2F" .. Lang .. "%2Fdone",
+            redirect_uri = "https://cubic.redirectme.net/discord/partnerhook/" .. Lang .. "/done",
             response_type = "code",
             scope = "webhook.incoming"
 
           }
+
+          if Lang == "en" then
+            Parms.redirect_uri = "https://cubic.redirectme.net/discord/partnerhook/en/done"
+          elseif Lang == "nl" then
+            Parms.redirect_uri = "https://cubic.redirectme.net/discord/partnerhook/nl/done"
+          end
 
           print(Parms.redirect_uri)
     
