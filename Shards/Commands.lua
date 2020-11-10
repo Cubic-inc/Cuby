@@ -24,7 +24,7 @@ return function(Data)
 		local BaseLink = "https://sparkcommunity.eu/media/misfortune/"
 
 		local What = math.random(0, 8)
-		local Time = math.random(0, 10)
+		local Time = math.random(5, 15)
 
 		local WhatMeanings = {
 
