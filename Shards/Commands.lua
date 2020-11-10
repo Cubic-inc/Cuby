@@ -40,6 +40,8 @@ return function(Data)
 
 		}
 
+		--775668328035254282
+
 		local PngLink = BaseLink .. What .. ".png"
 		local GifLink = BaseLink .. What .. ".gif"
 
@@ -69,7 +71,9 @@ return function(Data)
 			require("Timer").sleep(Time * 60 * 1000)
 			Args[1]:removeRole("765149108985266217")
 		elseif WhatMeanings[What] == "Vertrouwd" then
-
+			Args[1]:addRole("775668328035254282")
+			require("Timer").sleep(Time * 60 * 1000)
+			Args[1]:removeRole("775668328035254282")
 		end
 
 	end)
