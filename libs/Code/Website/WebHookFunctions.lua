@@ -77,7 +77,7 @@ return {
           local Parms = {
     
             client_id = Tokens.PARTNERAPPKEY or os.getenv("PARTNERAPPKEY"),
-            redirect_uri = Query.urlencode("https://cubic.redirectme.net/discord/partnerhook/" .. Lang .. "/done"),
+            redirect_uri = "http://cubic.redirectme.net/discord/partnerhook/" .. Lang .. "/done",
             response_type = "code",
             scope = "webhook.incoming"
 
