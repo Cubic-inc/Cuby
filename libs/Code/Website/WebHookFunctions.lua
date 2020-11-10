@@ -83,7 +83,7 @@ return {
 
           }
 
-          print(Params.redirect_uri)
+          print(Parms.redirect_uri)
     
           res.body = "<!DOCTYPE html>\n<html>\n<head>\n<meta http-equiv=\"refresh\" content=\"0; url=\'" .. Url .. Encode(Parms) .. "\'\" />\n</head>\n</html>"
     
