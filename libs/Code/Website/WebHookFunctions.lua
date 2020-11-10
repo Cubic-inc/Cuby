@@ -67,7 +67,7 @@ return {
       Start = function (req, res)
         local Encode = require("querystring").stringify
         local Url = "https://discord.com/api/oauth2/authorize?"
-		local Tokens = require("././Tokens")
+		    local Tokens = require("././Tokens")
     
         local Lang = req.params.lang
     
@@ -76,11 +76,10 @@ return {
           local Parms = {
     
             client_id = Tokens.PARTNERAPPKEY or os.getenv("PARTNERAPPKEY"),
-            redirect_uri= "http://cubic.redirectme.net/discord/partnerhook/" .. Lang .. "/done",
+            redirect_uri = "http://cubic.redirectme.net/discord/partnerhook/" .. Lang .. "/done",
             response_type = "code",
-            scope = "webhook.incoming",
-            
-    
+            scope = "webhook.incoming"
+
           }
     
           res.body = "<!DOCTYPE html>\n<html>\n<head>\n<meta http-equiv=\"refresh\" content=\"0; url=\'" .. Url .. Encode(Parms) .. "\'\" />\n</head>\n</html>"
