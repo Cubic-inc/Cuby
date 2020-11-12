@@ -68,7 +68,7 @@ return function(Data)
 		if WhatMeanings[What] == "Nothing" then
 			MSG:reply("<a:misfortune:775672372653064204> Congrats " .. Args[1].user.mentionString .. " You have won nothing!")
 		elseif WhatMeanings[What] == "Misfortune" then
-			MSG:reply("<a:misfortune:775672372653064204> Congrats " .. Args[1].user.mentionString .. " you have won" .. Time .. " Minutes of Misfortune !")
+			MSG:reply("<a:misfortune:775672372653064204> Congrats " .. Args[1].user.mentionString .. " you have won " .. Time .. " Minutes of Misfortune !")
 		elseif WhatMeanings[What] == "Trusted" then
 			MSG:reply("<a:misfortune:775672372653064204> Congrats " .. Args[1].user.mentionString .. " you are now trusted for " .. Time .. " Minutes!")
 		end
