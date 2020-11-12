@@ -72,11 +72,11 @@ return function(Data)
 		elseif WhatMeanings[What] == "Trusted" then
 			MSG:reply("<a:misfortune:775672372653064204> Congrats " .. Args[1].user.mentionString .. " you are now trusted for " .. Time .. " Minutes!")
 		end
-		if WhatMeanings[What] == "Ongeluk" then
+		if WhatMeanings[What] == "Misfortune" then
 			Args[1]:addRole("765149108985266217")
 			require("Timer").sleep(Time * 60 * 1000)
 			Args[1]:removeRole("765149108985266217")
-		elseif WhatMeanings[What] == "Vertrouwd" then
+		elseif WhatMeanings[What] == "Trusted" then
 			Args[1]:addRole("775668328035254282")
 			require("Timer").sleep(Time * 60 * 1000)
 			Args[1]:removeRole("775668328035254282")
