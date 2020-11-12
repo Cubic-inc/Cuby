@@ -33,7 +33,7 @@ return function(Data)
             --print(MSG.author.name)
 
             if NewLevel ~= CurrentLevel then
-                MSG.channel:send("Well done " .. MSG.author.mentionString .. " you are now level**" .. NewLevel .. "**!")
+                MSG.channel:send("Well done " .. MSG.author.mentionString .. " you are now level **" .. NewLevel .. "**!")
             end
             --print("good")
         else
