@@ -33,7 +33,7 @@ return function(Data)
             --print(MSG.author.name)
 
             if NewLevel ~= CurrentLevel then
-                MSG.channel:send("Goed gedaan " .. MSG.author.mentionString .. " je bent nu level **" .. NewLevel .. "**!")
+                MSG.channel:send("Well done " .. MSG.author.mentionString .. " you are now **" .. NewLevel .. "**!")
             end
             --print("good")
         else
@@ -46,7 +46,7 @@ return function(Data)
     
 
     Data.Client:on("messageCreate", function(MSG)
-        if MSG.channel.id == "685066367526895658" or MSG.channel.id == "759717939631882280" or MSG.channel.id == "758701430642311188" then --[[print("Channel ignored")]] return end
+        if MSG.channel.id == "685066367526895658" or MSG.channel.id == "759717939631882280" or MSG.channel.id == "758701430642311188" or MSG.channel.id == "775694351141175306" then --[[print("Channel ignored")]] return end
         if MSG.author.bot then --[[print("no bot users")]] return end
 
         Data.Libs.Code.Wait(200)
@@ -154,7 +154,7 @@ return function(Data)
         local WarnFunction = require("Code/Warn")
 
         if Args[1].id == MSG.author.id then
-            MSG:reply("Je kan jezelf niet warnen!\nYou idot <:barf:772444449007206440>")
+            MSG:reply("You cant warn yourself!\nYou idot <:barf:772444449007206440>")
             return
         end
 
@@ -211,7 +211,7 @@ return function(Data)
         for i, v in pairs(WarnData) do
             local Field = {
                 name = "**Warning id: " .. v.Id .. "**",
-                value = "Moderator: `" .._G.Data.Client:getUser(v.Moderator).tag .. "`\nRede: `" .. v.Rede .. "`\nTijd: `" .. v.Tijd .. "`\nLink: [Message](" .. Query.urldecode(v.Link) .. ")",
+                value = "Moderator: `" .._G.Data.Client:getUser(v.Moderator).tag .. "`\nReason: `" .. v.Rede .. "`\nTime: `" .. v.Tijd .. "`\nLink: [Message](" .. Query.urldecode(v.Link) .. ")",
                 inline = true
             }
             table.insert(Embed.fields, Field)
@@ -236,7 +236,7 @@ return function(Data)
         local WarnData = Base:GetAsync(Args[1].id) or {}
 
         local Embed = {
-            title = Args[1].name .. " Heeft:",
+            title = Args[1].name .. " Has:",
 
             description = tostring(#WarnData) .. " Warnigns",
 
@@ -260,13 +260,13 @@ return function(Data)
     ClearWarnCommand:SetFunction(function(MSG, Args, Raw)
 
         if Args[1].id == MSG.author.id then
-            MSG:reply("Je kan je eigen warnings niet weghalen! <:gay:772443615402131456>")
+            MSG:reply("Can't remove your own warnings! <:gay:772443615402131456>")
             return
         end
 
         local Base = require("Code/Save"):GetDatabase("warnings")
         local Embed = {
-            description = "**" .. Args[1].tag .. "** zijn warns zijn weg gehaald",
+            description = "**" .. Args[1].tag .. "** have been removed",
         }
 
         --print("clear")
@@ -297,13 +297,13 @@ return function(Data)
                 
         if Member:hasRole("765149108985266217") then
             Member:removeRole("765149108985266217")
-            MSG:reply({description = ":white_check_mark: **" .. Member.tag .. "** Is Geunmute"})
+            MSG:reply({description = ":white_check_mark: **" .. Member.tag .. "** Is now unmuted"})
         else
             Member:addRole("765149108985266217")
             if Raw[1] then
-                MSG:reply({content = "", embed = {description = ":white_check_mark: **" .. Member.tag .. "** Is Gemute | " .. table.concat(Raw, " ")}})
+                MSG:reply({content = "", embed = {description = ":white_check_mark: **" .. Member.tag .. "** Is now muted | " .. table.concat(Raw, " ")}})
             else
-                MSG:reply({content = "", embed = {description = ":white_check_mark: **" .. Member.tag .. "** Is Gemute | " .. "Geen Rede Gegeven"}})
+                MSG:reply({content = "", embed = {description = ":white_check_mark: **" .. Member.tag .. "** Is now muted | " .. "No reason"}})
             end
         end
     
@@ -322,7 +322,7 @@ return function(Data)
         local CurrentXp = DataBase:GetAsync(MSG.author.id) or 0
         local CurrentLevel = CalcLevel(CurrentXp)
     
-        MSG:reply(MSG.author.mentionString .. " jij bent level **" .. CurrentLevel .. "**!\nen Je hebt " .. CurrentXp .. " XP! <a:partyblob:772444448307019777>")
+        MSG:reply(MSG.author.mentionString .. " you are level **" .. CurrentLevel .. "**!\nen And you have " .. CurrentXp .. " XP! <a:partyblob:772444448307019777>")
         
     end)
 

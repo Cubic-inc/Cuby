@@ -95,4 +95,59 @@ return function(Data)
 	MSG:addReaction(emoji)
     ]]
 
+    function GetCurrentCount(Topic)
+
+        local Found = false
+        local WhatFound = nil
+        while Found == false do
+
+            local Last = Guild:getChannel("775694351141175306"):getLastMessage()
+            if not tonumber(Last.content) then
+                Last:delete()
+            else
+                WhatFound = tonumber(Last.content)
+                Found = true
+            end
+
+        end
+
+        print("foudn")
+        return tonumber(WhatFound)
+
+    end
+
+    --[[
+    local CurrentCount = GetCurrentCount()
+
+    Client:on("messageCreate", function(Message)
+
+        local Channel = Guild:getChannel("775694351141175306")
+    
+        if Message.channel.id == "775694351141175306" then
+            if Message.author.bot then return end
+            print(CurrentCount)
+            if not tonumber(Message.content) then
+                Message:delete()
+                print("Deleted")
+            end
+
+            local NumberMessage = tonumber(Message.content)
+            print(NumberMessage)
+
+            if NumberMessage == CurrentCount + 1 then
+                Channel:setTopic("Current Count: " .. NumberMessage)
+                CurrentCount = CurrentCount + 1
+                print("tes")
+                
+            else
+                Message:delete()
+                print("del")
+            end
+            print("Cur", CurrentCount)
+        else
+            --print("wrong channel")
+        end
+
+    end)]]
+
 end

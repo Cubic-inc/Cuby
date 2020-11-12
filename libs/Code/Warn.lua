@@ -8,7 +8,7 @@ return function(MSG, Channel, Member, Moderator, Reason, Data)
         MSG = Channel:send("Loading")
     end
 
-    Reason = Reason or "Geen Rede Gegeven "
+    Reason = Reason or "No reason"
 
     if Member then
         if Reason then
@@ -19,7 +19,7 @@ return function(MSG, Channel, Member, Moderator, Reason, Data)
                 embed = {
                 
                     
-                    description = "**" .. Member.tag .. "** is gewarned | `" .. Reason .. "`",
+                    description = "**" .. Member.tag .. "** has been warned | `" .. Reason .. "`",
     
     
                     color = 0xff7e00
@@ -42,7 +42,7 @@ return function(MSG, Channel, Member, Moderator, Reason, Data)
 
         if WarnAmount[Member.id] == 5 then
             WarnAmount[Member.id] = 0
-            MSG.channel:send({embed = {title = "Auto Mute", description = "Gebruiker heeft meer dan 5 warns in een uur behaald!"}})
+            MSG.channel:send({embed = {title = "Auto Mute", description = "User has reached more than 5 warns in an hour!"}})
             MSG.channel.client:getGuild("657227821047087105"):getMember(Member.id):addRole("765149108985266217")
             coroutine.wrap(function()
                 local Timer = require("timer")
@@ -113,7 +113,7 @@ return function(MSG, Channel, Member, Moderator, Reason, Data)
 
         require("./PostWebhook.lua")(ToSend, require("../Tables/WebHooks.lua").Logger)
     else
-        MSG:setContent("Specificeer een user")
+        MSG:setContent("Ping a user")
     end
 
 end

@@ -66,7 +66,7 @@ function New(Client)
             if MSG.member:hasRole(GuildRoles[tonumber(MSG.guild.id)].Moderator) then
 
             else
-                MSG:reply("<:__:667069785913163786> Alleen **__MODERATORS__** of hoger kunnen dit commando gebruiken!")
+                MSG:reply("<:__:667069785913163786> Only **__MODERATORS__** can use this command!")
                 return
             end
         end
@@ -75,7 +75,7 @@ function New(Client)
             if MSG.member:hasRole(GuildRoles[tonumber(MSG.guild.id)].Admin) then
 
             else
-                MSG:reply("<:__:667069785913163786> Alleen **__ADMINS__** of hoger kunnen dit commando gebruiken!")
+                MSG:reply("<:__:667069785913163786> Only **__ADMINS__** can use this command!")
                 return
             end
         end
@@ -84,7 +84,7 @@ function New(Client)
             if MSG.author.id == CoreByteID then
 
             else
-                MSG:reply("<:__:667069785913163786> Alleen **__COREBYTE#1161__** kan dit commando gebruiken!")
+                MSG:reply("<:__:667069785913163786> Only **__COREBYTE#1161__** can use this command!")
                 return
             end
         end

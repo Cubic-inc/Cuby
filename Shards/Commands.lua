@@ -28,15 +28,15 @@ return function(Data)
 
 		local WhatMeanings = {
 
-			[0] = "Vertrouwd",
-			[1] = "Niks",
-			[2] = "Ongeluk",
-			[3] = "Niks",
-			[4] = "Ongeluk",
-			[5] = "Niks",
-			[6] = "Ongeluk",
-			[7] = "Niks",
-			[8] = "Ongeluk",
+			[0] = "Trusted",
+			[1] = "Nothing",
+			[2] = "Misfortune",
+			[3] = "Nothing",
+			[4] = "Misfortune",
+			[5] = "Nothing",
+			[6] = "Misfortune",
+			[7] = "Nothing",
+			[8] = "Misfortune",
 
 		}
 
@@ -47,8 +47,8 @@ return function(Data)
 
 		local Embed = {
 
-			title = "Het grote ongeluks rad",
-			description = "Aan het draaien voor: " .. Args[1].user.tag,
+			title = "The big wheel of misfortune",
+			description = "Spinning for: " .. Args[1].user.tag,
 			image = {url = GifLink},
 			thumbnail = {url = Args[1].user.avatarURL},
 
@@ -59,18 +59,18 @@ return function(Data)
 		require("Timer").sleep(11000)
 
 		Embed.image.url = PngLink
-		Embed.description = Args[1].user.tag .. " heeft " .. WhatMeanings[What] .. " gewonnen!"
+		Embed.description = Args[1].user.tag .. " has won " .. WhatMeanings[What] .. "!"
 
 		Reply:update({embed = Embed})
 
 		require("Timer").sleep(3000)
 
-		if WhatMeanings[What] == "Niks" then
-			MSG:reply("<a:misfortune:775672372653064204> Gefeliciteerd " .. Args[1].user.mentionString .. " je hebt Niks Gewonnen!")
-		elseif WhatMeanings[What] == "Ongeluk" then
-			MSG:reply("<a:misfortune:775672372653064204> Gefeliciteerd " .. Args[1].user.mentionString .. " je hebt " .. Time .. " Minuten lang Ongeluk Gewonnen!")
-		elseif WhatMeanings[What] == "Vertrouwd" then
-			MSG:reply("<a:misfortune:775672372653064204> Gefeliciteerd " .. Args[1].user.mentionString .. " je bent nu " .. Time .. " Minuten lang Vertouwd!")
+		if WhatMeanings[What] == "Nothing" then
+			MSG:reply("<a:misfortune:775672372653064204> Congrats " .. Args[1].user.mentionString .. " You have won nothing!")
+		elseif WhatMeanings[What] == "Misfortune" then
+			MSG:reply("<a:misfortune:775672372653064204> Congrats " .. Args[1].user.mentionString .. " you have won" .. Time .. " Minutes of Misfortune !")
+		elseif WhatMeanings[What] == "Trusted" then
+			MSG:reply("<a:misfortune:775672372653064204> Congrats " .. Args[1].user.mentionString .. " you are now trusted for " .. Time .. " Minutes!")
 		end
 		if WhatMeanings[What] == "Ongeluk" then
 			Args[1]:addRole("765149108985266217")
@@ -125,7 +125,7 @@ return function(Data)
 	local CoolCommand = Handler.New()
 	CoolCommand:SetName("cool")
 	CoolCommand:SetFunction(function(MSG)
-		MSG:reply("Jij bent " .. math.random(0, 100) .. "% Cool :ice_cube: " .. MSG.author.mentionString)
+		MSG:reply("You are " .. math.random(0, 100) .. "% Cool :ice_cube: " .. MSG.author.mentionString)
     end) 
     
 	--require("Code/StickyCommands")(Data)
