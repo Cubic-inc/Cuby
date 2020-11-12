@@ -66,7 +66,7 @@ return function(Data)
         end
 
         if LastMSGs[MSG.author.id].Times >= 3 then
-            Data.Libs.Code.Warn(nil, MSG.channel, MSG.author, Data.Client.user, "Berichten herhalen")
+            Data.Libs.Code.Warn(nil, MSG.channel, MSG.author, Data.Client.user, "Repeating messages")
         end
 
         LastMSGs[MSG.author.id].Content = MSG.content
@@ -121,7 +121,7 @@ return function(Data)
 
 
         if Found == true then
-            Data.Libs.Code.Warn(nil, MSG.channel, MSG.author, Data.Client.user, "Schelden")
+            Data.Libs.Code.Warn(nil, MSG.channel, MSG.author, Data.Client.user, "Swearing")
             MSG:delete()
         end
 
