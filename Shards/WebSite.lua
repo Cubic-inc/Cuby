@@ -1,33 +1,7 @@
 return function(Data)
 
   local Tokens = require("././Tokens")
-  function LoadPage(Path)
-
-    local File = io.open(Path, "r")
-    local HTML = File:read("*a")
-
-    local CssFile = io.open("././WebsitePages/Styles/TopBar.css", "r")
-    local CssString = CssFile:read("*a")
-
-    local TopFile = io.open("././WebsitePages/TopBar.html", "r")
-    local TopHtml = TopFile:read("*a")
-
-
-    local HTMLReplaced = Data.Libs.Code.ReplaceString(HTML, {topcss = CssString, tophtml = TopHtml})
-
-    --[[
-    print(Path)
-    print(CssString)
-    print(TopHtml)
-    print(HTMLReplaced)]]
-
-    File:close()
-    CssFile:close()
-    TopFile:close()
-
-    return HTMLReplaced
-
-  end
+  local LoadPage = require("Code/Website/RenderPage")
 
   local App = require('weblit-app')
 
@@ -65,6 +39,17 @@ return function(Data)
   }, function (req, res)
     
     res.body = LoadPage("././WebsitePages/Discord.html")
+
+    res.headers["Content-Type"] = "text/html"
+    res.code = 200
+  end)
+
+  App.route({
+    method = "GET",
+    path = "/succes", 
+  }, function (req, res)
+    
+    res.body = LoadPage("././WebsitePages/Succes.html")
 
     res.headers["Content-Type"] = "text/html"
     res.code = 200
