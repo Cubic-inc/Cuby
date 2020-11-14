@@ -7,6 +7,7 @@ return {
         local Code = require("Code/Website/GetParams")(req.path)["code"]
         local Query = require("querystring")
         local Lang = req.params.lang
+        print(Code)
     
         if Lang ~= "en" or Lang ~= "nl" then 
     
@@ -22,7 +23,7 @@ return {
                 grant_type = 'authorization_code',
                 client_id = Tokens.PARTNERAPPKEY or os.getenv("PARTNERAPPKEY"),
                 client_secret = Tokens.PARTNERAPPSECRET or os.getenv("PARTNERAPPSECRET"),
-                redirect_uri = "http://cubic.redirectme.net/discord/partnerhook/" .. Lang .. "/done",
+                redirect_uri = "http://localhost:3000/discord/partnerhook/" .. Lang .. "/done",
                 code = Code,
                 scope = "webhook.incoming"
             }
@@ -38,13 +39,13 @@ return {
 
 
             if Lang == "en" then
-            require("Code/PostWebhook")({content = nil})
-
+                require("Code/PostWebhook")({content = "This discord is a partner of **CUBIC INC**\nThe **CUBIC INC** community is owned by @CoreByte#1161\nhttps://www.cubicdiscord.ga/"}, Decoded.webhook.url)
+                require("Code/PostWebhook")({content = "You can now delete this webhook"}, Decoded.webhook.url)
             elseif Lang == "nl" then
-                require("Code/PostWebhook")({content = "Deze discord is een partner van CUBIC INC.\nEen deel van de moderators en admins komen ook van CUBIC INC.\nDe CUBIC INC. Community is geowned door @CoreByte#1161\nhttps://www.cubicdiscord.ga/"}, Decoded.webhook.url)
-				require("Code/PostWebhook")({content = "Je kan deze webhook nu verwijderen"}, Decoded.webhook.url)
+                require("Code/PostWebhook")({content = "Deze discord is een partner van CUBIC INC.\n\nDe CUBIC INC. Community is geowned door @CoreByte#1161\nhttps://www.cubicdiscord.ga/"}, Decoded.webhook.url)
+				        require("Code/PostWebhook")({content = "Je kan deze webhook nu verwijderen"}, Decoded.webhook.url)
             end
-    
+            res.body = "<head><meta http-equiv=\"refresh\" content=\"0; url=\'/succes\'\" /></head>"
     
           else
             res.body = "<head><meta http-equiv=\"refresh\" content=\"0; url=\'/\'\" /></head>"
@@ -59,6 +60,8 @@ return {
         end
         
         --res.body = nil
+
+        
     
         res.headers["Content-Type"] = "text/html"
         res.code = 200
@@ -84,9 +87,9 @@ return {
           }
 
           if Lang == "en" then
-            Parms.redirect_uri = "https://cubic.redirectme.net/discord/partnerhook/en/done"
+            Parms.redirect_uri = "http://localhost:3000/discord/partnerhook/en/done"
           elseif Lang == "nl" then
-            Parms.redirect_uri = "https://cubic.redirectme.net/discord/partnerhook/nl/done"
+            Parms.redirect_uri = "http://localhost:3000/discord/partnerhook/nl/done"
           end
 
           print(Parms.redirect_uri)
