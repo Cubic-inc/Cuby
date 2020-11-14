@@ -28,10 +28,11 @@ local Warn = require("Code/Warn")
 
 
 local Token = require("./Tokens.lua").Client or os.getenv("TOKEN")
-local MusicToken = require("./Tokens.lua").MusicClient
+local MusicToken = require("./Tokens.lua").MusicClient or os.getenv("MUSICTOKEN")
 local MilkToken = require("./Tokens.lua").MilkClient or os.getenv("MILKTOKEN")
 local Prefix = "!"
 local Guild = "657227821047087105"
+
 
 local IsReady = false
 
@@ -113,6 +114,7 @@ coroutine.wrap(function()
 	MilkClient:run("Bot " .. MilkToken)
 	MilkClient:setGame({name = "beerbot.ga", url = "https://www.youtube.com/watch?v=8gfLHpfjgDQ", type = 1})
 
-
+	MusicClient:run("Bot " .. MusicToken)
+	MusicClient:setGame({name = "Music", type = 2})
 
 end)()
