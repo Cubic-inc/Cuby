@@ -7,6 +7,7 @@ local Client = Discordia.Client({cacheAllMembers = false})
 local MusicClient = Discordia.Client()
 local MilkClient = Discordia.Client()
 local UtilsClient = Discordia.Client()
+local ModClient = Discordia.Client()
 
 _G.Client = Client
 _G.MClient = MusicClient
@@ -33,6 +34,7 @@ local Token = require("./Tokens.lua").Client or os.getenv("TOKEN")
 local MusicToken = require("./Tokens.lua").MusicClient or os.getenv("MUSICTOKEN")
 local MilkToken = require("./Tokens.lua").MilkClient or os.getenv("MILKTOKEN")
 local UtilsToken = require("./Tokens.lua").UtilsClient or os.getenv("UTILSTOKEN")
+local ModToken = require("./Tokens.lua").ModClient or os.getenv("MODTOKEN")
 
 local Prefix = "!"
 local Guild = "657227821047087105"
@@ -122,5 +124,7 @@ coroutine.wrap(function()
 	MusicClient:setGame({name = "Music", type = 2})
 
 	UtilsClient:run("Bot " .. UtilsToken)
+
+	ModClient:run("Bot " .. ModToken)
 
 end)()
