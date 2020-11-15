@@ -51,7 +51,7 @@ function New(Client)
         local ToParse = string.sub(Text, #Info.Prefix+1)
         local Args = {}
         for C in ToParse:gmatch("%S+") do
-            table.insert(Args, string.lower(tostring(C)))
+            table.insert(Args, tostring(C))
         end
 
         if Args[1] ~= Info.Name then --[[print("Command not found")]] return end
@@ -154,7 +154,12 @@ function New(Client)
                         table.insert(NewArgs, i, Found.user)
                     end
                 else
-                    table.insert(NewArgs, i, Args[i])
+
+                    if Args[i].Lower then
+                        table.insert(NewArgs, i, string.lower(Args[i]))
+                    else
+                        table.insert(NewArgs, i, Args[i])
+                    end
                 end
 
             else
@@ -227,6 +232,10 @@ function New(Client)
 
         function Arg:SetName(Name)
             Argument.Name = Name
+        end
+
+        function Arg:SetLower(Bool)
+            Argument.Lower = Bool
         end
 
         table.insert(Info.Args, #Info.Args + 1, Argument)
