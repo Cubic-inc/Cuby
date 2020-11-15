@@ -114,17 +114,36 @@ coroutine.wrap(function()
 	local InfoBase = require("Code/Save"):GetDatabase("botinfo")
 	local Status = InfoBase:GetAsync("Status")
 
-	Client:run("Bot " .. Token)
-	Client:setGame({name = Status, type = 0})
+	print("Starting CUBY API..")
 
+	print("Starting MILKCLIENT")
 	MilkClient:run("Bot " .. MilkToken)
-	MilkClient:setGame({name = "beerbot.ga", url = "https://www.youtube.com/watch?v=8gfLHpfjgDQ", type = 1})
-
+	MilkClient:waitFor("ready")
+	Wait(1000)
+	
+	print("Starting MUSICCLIENT")
 	MusicClient:run("Bot " .. MusicToken)
-	MusicClient:setGame({name = "Music", type = 2})
-
+	MusicClient:waitFor("ready")
+	Wait(1000)
+	
+	print("Starting UTILSCLIENT")
 	UtilsClient:run("Bot " .. UtilsToken)
+	UtilsClient:waitFor("ready")
+	Wait(1000)
 
+	print("Starting MODCLIENT")
 	ModClient:run("Bot " .. ModToken)
+	ModClient:waitFor("ready")
+	Wait(1000)
 
+	print("Starting MAINCLIENT")
+	Client:run("Bot " .. Token)
+	Client:waitFor("ready")
+	
+
+	
+	print("Setting games")
+	MilkClient:setGame({name = "beerbot.ga", url = "https://www.youtube.com/watch?v=8gfLHpfjgDQ", type = 1})
+	MusicClient:setGame({name = "Music", type = 2})
+	Client:setGame({name = Status, type = 0})
 end)()
