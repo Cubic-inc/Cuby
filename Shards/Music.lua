@@ -14,7 +14,7 @@ return function(Data)
     end
 
     local JoinCommand = Handler.New()
-    JoinCommand:SetName("ChannelJoin")
+    JoinCommand:SetName("join")
     JoinCommand:SetFunction(function(MSG, Args, Raw)
 
         local MSG = GetMusicMessage(MSG)
@@ -33,7 +33,7 @@ return function(Data)
     end)
 
     local PlayCommand = Handler.New()
-    PlayCommand:SetName("ChannelPlay")
+    PlayCommand:SetName("play")
     local LinkArg = PlayCommand:NewArg()
     LinkArg:SetName("Link")
     PlayCommand:SetFunction(function(MSG, Args, Raw)
@@ -79,7 +79,7 @@ return function(Data)
     end)
 
     local StopCommand = Handler.New()
-    StopCommand:SetName("ChannelStop")
+    StopCommand:SetName("skip")
     StopCommand:SetFunction(function(MSG, Args, Raw)
 
         local MSG = GetMusicMessage(MSG)
