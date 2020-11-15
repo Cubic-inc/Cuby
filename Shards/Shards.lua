@@ -6,6 +6,11 @@ local Shards = {
     },
 
     {
+        Name = "MusicHost",
+        Function  = require("./Music.lua")
+    },
+
+    {
         Name = "Commands",
         Function  = require("./Commands.lua")
     },
