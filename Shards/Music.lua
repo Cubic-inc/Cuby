@@ -43,6 +43,7 @@ return function(Data)
 
         local MSG = GetMusicMessage(MSG)
         local Member = MSG.member
+        local Correct, NewUrl = MusicFuncs.CorrectUrl(Args[1])
 
         ArgsTwoString = Args[2] or ""
 
@@ -58,7 +59,7 @@ return function(Data)
             return
         end
 
-        if not MusicFuncs.CorrectUrl(Args[1]) then
+        if not Correct then
             
             MSG:reply("First argument must be a youtube link!")
             DebugReply("Command Exit")
@@ -66,29 +67,31 @@ return function(Data)
         end
 
         if not VoiceConnect then
+
             MSG:reply("Not Connected!\nConnecting...")
-            DebugReply("Connecting to discord servers")
-            DebugReply("Connecting to channel")
             VoiceConnect = Member.voiceChannel:join()
             MSG:reply("Joined!")
-            DebugReply("Joined channel!")
             
         end
         
         --print(Args[1])
 
-        local Check, Title = MusicFuncs.GetStream(Args[1], MSG, string.lower(ArgsTwoString) == "true")
+        local Check, Title = MusicFuncs.GetStream(NewUrl, MSG, string.lower(ArgsTwoString) == "true")
 
         print(Title)
 
         if Check == true then
 
-            VoiceConnect:stopStream()
             DebugReply("Stopping current stream")
+            VoiceConnect:stopStream()
+            
+
             MSG:reply("Playing Song!! :musical_note: ")
-            DebugReply("Playing file")
+
             MClient:setGame({name = Title, type = 2})
+
             VoiceConnect:playFFmpeg("CurrentPlayingFile.mp3")
+
             MClient:setGame({name = "Music", type = 2})
 
             
@@ -106,12 +109,18 @@ return function(Data)
         local MSG = GetMusicMessage(MSG)
         local Member = MSG.member
 
+        if not Member.voiceChannel then
+            MSG:reply("Must be in a voice channel to use this command")
+            return
+        end
+
         if not VoiceConnect then
             MSG:reply("Not Connected!")
             return           
         end
 
         VoiceConnect:stopStream()
+        VoiceConnect = nil
     end)
 
 end
