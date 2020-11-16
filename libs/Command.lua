@@ -103,12 +103,12 @@ function New(Client)
                     end
 
                     for o, b in pairs(PingedMembers) do
-                        if string.lower(b.name) == string.sub(Args[i], 2) then
+                        if b.name == string.sub(Args[i], 2) then
                             Found = b
                         end
 
                         if b.nickname then
-                            if string.lower(b.nickname) == string.sub(Args[i], 2) then
+                            if b.nickname == string.sub(Args[i], 2) then
                                 Found = b
                             end
                         end
@@ -137,11 +137,11 @@ function New(Client)
                     end
 
                     for o, b in pairs(PingedMembers) do
-                        if string.lower(b.name) == Args[i] then
+                        if b.name == Args[i] then
                             Found = b
                         end
                         if b.nickname then
-                            if string.lower(b.nickname) == Args[i] then
+                            if b.nickname == Args[i] then
                                 Found = b
                             end
                         end
@@ -154,12 +154,7 @@ function New(Client)
                         table.insert(NewArgs, i, Found.user)
                     end
                 else
-
-                    if Args[i].Lower then
-                        table.insert(NewArgs, i, string.lower(Args[i]))
-                    else
-                        table.insert(NewArgs, i, Args[i])
-                    end
+                    table.insert(NewArgs, i, Args[i])
                 end
 
             else
