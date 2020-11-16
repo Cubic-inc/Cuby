@@ -14,3 +14,5 @@ CurrentPlayingFile.mp3
 ffmpeg.exe
 youtube-dl.exe
 youtube-dl
+libopus.so
+libsodium.so
