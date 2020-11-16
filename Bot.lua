@@ -115,7 +115,7 @@ coroutine.wrap(function()
 	local Status = InfoBase:GetAsync("Status")
 
 	function IsWait()
-		if require("./tokens").Wait then
+		if require("./Tokens.lua").Wait then
 			Wait(1000)
 		end
 	end

@@ -8,7 +8,7 @@ return function(url, MSG, Debug)
 
     local File = io.popen("youtube-dl  --extract-audio --audio-format mp3 --output \"CurrentPlayingFile.%(ext)s\" " .. url)
 
-    local Check = false
+    local Check = true
 
     for Line in File:lines() do
 
