@@ -114,27 +114,33 @@ coroutine.wrap(function()
 	local InfoBase = require("Code/Save"):GetDatabase("botinfo")
 	local Status = InfoBase:GetAsync("Status")
 
+	function IsWait()
+		if require("./tokens").Wait then
+			Wait(1000)
+		end
+	end
+
 	print("Starting CUBY API..")
 
 	print("Starting MILKCLIENT")
 	MilkClient:run("Bot " .. MilkToken)
 	MilkClient:waitFor("ready")
-	Wait(1000)
+	IsWait(1000)
 	
 	print("Starting MUSICCLIENT")
 	MusicClient:run("Bot " .. MusicToken)
 	MusicClient:waitFor("ready")
-	Wait(1000)
+	IsWait(1000)
 	
 	print("Starting UTILSCLIENT")
 	UtilsClient:run("Bot " .. UtilsToken)
 	UtilsClient:waitFor("ready")
-	Wait(1000)
+	IsWait(1000)
 
 	print("Starting MODCLIENT")
 	ModClient:run("Bot " .. ModToken)
 	ModClient:waitFor("ready")
-	Wait(1000)
+	IsWait(1000)
 
 	print("Starting MAINCLIENT")
 	Client:run("Bot " .. Token)
