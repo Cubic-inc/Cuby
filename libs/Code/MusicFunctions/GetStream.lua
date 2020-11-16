@@ -8,14 +8,36 @@ return function(url, MSG, Debug)
 
     local File = io.popen("youtube-dl  --extract-audio --audio-format mp3 --output \"CurrentPlayingFile.%(ext)s\" " .. url)
 
+    local Check = false
+
     for Line in File:lines() do
+
+        Check = true
+
         if Debug then
             print("[DEBUG]: ", Line)
             MSG:reply("[DEBUG]: " .. Line)
         end
+
+        --print(Check)
+
+    end
+
+    --print(Check)
+
+    File:close()
+
+    local File = io.popen("youtube-dl -s --get-title " .. url)
+
+
+    for Line in File:lines() do
+        Title = Line
+        break
     end
 
     File:close()
+
+    return Check, Title
 
     --return Success
 

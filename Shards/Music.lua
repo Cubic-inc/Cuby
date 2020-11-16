@@ -77,21 +77,24 @@ return function(Data)
         
         --print(Args[1])
 
-        local Stream = MusicFuncs.GetStream(Args[1], MSG, string.lower(ArgsTwoString) == "true")
+        local Check, Title = MusicFuncs.GetStream(Args[1], MSG, string.lower(ArgsTwoString) == "true")
 
-        --if Stream == true then
+        print(Title)
 
-        VoiceConnect:stopStream()
-        DebugReply("Stopping current stream")
-        MSG:reply("Playing Song!! :musical_note: ")
-        DebugReply("Playing file")
-        VoiceConnect:playFFmpeg("CurrentPlayingFile.mp3")
-        
+        if Check == true then
+
+            VoiceConnect:stopStream()
+            DebugReply("Stopping current stream")
+            MSG:reply("Playing Song!! :musical_note: ")
+            DebugReply("Playing file")
+            MClient:setGame({name = Title, type = 2})
+            VoiceConnect:playFFmpeg("CurrentPlayingFile.mp3")
+            MClient:setGame({name = "Music", type = 2})
 
             
-        --else
-        --MSG:reply("Unknown error occured whilst downloading file..")
-        --end
+        else
+            MSG:reply("Unknown error occured whilst downloading file..")
+        end
 
         
     end)
