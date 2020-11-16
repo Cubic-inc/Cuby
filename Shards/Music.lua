@@ -63,17 +63,17 @@ return function(Data)
 
         local Stream = MusicFuncs.GetStream(Args[1])
 
-        
+        if Stream == true then
 
             VoiceConnect:stopStream()
             MSG:reply("Playing Song!! :musical_note: ")
 
-            VoiceConnect:playFFmpeg(Stream)
+            VoiceConnect:playFFmpeg("CurrentPlayingFile.mp3")
 
             
-        
-            --MSG:reply("Unknown error occured whilst downloading file..")
-        
+        else
+            MSG:reply("Unknown error occured whilst downloading file..")
+        end
 
         
     end)

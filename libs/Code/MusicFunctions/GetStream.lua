@@ -4,12 +4,13 @@ return function(url)
     local split = require('coro-split')
     local parse = require('url').parse
 
-    --local Success = os.execute("./youtube-dl  --extract-audio --audio-format mp3 --output \"CurrentPlayingFile.%(ext)s\" " .. url)
+    local Success = os.execute("youtube-dl  --extract-audio --audio-format mp3 --output \"CurrentPlayingFile.%(ext)s\" " .. url)
 
-    --return Success
+    return Success
 
     --youtube-dl --extract-audio --audio-format mp3 --output "CurrentPlayingFile.%(ext)s" https://www.youtube.com/watch?v=RKW6rjnYEkc
 
+    --[[
     local child = spawn('./youtube-dl', {
         args = {'-g', url},
         stdio = {nil, true, true}
@@ -37,6 +38,6 @@ return function(url)
     
       split(readstdout, readstderr, child.waitExit)
     
-      return stream and stream:gsub('%c', '')
+      return stream and stream:gsub('%c', '')]]
 
 end
