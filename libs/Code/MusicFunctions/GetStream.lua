@@ -10,7 +10,7 @@ return function(url)
 
     --youtube-dl --extract-audio --audio-format mp3 --output "CurrentPlayingFile.%(ext)s" https://www.youtube.com/watch?v=RKW6rjnYEkc
 
-    local child = spawn('youtube-dl', {
+    local child = spawn('./youtube-dl', {
         args = {'-g', url},
         stdio = {nil, true, true}
       })
