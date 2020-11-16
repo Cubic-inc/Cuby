@@ -26,6 +26,10 @@ return function(Link)
 
     end
 
-    return Found
+    local FirstUrl = require("Code/Website/GetParams")(Parsed.path)
+
+    local NewUrl = "http://www.youtube.com/watch?v=" ..FirstUrl.v
+
+    return Found, NewUrl
 
 end
