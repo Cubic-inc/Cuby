@@ -297,7 +297,7 @@ return function(Data)
                 
         if Member:hasRole("765149108985266217") then
             Member:removeRole("765149108985266217")
-            MSG:reply({embed = {description = ":white_check_mark: **" .. Member.tag .. "** has been unmuted unmuted"}})
+            MSG:reply({embed = {description = ":white_check_mark: **" .. Member.tag .. "** has been unmuted"}})
         else
             Member:addRole("765149108985266217")
             if Raw[1] then
