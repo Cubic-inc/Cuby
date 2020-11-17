@@ -54,7 +54,7 @@ function New(Client)
             table.insert(Args, tostring(C))
         end
 
-        if string.lower(Args[1]) ~= Info.Name then --[[print("Command not found")]] return end
+        if string.lower(Args[1] or "") ~= Info.Name then --[[print("Command not found")]] return end
         table.remove(Args, 1)
 
         if not MSG.guild then
