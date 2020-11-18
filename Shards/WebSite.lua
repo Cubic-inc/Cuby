@@ -49,7 +49,15 @@ return function(Data)
     path = "/succes", 
   }, function (req, res)
     
-    res.body = LoadPage("././WebsitePages/Succes.html")
+    local Parms = require("Code/Website/GetParams")(req.path)
+
+    print(Parms)
+
+    for i, v in pairs(Parms) do print(i, v) end
+
+    local Replace = {message = Parms.message, reffer = Parms.reffer, reffertext = Parms.text}
+
+    res.body = LoadPage("././WebsitePages/Succes.html", Replace)
 
     res.headers["Content-Type"] = "text/html"
     res.code = 200

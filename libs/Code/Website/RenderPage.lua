@@ -1,4 +1,6 @@
-return function(Path)
+return function(Path, Replace)
+
+    Replace = Replace or {}
 
     local File = io.open(Path, "r")
     local HTML = File:read("*a")
@@ -10,7 +12,16 @@ return function(Path)
     local TopHtml = TopFile:read("*a")
 
 
-    local HTMLReplaced = Data.Libs.Code.ReplaceString(HTML, {topcss = CssString, tophtml = TopHtml})
+    local ReplaceTable = {topcss = CssString, tophtml = TopHtml}
+
+    for i, v in pairs(Replace) do
+      ReplaceTable[i] = v
+    end
+
+    ---for i, v in pairs(ReplaceTable) do print(i, v) end
+
+
+    local HTMLReplaced = Data.Libs.Code.ReplaceString(HTML, ReplaceTable)
 
     --[[
     print(Path)
