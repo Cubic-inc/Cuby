@@ -116,8 +116,9 @@ coroutine.wrap(function()
 
 	function IsWait(WClient)
 		if require("./Tokens.lua").Wait == nil then
-			Wait(1000)
 			WClient:waitFor("ready")
+			Wait(1000)
+			
 		end
 	end
 
