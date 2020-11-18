@@ -114,9 +114,10 @@ coroutine.wrap(function()
 	local InfoBase = require("Code/Save"):GetDatabase("botinfo")
 	local Status = InfoBase:GetAsync("Status")
 
-	function IsWait()
-		if require("./Tokens.lua").Wait then
+	function IsWait(WClient)
+		if require("./Tokens.lua").Wait == nil then
 			Wait(1000)
+			WClient:waitFor("ready")
 		end
 	end
 
@@ -124,28 +125,23 @@ coroutine.wrap(function()
 
 	print("Starting MILKCLIENT")
 	MilkClient:run("Bot " .. MilkToken)
-	MilkClient:waitFor("ready")
-	IsWait(1000)
+	IsWait(MilkClient)
 	
 	print("Starting MUSICCLIENT")
 	MusicClient:run("Bot " .. MusicToken)
-	MusicClient:waitFor("ready")
-	IsWait(1000)
+	IsWait(MusicClient)
 	
 	print("Starting UTILSCLIENT")
 	UtilsClient:run("Bot " .. UtilsToken)
-	UtilsClient:waitFor("ready")
-	IsWait(1000)
+	IsWait(UtilsClient)
 
 	print("Starting MODCLIENT")
 	ModClient:run("Bot " .. ModToken)
-	ModClient:waitFor("ready")
-	IsWait(1000)
+	IsWait(ModClient)
 
 	print("Starting MAINCLIENT")
 	Client:run("Bot " .. Token)
-	Client:waitFor("ready")
-	
+	IsWait(Client)
 
 	
 	print("Setting games")
