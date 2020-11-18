@@ -19,7 +19,7 @@ return function(Data)
     method = "GET", 
     path = "/invite", 
   }, function (req, res)
-    res.body = "<!DOCTYPE html>\n<html>\n<head>\n<meta http-equiv=\"refresh\" content=\"0; url=\'https://www.discord.gg/rBHegkm\'\" />\n</head>\n</html>"
+    res.body = "<!DOCTYPE html>\n<html>\n<head>\n<meta http-equiv=\"refresh\" content=\"0; url=\'https://discord.gg/JjDEPCvj7z\'\" />\n</head>\n</html>"
     res.headers["Content-Type"] = "text/html"
     res.code = 200
   end)
