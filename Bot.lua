@@ -104,6 +104,17 @@ Client:on("ready", function()
 	--local emoji = Client:getGuild("657227821047087105").emojis:find(function(e) return e.name == 'misfortune' end)
 	--print(emoji.hash)
 
+	--[[
+	local Message = Client:getChannel("769510813588914186"):getMessage("770300036508418098")
+
+	Message:update({embed = {
+
+		title = "Amongo!",
+		description = "React with :plusbutton: to play Amongo",
+		footer = {text = "DISCLAIMER: You get a automatic message every day"}
+
+	}})]]
+
 end)
 
 Clock:on("hour", function()
