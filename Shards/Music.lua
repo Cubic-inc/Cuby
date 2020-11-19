@@ -53,6 +53,8 @@ return function(Data)
             end
         end
 
+        DebugReply("Debugging is enabled!")
+
         if not Member.voiceChannel then
             MSG:reply("Must be in a voice channel to use this command")
             DebugReply("Command Exit")
@@ -75,6 +77,8 @@ return function(Data)
         end
         
         --print(Args[1])
+
+        MSG:reply("Downloading song <a:loading:667069786005569536>")
 
         local Check, Title = MusicFuncs.GetStream(NewUrl, MSG, string.lower(ArgsTwoString) == "true")
 
