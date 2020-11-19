@@ -137,6 +137,7 @@ return function(Data)
 
     WarnCommand:SetName("Warn")
     WarnCommand:SetMinPerm("Mod")
+    WarnCommand:SetGroup("Moderation")
     
     local Arg = WarnCommand:NewArg()
 
@@ -181,6 +182,7 @@ return function(Data)
 
     WarnListCommand:SetName("Warnlist")
     WarnListCommand:SetMinPerm("Mod")
+    WarnListCommand:SetGroup("Moderation")
     
     local MemberArg = WarnListCommand:NewArg()
 
@@ -228,6 +230,7 @@ return function(Data)
 
     WarnAmountCommand:SetName("warnamount")
     WarnAmountCommand:SetMinPerm("Mod")
+    WarnAmountCommand:SetGroup("Moderation")
     
     local MemberArg = WarnAmountCommand:NewArg()
 
@@ -255,6 +258,7 @@ return function(Data)
 
     ClearWarnCommand:SetName("warnclear")
     ClearWarnCommand:SetMinPerm("Admin")
+    ClearWarnCommand:SetGroup("Moderation")
     
     local MemberArg = ClearWarnCommand:NewArg()
 
@@ -290,6 +294,7 @@ return function(Data)
 
     MuteCommand:SetName("mute")
     MuteCommand:SetMinPerm("Mod")
+    MuteCommand:SetGroup("Moderation")
     
     local MemberArg = MuteCommand:NewArg()
 
@@ -321,6 +326,7 @@ return function(Data)
 
     LevelCommand:SetName("level")
     LevelCommand:SetMinPerm("User")
+    LevelCommand:SetGroup("Info")
     
     LevelCommand:SetFunction(function(MSG, Args, Raw)
 
