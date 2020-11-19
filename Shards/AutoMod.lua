@@ -2,6 +2,7 @@ return function(Data)
 
     local XpMsgAdd = 10
     local CalcLevel = Data.Libs.Code.CalcLevel
+    local ModClient = _G.ModClient
 
     --685066367526895658
     --759717939631882280
@@ -153,6 +154,8 @@ return function(Data)
     
         local WarnFunction = require("Code/Warn")
 
+        local MSG = ModClient:getChannel(MSG.channel.id):getMessage(MSG.id)
+
         if Args[1].id == MSG.author.id then
             MSG:reply("You cant warn yourself!\nYou idot <:barf:772444449007206440>")
             return
@@ -200,6 +203,7 @@ return function(Data)
     WarnListCommand:SetFunction(function(MSG, Args, Raw)
         local Base = require("Code/Save"):GetDatabase("warnings")
         local WarnData = Base:GetAsync(Args[1].id) or {}
+        local MSG = ModClient:getChannel(MSG.channel.id):getMessage(MSG.id)
 
         local Embed = {
             title = Args[1].name .. "'s Warnings",
@@ -234,6 +238,7 @@ return function(Data)
     WarnAmountCommand:SetFunction(function(MSG, Args, Raw)
         local Base = require("Code/Save"):GetDatabase("warnings")
         local WarnData = Base:GetAsync(Args[1].id) or {}
+        local MSG = ModClient:getChannel(MSG.channel.id):getMessage(MSG.id)
 
         local Embed = {
             title = Args[1].name .. " Has:",
@@ -258,6 +263,8 @@ return function(Data)
     MemberArg:SetReq(true)
 
     ClearWarnCommand:SetFunction(function(MSG, Args, Raw)
+
+        local MSG = ModClient:getChannel(MSG.channel.id):getMessage(MSG.id)
 
         if Args[1].id == MSG.author.id then
             MSG:reply("Can't remove your own warnings! <:gay:772443615402131456>")
@@ -291,6 +298,7 @@ return function(Data)
     MemberArg:SetReq(true)
 
     MuteCommand:SetFunction(function(MSG, Args, Raw)
+        local MSG = ModClient:getChannel(MSG.channel.id):getMessage(MSG.id)
 
         local Member = Args[1]
         table.remove(Raw, 1)
