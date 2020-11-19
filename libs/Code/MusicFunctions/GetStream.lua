@@ -15,8 +15,8 @@ return function(url, MSG, Debug)
         Check = true
 
         if Debug then
-            print("[DEBUG]: ", Line)
-            MSG:reply("[DEBUG]: " .. Line)
+            print("[DEBUG]: ", Line or "")
+            MSG:reply("[DEBUG]: " .. "```css\n" .. Line .. "```")
         end
 
         --print(Check)
