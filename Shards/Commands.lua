@@ -1,9 +1,81 @@
 return function(Data)
 
-    local Handler = Data.CommandHandler
+	local Handler = Data.CommandHandler
+	
+	local HelpCommand = Handler.New()
+	HelpCommand:SetName("Help")
+	HelpCommand:SetGroup("Utility")
+	local SubCommand = HelpCommand:NewArg()
+	SubCommand:SetName("Command")
+	SubCommand:SetType("String")
+
+	HelpCommand:SetFunction(function(MSG, Args, Raw)
+
+		local Groups = {
+			"Fun",
+			"Utility",
+			"Info",
+			"Moderation"
+		}
+
+		local Perms = {
+			Owner = ":blue_circle:",
+			Admin = ":red_circle: ",
+			Mod = ":green_circle:",
+			VIP = ":orange_circle:",
+			User = ":white_circle:",
+		}
+		
+		if Args[1] then
+
+
+		else
+			MSG:reply({embed = {
+				title = "List of all commands",
+				description = "In this list we have some permissions:\n:blue_circle: Owner\n:red_circle: Admin\n:green_circle: Moderator\n:orange_circle: VIP\n:white_circle: User\n\nArgument types:\nRequired: [NAME]\nOptional: {NAME}"
+			}})
+
+			for i, v in pairs(Groups) do
+
+				local Fields = {}
+				for i, b in pairs(Handler.Commands) do
+					if b.Group == v then
+						local NewField = {name = Perms[b.Perm] .. " `" .. b.Prefix .. b.Name .. "`", value = b.Desc .. "\n`", inline = true}
+
+						for i, n in pairs(b.Args) do
+							if n.Req then 
+								NewField.value = NewField.value .. "["
+							else
+								NewField.value = NewField.value .. "{"
+							end
+
+							NewField.value = NewField.value .. "**" .. n.Type .. "** " .. n.Name
+
+							if n.Req then 
+								NewField.value = NewField.value .. "] "
+							else
+								NewField.value = NewField.value .. "} "
+							end
+						end
+
+						NewField.value = NewField.value .. "`"
+
+						table.insert(Fields, NewField)
+					end
+				end
+
+				MSG:reply({embed = {
+					title = v .. " Commands",
+					fields = Fields
+				}})
+			end
+
+		end
+	end)
 
     local SayAsCommand = Handler.New()
-    SayAsCommand:SetName("say")
+	SayAsCommand:SetName("say")
+	SayAsCommand:SetGroup("Utility")
     SayAsCommand:SetMinPerm("Owner")
     SayAsCommand:SetFunction(function(MSG, Args, Raw)
         MSG:reply("" .. table.concat(Raw, " "))
@@ -13,6 +85,7 @@ return function(Data)
 	local MisfortuneCommand = Handler.New()
     MisfortuneCommand:SetName("Misfortune")
 	MisfortuneCommand:SetMinPerm("Owner")
+	MisfortuneCommand:SetGroup("Fun")
 
 	local MisMemberArg = MisfortuneCommand:NewArg()
 	MisMemberArg:SetName("Member mension")
@@ -86,7 +159,8 @@ return function(Data)
 	
 	local SetStatus = Handler.New()
     SetStatus:SetName("setstatus")
-    SetStatus:SetMinPerm("Owner")
+	SetStatus:SetMinPerm("Owner")
+	SetStatus:SetGroup("Utility")
 	SetStatus:SetFunction(function(MSG, Args, Raw)
 		
 		_G.Client:setGame({name = "" .. table.concat(Raw, " "), type = 0})
@@ -100,15 +174,18 @@ return function(Data)
     local PingCommand = Handler.New()
 	PingCommand:SetName("ping")
 	PingCommand:SetFunction(function(MSG) MSG:reply("Pong! <:hotcomputer:685867382073196712>") end)
+	PingCommand:SetGroup("Info")
 	
 	
     local SteelNoodleCommand = Handler.New()
 	SteelNoodleCommand:SetName("steel-noodle")
 	SteelNoodleCommand:SetFunction(function(MSG) MSG:reply("Noedel gestolen! Stik in huigen Tije") end)
+	SteelNoodleCommand:SetGroup("Fun")
 	
 
 	local InfoCommand = Handler.New()
 	InfoCommand:SetName("info")
+	InfoCommand:SetGroup("Info")
 	InfoCommand:SetFunction(function(MSG)
 		MSG:reply({content = "⠀", embed = {
 			title = "Bot info",
@@ -124,6 +201,7 @@ return function(Data)
 
 	local CoolCommand = Handler.New()
 	CoolCommand:SetName("cool")
+	CoolCommand:SetGroup("Fun")
 	CoolCommand:SetFunction(function(MSG)
 		MSG:reply("You are " .. math.random(0, 100) .. "% Cool :ice_cube: " .. MSG.author.mentionString)
     end) 
