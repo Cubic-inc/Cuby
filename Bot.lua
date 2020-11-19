@@ -101,7 +101,7 @@ Client:on("ready", function()
 
 	
 
-	--local emoji = Client:getGuild("657227821047087105").emojis:find(function(e) return e.name == 'misfortune' end)
+	--local emoji = Client:getGuild("657227821047087105").emojis:find(function(e) return e.name == 'loading' end)
 	--print(emoji.hash)
 
 	--[[
