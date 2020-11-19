@@ -1,10 +1,12 @@
 local Commands = {}
 
-
+local Module = {Commands = {}}
 
 
 
 function New(Client)
+
+    
 
     local Guilds = {
         Cubic = Client:getGuild("657227821047087105"),
@@ -39,8 +41,10 @@ function New(Client)
 
     }
 
-    local Info = {Prefix = "!", Args = {}, Perm = "User"}
+    local Info = {Prefix = "!", Args = {}, Perm = "User", Desc = "No description"}
     local NewCommand = {Info}
+    
+    table.insert(Module.Commands, Info)
 
     Client:on("messageCreate", function(MSG)  
 
@@ -58,7 +62,7 @@ function New(Client)
         table.remove(Args, 1)
 
         if not MSG.guild then
-            MSG:reply("Gebruik dit commando alleen in servers!")
+            MSG:reply("Only use this command in servers!")
             return
         end
 
@@ -212,6 +216,10 @@ function New(Client)
         Info.Aliases = TableAliases
     end
 
+    function NewCommand:SetGroup(Group)
+        Info.Group = Group
+    end
+
     function NewCommand:SetMinPerm(Perm)
         if Perm == "Owner" or Perm == "Admin" or Perm == "Mod" or Perm == "Vip" or Perm == "User" then
             Info.Perm = Perm
@@ -222,7 +230,7 @@ function New(Client)
         end
     end
 
-    function NewCommand:SetDesc(Desk)
+    function NewCommand:SetDesc(Desc)
         Info.Desc = Desc
         --print("Desk set: " .. Desk)
     end
@@ -259,10 +267,10 @@ function New(Client)
     return NewCommand
 end
 
-local Module = {}
+
 
 function Module:Init(Client)
-    return {Commands = {}, New = function() return New(Client) end, }
+    return {Commands = Module.Commands, New = function() return New(Client) end, }
 end
 
 
