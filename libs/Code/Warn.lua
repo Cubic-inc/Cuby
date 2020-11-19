@@ -1,11 +1,11 @@
 return function(MSG, Channel, Member, Moderator, Reason, Data)
 
     local Base = require("./Save.lua"):GetDatabase("warnings")
-    
+    local ModClient = _G.ModClient
 
     if not MSG then 
         if not Channel then return end
-        MSG = Channel:send("Loading")
+        MSG = ModClient:getChannel(Channel.id):send("Loading")
     end
 
     Reason = Reason or "No reason"
