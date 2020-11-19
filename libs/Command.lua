@@ -157,6 +157,20 @@ function New(Client)
                     table.insert(NewArgs, i, Args[i])
                 end
 
+            elseif v.Type == "Number" then
+
+                local Found = nil
+
+                Found = tonumber(Args[i])
+                print(Found)
+
+                if Found == nil then
+                    MSG:reply("Argument **`" .. v.Name .. "`** must be a number")
+                    return
+                else
+                    table.insert(NewArgs, i, Found.user)
+                end
+
             else
                 if v.Req == true then
                     MSG:reply("Argument **`" .. v.Name .. "`** Is required!")
