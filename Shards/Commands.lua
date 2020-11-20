@@ -15,7 +15,8 @@ return function(Data)
 			"Fun",
 			"Utility",
 			"Info",
-			"Moderation"
+			"Moderation",
+			"Other"
 		}
 
 		local Perms = {

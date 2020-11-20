@@ -41,7 +41,7 @@ function New(Client)
 
     }
 
-    local Info = {Prefix = "!", Args = {}, Perm = "User", Desc = "No description"}
+    local Info = {Prefix = "!", Args = {}, Perm = "User", Desc = "No description", Group = "Other"}
     local NewCommand = {Info}
     
     table.insert(Module.Commands, Info)
