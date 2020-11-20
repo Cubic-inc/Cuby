@@ -32,44 +32,34 @@ return function(Data)
 
 		else
 			MSG:reply({embed = {
-				title = "List of all commands",
+				title = "Help of help",
 				description = "In this list we have some permissions:\n:blue_circle: Owner\n:red_circle: Admin\n:green_circle: Moderator\n:orange_circle: VIP\n:white_circle: User\n\nArgument types:\nRequired: [NAME]\nOptional: {NAME}"
 			}})
 
+			local Fields = {}
 			for i, v in pairs(Groups) do
+				
+				local NewField = {name = v, value = "", inline = true}
 
-				local Fields = {}
+				
 				for i, b in pairs(Handler.Commands) do
 					if b.Group == v then
-						local NewField = {name = Perms[b.Perm] .. " `" .. b.Prefix .. b.Name .. "`", value = b.Desc .. "\n`", inline = true}
 
-						for i, n in pairs(b.Args) do
-							if n.Req then 
-								NewField.value = NewField.value .. "["
-							else
-								NewField.value = NewField.value .. "{"
-							end
+						NewField.value = NewField.value .. Perms[b.Perm] .. " `" .. b.Prefix .. b.Name .. "`\n"
 
-							NewField.value = NewField.value .. "**" .. n.Type .. "** " .. n.Name
-
-							if n.Req then 
-								NewField.value = NewField.value .. "] "
-							else
-								NewField.value = NewField.value .. "} "
-							end
-						end
-
-						NewField.value = NewField.value .. "`"
-
-						table.insert(Fields, NewField)
+						
 					end
 				end
 
-				MSG:reply({embed = {
-					title = v .. " Commands",
-					fields = Fields
-				}})
+				table.insert(Fields, NewField)
+
+				
 			end
+
+			MSG:reply({embed = {
+					title = "List of Commands",
+					fields = Fields
+			}})
 
 		end
 	end)
