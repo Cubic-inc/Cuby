@@ -35,6 +35,11 @@ local Shards = {
         Function  = require("./MiniGames.lua")
     },
 
+		{
+        Name = "Pinger",
+        Function  = require("./Pinger.lua")
+    },
+
 
 }
 
