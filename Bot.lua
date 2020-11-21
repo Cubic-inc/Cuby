@@ -24,7 +24,6 @@ local TableToString = require("Code/TableToString")
 local Shards = require("./Shards/Shards")
 --local Commands = require("Tables/Commands")
 local WebHooks = require("Tables/WebHooks")
-local Status = require("Tables/Status")
 local PostWebhook = require("Code/PostWebhook")
 local CalcLevel = require("Code/CalcLevel")
 local ReplaceString = require("Code/ReplaceString")
@@ -76,7 +75,6 @@ Client:on("ready", function()
 			Tables = {
 				Commands = Commands,
 				WebHooks = WebHooks,
-				Status = Status
 			},
 			Strings = {
 				Roles = {
@@ -160,5 +158,6 @@ coroutine.wrap(function()
 	print("Setting games")
 	MilkClient:setGame({name = "beerbot.ga", url = "https://www.youtube.com/watch?v=8gfLHpfjgDQ", type = 1})
 	MusicClient:setGame({name = "Music", type = 2})
+	ModClient:setGame({name = "Direct messages", type = 3})
 	Client:setGame({name = Status, type = 0})
 end)() 
