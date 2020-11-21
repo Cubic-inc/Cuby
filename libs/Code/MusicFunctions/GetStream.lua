@@ -4,6 +4,8 @@ return function(url, MSG, Debug)
     local split = require('coro-split')
     local parse = require('url').parse
 
+    url = url or ""
+
     --local Success = os.execute("youtube-dl  --extract-audio --audio-format mp3 --output \"CurrentPlayingFile.%(ext)s\" " .. url)
 
     local File = io.popen("youtube-dl  --extract-audio --audio-format mp3 --output \"CurrentPlayingFile.%(ext)s\" " .. url)

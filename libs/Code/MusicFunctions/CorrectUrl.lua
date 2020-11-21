@@ -29,7 +29,7 @@ return function(Link)
     local FirstUrl = require("Code/Website/GetParams")(Parsed.path)
 
     if FirstUrl.v then
-        local NewUrl = "http://www.youtube.com/watch?v=" ..FirstUrl.v
+        NewUrl = "http://www.youtube.com/watch?v=" ..FirstUrl.v
     else
         NewUrl = Link
     end
