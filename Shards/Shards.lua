@@ -36,8 +36,8 @@ local Shards = {
     },
 
 		{
-        Name = "Pinger",
-        Function  = require("./Pinger.lua")
+        Name = "ModMail",
+        Function  = require("./ModMail.lua")
     },
 
 
