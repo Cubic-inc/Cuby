@@ -18,7 +18,7 @@ return function(url, MSG, Debug)
 
         if Debug then
             print("[DEBUG]: ", Line or "")
-            MSG:reply("[DEBUG]: " .. "```css\n" .. Line .. "```")
+            MSG:send("[DEBUG]: " .. "```css\n" .. Line .. "```")
         end
 
         --print(Check)
