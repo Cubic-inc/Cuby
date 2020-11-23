@@ -92,7 +92,9 @@ Client:on("ready", function()
 
 	for i, v in pairs(Shards) do
 			
-		v.Function(Data)
+		coroutine.wrap(function()	
+			v.Function(Data)
+		end)()
 		
 		print("Runner " .. v.Name .. " ready!")
 	end
@@ -160,4 +162,4 @@ coroutine.wrap(function()
 	MusicClient:setGame({name = "Music", type = 2})
 	ModClient:setGame({name = "Direct messages", type = 3})
 	Client:setGame({name = Status, type = 0})
-end)() 
+end)()

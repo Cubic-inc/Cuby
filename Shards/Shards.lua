@@ -35,10 +35,15 @@ local Shards = {
         Function  = require("./MiniGames.lua")
     },
    
-    --[[{
+    {
         Name = "ModMail",
         Function  = require("./ModMail.lua")
-    },]]
+    },
+
+		{
+        Name = "Pinger",
+        Function  = require("./Pinger.lua")
+    },
 
 
 }

@@ -7,6 +7,36 @@ return function(Data)
     local Client = _G.Client
     local ModClient = _G.ModClient
 
+		local Guild
+
+		while not Guild do
+			Guild = ModClient:getGuild("657227821047087105")
+			require("timer").sleep(1500)
+		end
+
+		local ModCat
+
+		while not ModCat do
+			ModCat = Guild:getChannel("780327205104123925")
+			require("timer").sleep(1500)
+		end
+
+		function GetUserFromChannel(Channel)
+
+			local Store = Base:GetStoreAsync()
+
+			local User = nil
+			for i, v in pairs(Store) do
+				if v.Channel == Channel.id then
+					return i
+				end
+			end
+
+			return nil
+		end
+
+		--print(GetUserFromChannel({id = "780372137961586708"}))
+
     local Channel = ModClient:getChannel("777910517058240522")
 
     ModClient:on("messageCreate", function(MSG)
@@ -18,119 +48,173 @@ return function(Data)
 
         if not Tick then
             MSG:reply({embed = {
-
                 title = "Opening a new ticket with your id: " .. MSG.author.id,
-                description = "Please wait until a moderator gets in contact with you"
-
+                description = "Please wait until a moderator gets in contact with you",
+								color = 0x7289DA
             }})
 
-            local New = Channel:send({embed = {
+            local NewChannel = ModCat:createTextChannel(MSG.author.tag)
 
+						NewChannel:send({embed = {
+							title = "New thread created",
+							author = {
+								name = MSG.author.username,
+								icon_url = MSG.author.avatarURL
+							},
+							description = "By " .. MSG.author.tag,
+							color = 0x7289DA
+						}})
+
+						NewChannel:send({embed = {
                 author = {
-					name = MSG.author.username,
-					icon_url = MSG.author.avatarURL
+									name = "First message from " .. MSG.author.tag,
+									icon_url = MSG.author.avatarURL
                 },
-
-                title = "New ticket incoming with id: " .. MSG.author.id,
                 description = MSG.cleanContent,
-                footer = {
-
-                    text = "React with ✅ to assing this ticket to you\nReact with ❎ to close this ticket"
-                }
-
+								color = 0xf5c542
             }})
-
-            New:addReaction("✅")
-            New:addReaction("❎")
 
             local TicketData = {
                 From = MSG.author.id,
-                FirstMessage = MSG.id,
-                LastModMessage = New.id,
-                Assinged = false,
-                AssingedStaff = nil,
-
+								Channel = NewChannel.id
             }
 
-            local React = ModClient:on("reactionAdd", function(Reaction, UserID)
-                local User = Client:getUser(UserID)
-
-
-                if User.bot then return end
-
-                if Reaction.emojiHash == "✅" then
-                
-                    TicketData.AssingedStaff = UserID
-                    Base:PostAsync(MSG.author.id, TicketData)
-
-                    MSG:reply({embed = {
-                        title = "A staff member was assinged to your ticket\nA reply is coming soon!"
-                    }})
-
-                    Channel:send({embed={title = "You are now assinged to this ticket"}})
-                    New:clearReactions()
-
-                    Client:removeListener("reactionAdd", React)
-
-                elseif Reaction.emojiHash == "❎" then
-
-                    
-                    Base:PostAsync(MSG.author.id, nil)
-
-                    MSG:reply({embed = {
-                        title = "A staff member closed your ticket"
-                    }})
-
-                    Channel:send({embed={title = "This ticket is now closed"}})
-                    New:clearReactions()
-
-                    Client:removeListener("reactionAdd", React)
-            
-                end
-
-            end)
-
             Base:PostAsync(MSG.author.id, TicketData)
+
         else
-            local New = Channel:send({embed = {
-
+            local ReplyChannel = Guild:getChannel(Tick.Channel)
+						
+						ReplyChannel:send({embed = {
                 author = {
-					name = MSG.author.username,
-					icon_url = MSG.author.avatarURL
+									name = "New Reply From " .. MSG.author.tag,
+									icon_url = MSG.author.avatarURL
                 },
-
-                title = "New reply id: " .. MSG.author.id,
-                description = MSG.cleanContent
-
+                description = MSG.cleanContent,
+								color = 0xf5c542
             }})
 
-            MSG:addReaction("❎")
-
-            New:addReaction("❎")
-
-            local React = ModClient:on("reactionAdd", function(Reaction, UserID)
-                local User = Client:getUser(UserID)
-
-                if User.bot then return end
-
-                if Reaction.message.id ~= MSG.id then return end
-
-                if Reaction.emojiHash == "❎" then
-
-                    MSG:reply({embed = {title = "You closed this ticket"}})
-                    New:reply({embed = {title = "Ticket closed by user"}})
-
-                    Channel:send({embed={title = "This ticket is now closed"}})
-
-                    Client:removeListener("reactionAdd", React)
-
-                end
-
-            end)
         end
 
         
     
     end)
+
+		local ReplyCommand = Handler.New()
+		ReplyCommand:SetName("reply")
+		ReplyCommand:SetMinPerm("Mod")
+		ReplyCommand:SetFunction(function(MSG, Args, Raw)
+		
+			if GetUserFromChannel(MSG.channel) then
+				local User = ModClient:getUser(GetUserFromChannel(MSG.channel))
+
+				User:send({embed = {
+
+          author = {
+						name = "New Reply From " .. MSG.author.tag,
+						icon_url = MSG.author.avatarURL
+          },
+
+        	description = table.concat(Raw, " "),
+
+					color = 0x48f542
+
+        }})
+
+				ModClient:getChannel(MSG.channel.id):send({embed = {
+
+          author = {
+						name = "Reply sent by " .. MSG.author.tag,
+						icon_url = MSG.author.avatarURL
+          },
+
+        	description = table.concat(Raw, " "),
+
+					color = 0x48f542
+
+        }})
+
+				MSG:delete()
+
+			else
+				MSG:reply("This command can only be used in `modmail` channels!")
+			end
+
+		end)
+
+		local CloseCommand = Handler.New()
+		CloseCommand:SetName("CloseThread")
+		CloseCommand:SetMinPerm("Mod")
+		CloseCommand:SetFunction(function(MSG, Args, Raw)
+		
+			if GetUserFromChannel(MSG.channel) then
+				local User = ModClient:getUser(GetUserFromChannel(MSG.channel))
+
+				User:send({embed = {
+
+          author = {
+						name = "Thread closed by " .. MSG.author.tag,
+						icon_url = MSG.author.avatarURL
+          },
+
+        	description = table.concat(Raw, " "),
+
+					color = 0xf54242
+
+        }})
+
+				MSG.channel:delete()
+				Base:PostAsync(User.id, nil)
+
+			else
+				MSG:reply("This command can only be used in `modmail` channels!")
+			end
+
+		end)
+
+		local NewCommand = Handler.New()
+		NewCommand:SetName("NewThread")
+		NewCommand:SetMinPerm("Admin")
+		local Arg = NewCommand:NewArg()
+		Arg:SetName("To open")
+		Arg:SetType("Member")
+		Arg:SetReq(true)
+		NewCommand:SetFunction(function(MSG, Args, Raw)
+
+			local User = ModClient:getUser(Args[1].user.id)
+		
+			local Tick = Base:GetAsync(User.id)
+
+			if Tick then MSG:reply(User.tag .. " already has a thread") return end
+
+			MSG:reply("Creating new thread for " .. User.tag)
+
+			local NewChannel = ModCat:createTextChannel(MSG.author.tag)
+
+			NewChannel:send({embed = {
+				title = "New thread created",
+				author = {
+					name = MSG.author.username,
+					icon_url = MSG.author.avatarURL
+				},
+				description = "By " .. MSG.author.tag,
+				color = 0x7289DA
+			}})
+
+			User:send({embed = {
+				title = "A new thread got created with your id: " .. User.id,
+				author = {
+					name = "By " .. MSG.author.username,
+					icon_url = MSG.author.avatarURL
+				},
+			}})
+
+      local TicketData = {
+        From = MSG.author.id,
+				Channel = NewChannel.id
+      }
+
+      Base:PostAsync(MSG.author.id, TicketData)
+
+		end)
 
 end
