@@ -188,7 +188,7 @@ return function(Data)
 
 			MSG:reply("Creating new thread for " .. User.tag)
 
-			local NewChannel = ModCat:createTextChannel(MSG.author.tag)
+			local NewChannel = ModCat:createTextChannel(User.tag)
 
 			NewChannel:send({embed = {
 				title = "New thread created",
@@ -213,7 +213,7 @@ return function(Data)
 				Channel = NewChannel.id
       }
 
-      Base:PostAsync(MSG.author.id, TicketData)
+      Base:PostAsync(User.id, TicketData)
 
 		end)
 
