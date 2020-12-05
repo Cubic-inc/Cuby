@@ -1,6 +1,22 @@
 return function(Data)
 
 	local Handler = Data.CommandHandler
+
+	local SudoCommand = Handler.New()
+	SudoCommand:SetName("sudo")
+	SudoCommand:SetGroup("Utility")
+	SudoCommand:SetMinPerm("Owner")
+	local ToSudo = SudoCommand:NewArg()
+	ToSudo:SetName("User")
+	ToSudo:SetType("Member")
+	ToSudo:SetReq(true)
+
+	SudoCommand:SetFunction(function(MSG, Args, Raw)
+		local API = require("API")
+		table.remove(Raw, 1)
+		API:Sudo(Args[1], MSG.channel, table.concat(Raw, " "))
+		MSG:delete()
+	end)
 	
 	local HelpCommand = Handler.New()
 	HelpCommand:SetName("Help")

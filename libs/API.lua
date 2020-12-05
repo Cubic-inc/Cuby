@@ -113,12 +113,40 @@ function Module:ClearWarns(User)
     end
 end
 
-function Module:Sudo(UserId, Channel)
+function Module:Sudo(User, Channel, Text)
+    local API = require("API")
 
+    local Webhook = API:GetChannelWebhook(Channel)
+
+    local Data = {
+        content = Text,
+        username = User.name,
+        avatar_url = User.user.avatarURL
+    }
+
+    require("Code/PostWebhook")(Data, "https://discord.com/api/webhooks/" .. Webhook.id .. "/" .. Webhook.token)
 end
 
-function Module:GetChannelWebhook(ChannelId)
+function Module:GetChannelWebhook(Channel)
+    local Found = false
+    local Webhook = nil
 
+    local AllWebhooks = Channel.guild:getWebhooks()
+
+    for i, v in pairs(AllWebhooks) do 
+        if v.channelId == Channel.id and v.name == "CHANNELHOOK" then
+            Found = true
+            Webhook = v
+            break
+        end
+    end
+
+    if Found == true then
+        return Webhook
+    else
+        print("No webhook found, creating one!")
+        return Channel:createWebhook("CHANNELHOOK")
+    end
 end
 
 function Module:Mute(Member, Channel)
