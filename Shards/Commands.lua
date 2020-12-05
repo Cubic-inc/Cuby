@@ -186,7 +186,7 @@ return function(Data)
 	
     local SteelNoodleCommand = Handler.New()
 	SteelNoodleCommand:SetName("steel-noodle")
-	SteelNoodleCommand:SetFunction(function(MSG) MSG:reply("Noedel gestolen! Stik in huigen Tije") end)
+	SteelNoodleCommand:SetFunction(function(MSG) MSG:reply("Noedel stolen! Suffocate in your uvula <@654248718895153165>") end)
 	SteelNoodleCommand:SetGroup("Fun")
 	
 
