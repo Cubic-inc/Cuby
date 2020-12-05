@@ -27,7 +27,7 @@ local WebHooks = require("Tables/WebHooks")
 local PostWebhook = require("Code/PostWebhook")
 local CalcLevel = require("Code/CalcLevel")
 local ReplaceString = require("Code/ReplaceString")
-local Warn = require("Code/Warn")
+--local Warn = require("Code/Warn")
 
 
 local Token = require("./Tokens.lua").Client or os.getenv("TOKEN")
@@ -125,6 +125,8 @@ coroutine.wrap(function()
 
 	local InfoBase = require("Code/Save"):GetDatabase("botinfo")
 	local Status = InfoBase:GetAsync("Status")
+
+	local WarnBase = require("Code/Save"):GetDatabase("warnings")
 
 	function IsWait(WClient)
 		if require("./Tokens.lua").Wait == nil then
