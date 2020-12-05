@@ -4,6 +4,8 @@ return function(Data)
     local CalcLevel = Data.Libs.Code.CalcLevel
     local ModClient = _G.ModClient
 
+    local API = require("API")
+
     --685066367526895658
     --759717939631882280
 
@@ -34,7 +36,7 @@ return function(Data)
             --print(MSG.author.name)
 
             if NewLevel ~= CurrentLevel then
-                MSG.channel:send("Well done " .. MSG.author.mentionString .. " you are now level **" .. NewLevel .. "**!")
+                MSG.channel:send("Well done! " .. MSG.author.mentionString .. ", you are now level **" .. NewLevel .. "**!")
             end
             --print("good")
         else
@@ -67,7 +69,7 @@ return function(Data)
         end
 
         if LastMSGs[MSG.author.id].Times >= 3 then
-            Data.Libs.Code.Warn(nil, MSG.channel, MSG.author, Data.Client.user, "Repeating messages")
+            API:CreateWarn(MSG.channel, MSG.author, Data.Client.user, "Repeating messages")
         end
 
         LastMSGs[MSG.author.id].Content = MSG.content
@@ -122,7 +124,7 @@ return function(Data)
 
 
         if Found == true then
-            Data.Libs.Code.Warn(nil, MSG.channel, MSG.author, Data.Client.user, "Swearing")
+            API:CreateWarn(MSG.channel, MSG.author, Data.Client.user, "Swearing")
             MSG:delete()
         end
 
@@ -153,9 +155,7 @@ return function(Data)
 
     WarnCommand:SetFunction(function(MSG, Args, Raw)
     
-        local WarnFunction = require("Code/Warn")
-
-        local MSG = ModClient:getChannel(MSG.channel.id):getMessage(MSG.id)
+        local API = require("API")
 
         if Args[1].id == MSG.author.id then
             MSG:reply("You cant warn yourself!\nYou idot <:barf:772444449007206440>")
@@ -167,14 +167,10 @@ return function(Data)
         local Reason
 
         if Raw[1] then
-
             Reason = table.concat(Raw, " ")
-
         end
 
-
-
-        WarnFunction(nil, MSG.channel, Args[1], MSG.author, Reason)
+        API:CreateWarn(MSG.channel, Args[1], MSG.author, Reason)
 
     end)
 
@@ -203,9 +199,9 @@ return function(Data)
     EndArg:SetReq(false)
 
     WarnListCommand:SetFunction(function(MSG, Args, Raw)
-        local Base = require("Code/Save"):GetDatabase("warnings")
-        local WarnData = Base:GetAsync(Args[1].id) or {}
         local MSG = ModClient:getChannel(MSG.channel.id):getMessage(MSG.id)
+
+        local WarnData = API:GetAllWarns(Args[1])
 
         local Embed = {
             title = Args[1].name .. "'s Warnings",
@@ -239,8 +235,7 @@ return function(Data)
     MemberArg:SetReq(true)
 
     WarnAmountCommand:SetFunction(function(MSG, Args, Raw)
-        local Base = require("Code/Save"):GetDatabase("warnings")
-        local WarnData = Base:GetAsync(Args[1].id) or {}
+        local WarnData = API:GetAllWarns(Args[1])
         local MSG = ModClient:getChannel(MSG.channel.id):getMessage(MSG.id)
 
         local Embed = {
@@ -266,28 +261,29 @@ return function(Data)
     MemberArg:SetType("Member")
     MemberArg:SetReq(true)
 
+    local IdArg = ClearWarnCommand:NewArg()
+    IdArg:SetName("Id")
+
     ClearWarnCommand:SetFunction(function(MSG, Args, Raw)
 
         local MSG = ModClient:getChannel(MSG.channel.id):getMessage(MSG.id)
 
-        if Args[1].id == MSG.author.id then
-            MSG:reply("Can't remove your own warnings! <:gay:772443615402131456>")
-            return
-        end
-
         local Base = require("Code/Save"):GetDatabase("warnings")
-        local Embed = {
-            description = "**" .. Args[1].tag .. "** have been removed",
-        }
+        local Embed
 
-        --print("clear")
+        if Args[2] then
+            local Found = API:RemoveWarn(Args[2])
+            if Found then
+                Embed = {description = "That warn was removed!"}
+            else
+                Embed = {description = "That warn warn not found!"}
+            end
+        else
+            local Found = API:ClearWarns(Args[1])
+            Embed = {description = "All user warns removed!"}
+        end
         
         MSG:reply({content = "", embed = Embed})
-        --print(Base:PostAsync(Args[1].id, nil))
-
-        --print("tstets")
-        --print("done")
-    
     end)
 
     local MuteCommand = Handler.New()
@@ -309,10 +305,10 @@ return function(Data)
         table.remove(Raw, 1)
                 
         if Member:hasRole("765149108985266217") then
-            Member:removeRole("765149108985266217")
+            API:UnMute(Args[1])
             MSG:reply({embed = {description = ":white_check_mark: **" .. Member.tag .. "** has been unmuted"}})
         else
-            Member:addRole("765149108985266217")
+            API:Mute(Args[1])
             if Raw[1] then
                 MSG:reply({content = "", embed = {description = ":white_check_mark: **" .. Member.tag .. "** Is now muted | " .. table.concat(Raw, " ")}})
             else
