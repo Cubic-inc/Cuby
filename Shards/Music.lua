@@ -31,7 +31,7 @@ return function(Data)
             if Check then 
                 MClient:setGame({name = Title, type = 2})
 
-                VoiceConnect:playFFmpeg("CurrentPlayingFile.opus")
+                VoiceConnect:playFFmpeg("CurrentPlayingFile.m4a")
 
                 MClient:setGame({name = "Music", type = 2})
                 table.remove(Queue, 1)
