@@ -4,7 +4,7 @@ return function(Data)
     _G.VoiceConnect = nil
     local VoiceConnect = _G.VoiceConnect
 
-    local Debug = false
+    local Debug = true
     
 
     local Client = _G.Client
@@ -22,7 +22,7 @@ return function(Data)
     local MusicFuncs = require("Code/MusicFunctions")
 
     function Next()
-        if Queue[1] then
+        if Queue[1] and Queue[1].Link then
             VoiceConnect:stopStream()
             CommandChannel:send("Downloading song <a:loading:667069786005569536>")
             local Check, Title = MusicFuncs.GetStream(Queue[1].Link, CommandChannel, Debug)
@@ -31,11 +31,11 @@ return function(Data)
             if Check then 
                 MClient:setGame({name = Title, type = 2})
 
-                VoiceConnect:playFFmpeg("CurrentPlayingFile.mp3")
+                VoiceConnect:playFFmpeg("CurrentPlayingFile.opus")
 
                 MClient:setGame({name = "Music", type = 2})
                 table.remove(Queue, 1)
-                if Queue[2] then
+                if Queue[1] then
                     Next()
                 end
             else

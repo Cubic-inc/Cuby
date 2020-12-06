@@ -13,6 +13,13 @@ local Module = {}
 
 local Token = require("../Tokens").Save or os.getenv("SAVETOKEN")
 
+local Cache = _G.SaveCache
+
+if not Cache then
+	Cache = {}
+	_G.SaveCache = Cache
+end
+
 
 function DoGet(Store, Key)
 	local URL = Link .. "/" .. Token .. "/get/" .. Store .. "/" .. Key 
@@ -20,9 +27,7 @@ function DoGet(Store, Key)
 
 	local Res, Body = Coro.request("GET", URL)
 	Data = Json.parse(Body)
-	--print(Body)
-		
-	--print(Res, Body)
+
 	if Data.status == "ok" then
 		if Data.data then
 			return Data.data
@@ -34,35 +39,22 @@ function DoGet(Store, Key)
 		return
 	end
 
-
-
-
-	--return Data
 end
 
 function DoPost(Store, Key, data)
 	local URL
-	--print(type(data))
+
 	if type(data) == "table" then
 		URL = Link .. "/" .. Token .. "/save/" .. Store .. "/" .. Key 
 	else
 		URL = Link .. "/" .. Token .. "/save/" .. Store .. "/" .. Key 
 	end
-	--print(URL)
-	
-	--local Res, Body = Coro.request("GET", URL)
 
 	local StringData = Query.urlencode(Json.encode(data))
 
 	Res, Body = Coro.request("POST", URL, {{"Content-Type", "application/json"}}, StringData)
 	Data = Json.parse(Body)
-	--print(Body)
-	--print(URL)
 
-	
-
-		
-	--print(Res, Body)
 	if Data.status == "ok" then
 		return true
 	else
@@ -74,17 +66,11 @@ end
 function DoGetStore(Store, Key)
 	local URL = Link .. "/" .. Token .. "/getstore/" .. Store
 
-	--print(1)
-
 	local Res, Body = Coro.request("GET", URL)
 	Data = Json.parse(Body)
-	--print(Body)
-	--print(2)
-		
-	--print(Res, Body)
+
 	if Data.status == "ok" then
 		if Data.data then
-			--print(3)
 			return Data.data
 		else
 			return nil
@@ -94,14 +80,15 @@ function DoGetStore(Store, Key)
 		return
 	end
 
-
-
-
-	--return Data
 end
 
 function Module:GetDatabase(sheet)
 	local database = {}
+
+	if not Cache[string.lower(sheet)] then
+		Cache[string.lower(sheet)] = {}
+	end
+
 	function database:PostAsync(key, value)
 		return DoPost(string.lower(sheet), key, value)
 	end
