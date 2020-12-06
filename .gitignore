@@ -10,7 +10,7 @@ Tokens.lua
 start.bat
 opus.dll
 sodium.dll
-CurrentPlayingFile.mp3
+CurrentPlayingFile.opus
 ffmpeg.exe
 youtube-dl.exe
 youtube-dl
