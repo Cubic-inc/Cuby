@@ -26,7 +26,7 @@ return function(Data)
             VoiceConnect:stopStream()
             CommandChannel:send("Downloading song <a:loading:667069786005569536>")
             local Check, Title = MusicFuncs.GetStream(Queue[1].Link, CommandChannel, Debug)
-            CommandChannel:send("Downloaded song: `" .. Title .. "`")
+            CommandChannel:send("Downloaded song: `" .. tostring(Title) .. "`")
 
             if Check then 
                 MClient:setGame({name = Title, type = 2})
