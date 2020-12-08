@@ -24,7 +24,6 @@ end
 function DoGet(Store, Key)
 	local URL = Link .. "/" .. Token .. "/get/" .. Store .. "/" .. Key 
 
-
 	local Res, Body = Coro.request("GET", URL)
 	Data = Json.parse(Body)
 
@@ -56,6 +55,7 @@ function DoPost(Store, Key, data)
 	Data = Json.parse(Body)
 
 	if Data.status == "ok" then
+		Cache[Store][Key] = data
 		return true
 	else
 		print("Database error:", Data.error)	
@@ -82,27 +82,37 @@ function DoGetStore(Store, Key)
 
 end
 
-function Module:GetDatabase(sheet)
+function Module:GetDatabase(Store)
 	local database = {}
 
-	if not Cache[string.lower(sheet)] then
-		Cache[string.lower(sheet)] = {}
+	local Store = string.lower(Store)
+
+	function database:_tostring()
+		return "Database: " .. Store
+	end
+
+	if not Cache[Store] then
+		Cache[Store] = {}
 	end
 
 	function database:PostAsync(key, value)
-		return DoPost(string.lower(sheet), key, value)
+		Cache[Store][key] = value
+
+		return DoPost(Store, key, value)
 	end
 
 	function database:GetStoreAsync(key)
-		return DoGetStore(string.lower(sheet))
+		return DoGetStore(Store)
 	end
 
 	function database:GetAsync(key)
-		return DoGet(string.lower(sheet), key)
+		if Cache[Store][key] then
+			return Cache[Store][key]
+		else
+			return DoGet(Store, key)
+		end
 	end
 	return database
 end
 
 return Module
-
-
