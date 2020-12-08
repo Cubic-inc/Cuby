@@ -194,12 +194,16 @@ return function(Data)
 	InfoCommand:SetName("info")
 	InfoCommand:SetGroup("Info")
 	InfoCommand:SetFunction(function(MSG)
+
+		local TimeTable = _G.Watch:getTime()
+		local TimeString = TimeTable:toString()
+
 		MSG:reply({content = "⠀", embed = {
 			title = "Bot info",
 			author = {name = "Cuby", icon_url = Client.user.avatarURL},
 			fields = {
-				{name = "Version", value = "Unknown!", inline = true},
-				{name = "Uptime", value = "N/A", inline = true},
+				{name = "Version", value = require("../package.lua").version, inline = true},
+				{name = "Uptime", value = TimeString, inline = true},
 				{name = "Creator", value = "<@533536581055938580>", inline = true},
 	
 			}

@@ -3,6 +3,11 @@ local Discordia = require("discordia")
 local Clock = Discordia.Clock()
 Clock:start()
 
+local Watch = Discordia.Stopwatch()
+Watch:start()
+
+_G.Watch = Watch
+
 local Client = Discordia.Client({cacheAllMembers = false})
 local MusicClient = Discordia.Client()
 local MilkClient = Discordia.Client()
