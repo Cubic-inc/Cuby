@@ -1,5 +1,5 @@
 return function(Data)
-
+    --
     local Json = require("json")
     --local PP = require('pretty-print')
 
@@ -32,10 +32,6 @@ return function(Data)
         Chain = Reactions.Chain.count
     }
 
-    --print(Messages.Amongo.reactions:toArray()[1].count)
-    for i, v in pairs(Messages.Amongo.reactions:toArray()) do
-        --print(v)
-    end
 
     Client:on("reactionAdd", function(Reaction, UserId)
     
@@ -116,38 +112,6 @@ return function(Data)
 
     end
 
-    --[[
-    local CurrentCount = GetCurrentCount()
-
-    Client:on("messageCreate", function(Message)
-
-        local Channel = Guild:getChannel("775694351141175306")
     
-        if Message.channel.id == "775694351141175306" then
-            if Message.author.bot then return end
-            print(CurrentCount)
-            if not tonumber(Message.content) then
-                Message:delete()
-                print("Deleted")
-            end
-
-            local NumberMessage = tonumber(Message.content)
-            print(NumberMessage)
-
-            if NumberMessage == CurrentCount + 1 then
-                Channel:setTopic("Current Count: " .. NumberMessage)
-                CurrentCount = CurrentCount + 1
-                print("tes")
-                
-            else
-                Message:delete()
-                print("del")
-            end
-            print("Cur", CurrentCount)
-        else
-            --print("wrong channel")
-        end
-
-    end)]]
 
 end
