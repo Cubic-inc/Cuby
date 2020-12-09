@@ -27,16 +27,13 @@ return function(Data)
 
             if Stickies[MSG.channel.id].Enabled == true then
 
-
-
                 local Sticky = Stickies[MSG.channel.id]
 
                 local Send = MSG:reply({embed = {
-
                     title = Sticky.Title,
-                    description = Sticky.Desc,
-                    fields = Sticky.Fields
-
+                    description = MSG.channel.topic,
+                    footer = {text = "Auto sticky, you can also read the topic"},
+                    color = 0xf4fc03
                 }})
 
                 if Send then
@@ -127,67 +124,5 @@ return function(Data)
         Write()
 
     end)
-
-    local DescCommand = Handler.New()
-    DescCommand:SetName("Stickydesc")
-    DescCommand:SetMinPerm("Owner")
-
-    local NewDesc = DescCommand:NewArg()
-    NewDesc:SetName("New Desc")
-    NewDesc:SetType("String")
-    NewDesc:SetReq(true)
-
-    DescCommand:SetFunction(function(MSG, Args, Raw)
-        
-        if Stickies[MSG.channel.id] then
-            Stickies[MSG.channel.id].Desc = table.concat(Raw, " ")
-        else
-            Stickies[MSG.channel.id] = {Fields = {}}
-            Stickies[MSG.channel.id].Desc = table.concat(Raw, " ")
-        end
-
-        MSG:reply("Desc set to: " .. table.concat(Raw, " "))
-
-        Write()
-
-    end)
-
-    local FieldTitleCommand = Handler.New()
-    FieldTitleCommand:SetName("FieldTitle")
-    FieldTitleCommand:SetMinPerm("Owner")
-
-    local FieldNumber = FieldTitleCommand:NewArg()
-    FieldNumber:SetName("NumberID")
-    FieldNumber:SetType("Number")
-    FieldNumber:SetReq(true)
-
-    local FieldTitle = FieldTitleCommand:NewArg()
-    FieldTitle:SetName("New-title")
-    FieldTitle:SetType("String")
-    FieldTitle:SetReq(false)
-
-    FieldTitleCommand:SetFunction(function(MSG, Args, Raw)
-
-        print(type(Args[1]))
-        
-        if Stickies[MSG.channel.id] then
-            Stickies[MSG.channel.id].Fields = {}
-            Stickies[MSG.channel.id].Fields[Args[1]] = {}
-            Stickies[MSG.channel.id].Fields[Args[1]].name = table.concat(Raw, " ")
-        else
-            Stickies[MSG.channel.id] = {}
-            Stickies[MSG.channel.id].Fields[Args[1]].name = table.concat(Raw, " ")
-        end
-
-        MSG:reply("Desc set to: " .. table.concat(Raw, " "))
-
-        Write()
-
-    end)
-
-
-
-
-
 
 end
