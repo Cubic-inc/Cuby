@@ -17,6 +17,8 @@ local ModClient = Discordia.Client()
 _G.Client = Client
 _G.MClient = MusicClient
 _G.ModClient = ModClient
+_G.UClient = UtilsClient
+_G.MilkClient = MilkClient
 
 local http = require("http")
 local Json = require("json")

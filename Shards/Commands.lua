@@ -2,6 +2,58 @@ return function(Data)
 
 	local Handler = Data.CommandHandler
 
+	local ExitCommand = Handler.New()
+	ExitCommand:SetName("exit")
+	ExitCommand:SetGroup("Utility")
+	ExitCommand:SetMinPerm("Owner")
+
+	ExitCommand:SetFunction(function(MSG, Args, Raw)
+		MSG:reply("ok cya")
+
+		_G.Client:setStatus("invisible")
+		_G.MClient:setStatus("invisible")
+		_G.ModClient:setStatus("invisible")
+		_G.UClient:setStatus("invisible")
+		_G.MilkClient:setStatus("invisible")
+
+
+		_G.Client:stop()
+		_G.MClient:stop()
+		_G.ModClient:stop()
+		_G.UClient:stop()
+		_G.MilkClient:stop()
+
+		print("exited")
+
+		os.execute("doitagain=false")
+		os.exit()
+	end)
+
+	local RestartCommand = Handler.New()
+	RestartCommand:SetName("restart")
+	RestartCommand:SetGroup("Utility")
+	RestartCommand:SetMinPerm("Owner")
+
+	RestartCommand:SetFunction(function(MSG, Args, Raw)
+		MSG:reply("Restarting..")
+
+		_G.Client:setStatus("invisible")
+		_G.MClient:setStatus("invisible")
+		_G.ModClient:setStatus("invisible")
+		_G.UClient:setStatus("invisible")
+		_G.MilkClient:setStatus("invisible")
+
+		_G.Client:stop()
+		_G.MClient:stop()
+		_G.ModClient:stop()
+		_G.UClient:stop()
+		_G.MilkClient:stop()
+
+		print("restarting")
+
+		os.exit()
+	end)
+
 	local SudoCommand = Handler.New()
 	SudoCommand:SetName("sudo")
 	SudoCommand:SetGroup("Utility")
