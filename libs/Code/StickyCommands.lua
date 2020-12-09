@@ -84,7 +84,7 @@ return function(Data)
             MSG:reply("Sticky is enabled!")
         elseif Args[1] == "off" then
             ToEnable = false
-            MSG:reply("Sticky is enabled!")
+            MSG:reply("Sticky is disabled!")
         else
             MSG:reply("on or off")
             return
