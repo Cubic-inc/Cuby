@@ -176,4 +176,18 @@ function Module:UnMute(Member, Channel)
     Base:PostAsync(Member.id, nil)
 end
 
+function Module:GetAuth(Parms)
+
+    local Http = require("coro-http")
+    local Query = require("querystring")
+    local Json = require("json")
+    local Res, Body = Http.request("POST", "https://discord.com/api/oauth2/token/", {{"Content-Type", "application/x-www-form-urlencoded"}}, Query.stringify(Parms))
+    return Json.decode(Body)
+
+end
+
+function Module:GetToken(Token)
+    return require("../Tokens.lua")[Token] or os.getenv(string.upper(Token))
+end
+
 return Module

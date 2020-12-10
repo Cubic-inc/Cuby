@@ -106,10 +106,7 @@ return function(Data)
 
 			local Fields = {}
 			for i, v in pairs(Groups) do
-				
 				local NewField = {name = v, value = "", inline = true}
-
-				
 				for i, b in pairs(Handler.Commands) do
 					if b.Group == v then
 
@@ -120,8 +117,6 @@ return function(Data)
 				end
 
 				table.insert(Fields, NewField)
-
-				
 			end
 
 			MSG:reply({embed = {
