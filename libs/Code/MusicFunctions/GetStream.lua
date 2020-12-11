@@ -8,7 +8,7 @@ return function(url, MSG, Debug)
 
     --local Success = os.execute("youtube-dl  --extract-audio --audio-format mp3 --output \"CurrentPlayingFile.%(ext)s\" " .. url)
 
-    local File = io.popen("youtube-dl  --extract-audio --audio-format m4a --output \"CurrentPlayingFile.%(ext)s\" " .. url)
+    local File = io.popen("youtube-dl  --extract-audio --audio-format wav --output \"CurrentPlayingFile.%(ext)s\" " .. url)
 
     local Check = true
 
