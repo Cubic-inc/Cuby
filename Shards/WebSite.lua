@@ -16,17 +16,6 @@ return function(Data)
   App.use(require('weblit-etag-cache'))
 
   App.route({
-    method = "GET", 
-    path = "/githubhook/" .. require("API"):GetToken("Save"), 
-  }, function (req, res)
-    res.body = "<!DOCTYPE html>\n<html>\n<head>\n<meta http-equiv=\"refresh\" content=\"0; url=\'https://discord.gg/JjDEPCvj7z\'\" />\n</head>\n</html>"
-    res.headers["Content-Type"] = "text/html"
-    res.code = 200
-
-    os.exit()
-  end)
-
-  App.route({
     method = "POST", 
     path = "/invite", 
   }, function (req, res)
