@@ -322,7 +322,7 @@ return function(Data)
 
     LevelCommand:SetName("level")
     LevelCommand:SetMinPerm("User")
-    LevelCommand:SetGroup("Info")
+    LevelCommand:SetGroup("Leveling")
     
     LevelCommand:SetFunction(function(MSG, Args, Raw)
 
@@ -343,22 +343,6 @@ return function(Data)
     MoneyCommand:SetGroup("Leveling")
     
     MoneyCommand:SetFunction(function(MSG, Args, Raw)
-
-        local DataBase = require("Code/Save"):GetDatabase("money")
-        
-        local CurrentXp = DataBase:GetAsync(MSG.author.id) or 0
-    
-        MSG:reply(MSG.author.mentionString .. " you have " .. CurrentXp .. "$! <a:partyblob:772444448307019777>")
-        
-    end)
-
-    local AddMoneyCommand = Handler.New()
-
-    AddMoneyCommand:SetName("setmoney")
-    AddMoneyCommand:SetMinPerm("Owner")
-    AddMoneyCommand:SetGroup("Leveling")
-    
-    AddMoneyCommand:SetFunction(function(MSG, Args, Raw)
 
         local DataBase = require("Code/Save"):GetDatabase("money")
         
