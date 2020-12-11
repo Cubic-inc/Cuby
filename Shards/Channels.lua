@@ -63,6 +63,7 @@ return function(Data)
 	local LockCommand = Handler.New()
 
 	LockCommand:SetName("lockchannel")
+	LockCommand:SetGroup("Channels")
 
 	LockCommand:SetFunction(function(MSG, Args, Raw)
 		local Data = _G.Data
@@ -78,6 +79,7 @@ return function(Data)
 	local UnLockCommand = Handler.New()
 
 	UnLockCommand:SetName("unlockchannel")
+	UnLockCommand:SetGroup("Channels")
 
 	UnLockCommand:SetFunction(function(MSG)
 		local Data = _G.Data

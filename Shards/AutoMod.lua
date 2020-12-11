@@ -336,6 +336,38 @@ return function(Data)
         
     end)
 
+    local MoneyCommand = Handler.New()
+
+    MoneyCommand:SetName("money")
+    MoneyCommand:SetMinPerm("User")
+    MoneyCommand:SetGroup("Leveling")
+    
+    MoneyCommand:SetFunction(function(MSG, Args, Raw)
+
+        local DataBase = require("Code/Save"):GetDatabase("money")
+        
+        local CurrentXp = DataBase:GetAsync(MSG.author.id) or 0
+    
+        MSG:reply(MSG.author.mentionString .. " you have " .. CurrentXp .. "$! <a:partyblob:772444448307019777>")
+        
+    end)
+
+    local AddMoneyCommand = Handler.New()
+
+    AddMoneyCommand:SetName("setmoney")
+    AddMoneyCommand:SetMinPerm("Owner")
+    AddMoneyCommand:SetGroup("Leveling")
+    
+    AddMoneyCommand:SetFunction(function(MSG, Args, Raw)
+
+        local DataBase = require("Code/Save"):GetDatabase("money")
+        
+        local CurrentXp = DataBase:GetAsync(MSG.author.id) or 0
+    
+        MSG:reply(MSG.author.mentionString .. " you have " .. CurrentXp .. "$! <a:partyblob:772444448307019777>")
+        
+    end)
+
 
 
 end

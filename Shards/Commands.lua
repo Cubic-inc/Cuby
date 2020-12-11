@@ -84,6 +84,10 @@ return function(Data)
 			"Utility",
 			"Info",
 			"Moderation",
+			"Leveling",
+			"ModMail",
+			"Channels",
+			"Stickies",
 			"Other"
 		}
 

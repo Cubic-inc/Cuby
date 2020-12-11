@@ -102,6 +102,7 @@ return function(Data)
 		local ReplyCommand = Handler.New()
 		ReplyCommand:SetName("reply")
 		ReplyCommand:SetMinPerm("Mod")
+		ReplyCommand:SetGroup("ModMail")
 		ReplyCommand:SetFunction(function(MSG, Args, Raw)
 		
 			if GetUserFromChannel(MSG.channel) then
@@ -144,6 +145,7 @@ return function(Data)
 		local CloseCommand = Handler.New()
 		CloseCommand:SetName("CloseThread")
 		CloseCommand:SetMinPerm("Mod")
+		CloseCommand:SetGroup("ModMail")
 		CloseCommand:SetFunction(function(MSG, Args, Raw)
 		
 			if GetUserFromChannel(MSG.channel) then
@@ -174,6 +176,7 @@ return function(Data)
 		local NewCommand = Handler.New()
 		NewCommand:SetName("NewThread")
 		NewCommand:SetMinPerm("Admin")
+		NewCommand:SetGroup("ModMail")
 		local Arg = NewCommand:NewArg()
 		Arg:SetName("To open")
 		Arg:SetType("Member")
