@@ -4,7 +4,7 @@ return function(Data)
     _G.VoiceConnect = nil
     local VoiceConnect = _G.VoiceConnect
 
-    local Debug = true
+    local Debug = false
     
 
     local Client = _G.Client
