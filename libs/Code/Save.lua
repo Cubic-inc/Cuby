@@ -17,7 +17,7 @@ local Cache = _G.SaveCache
 
 if not Cache then
 	Cache = {}
-	_G.SaveCache = Cache
+	_G.SaveCache = Cache 
 end
 
 
