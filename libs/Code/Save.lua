@@ -11,7 +11,7 @@ local Query = require("querystring")
 
 local Module = {}
 
-local Token = require("../Tokens").Save or os.getenv("SAVETOKEN")
+local Token = require("../Tokens").Save or os.getenv("SAVE")
 
 local Cache = _G.SaveCache
 
