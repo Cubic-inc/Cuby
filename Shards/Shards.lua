@@ -30,10 +30,10 @@ local Shards = {
         Function  = require("./AutoMod.lua")
     },
 
-    --[[{
-        Name = "MiniGames",
-        Function  = require("./MiniGames.lua")
-    },]]
+    {
+        Name = "RoleManager",
+        Function  = require("./RoleManager.lua")
+    },
    
     {
         Name = "ModMail",
