@@ -14,6 +14,7 @@ return function(Data)
 
   App.use(require('weblit-auto-headers'))
   App.use(require('weblit-etag-cache'))
+  App.use(require('weblit-logger'))
 
   App.route({
     method = "POST", 
