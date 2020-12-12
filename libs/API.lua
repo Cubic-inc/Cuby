@@ -121,7 +121,7 @@ function Module:Sudo(User, Channel, Text)
     local Data = {
         content = Text,
         username = User.name,
-        avatar_url = User.avatarURL
+        avatar_url = User.user.avatarURL
     }
 
     require("Code/PostWebhook")(Data, "https://discord.com/api/webhooks/" .. Webhook.id .. "/" .. Webhook.token)

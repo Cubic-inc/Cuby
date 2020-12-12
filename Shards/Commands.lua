@@ -60,7 +60,7 @@ return function(Data)
 	SudoCommand:SetMinPerm("Owner")
 	local ToSudo = SudoCommand:NewArg()
 	ToSudo:SetName("User")
-	ToSudo:SetType("User")
+	ToSudo:SetType("Member")
 	ToSudo:SetReq(true)
 
 	SudoCommand:SetFunction(function(MSG, Args, Raw)
