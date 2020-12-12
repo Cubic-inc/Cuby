@@ -1,6 +1,6 @@
 return {
   name = "Cuby-Bot",
-  version = "3.4.1",
+  version = "3.4.4",
   description = "For the discord",
   dependencies = {
   "luvit/luvit",
