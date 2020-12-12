@@ -128,6 +128,7 @@ Clock:on("hour", function()
 	_G.Data.GlobalValues.HourWarnAmount = {}
 end)
 
+
 coroutine.wrap(function()
 
 	local InfoBase = require("Code/Save"):GetDatabase("botinfo")

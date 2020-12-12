@@ -2,7 +2,19 @@ local Commands = {}
 
 local Module = {Commands = {}}
 
+function GetUserByPing(Text, Client)
 
+    local Id = string.sub(Text, 4, 21)
+    if not Id then return end
+    if not tonumber(Id) then return end
+
+    print(Id)
+
+    local ToReturn = Client:getUser(Id)
+    --print(nil)
+
+    return ToReturn
+end
 
 function New(Client)
 
@@ -48,7 +60,7 @@ function New(Client)
 
     Client:on("messageCreate", function(MSG)  
 
-        local Text = MSG.cleanContent
+        local Text = MSG.content
 
         if string.sub(Text, 1, 1) ~= Info.Prefix then --[[print("Prefix not found")]] return end
 
@@ -56,6 +68,7 @@ function New(Client)
         local Args = {}
         for C in ToParse:gmatch("%S+") do
             table.insert(Args, tostring(C))
+            --print(C)
         end
 
         if string.lower(Args[1] or "") ~= Info.Name then --[[print("Command not found")]] return end
@@ -98,29 +111,14 @@ function New(Client)
             if Args[i] then
 
                 if v.Type == "Member" then
-                    local Found = nil
-                    local PingedUsers = MSG.mentionedUsers:toArray()
-                    local PingedMembers = {}
+                    
+                    local FoundUser = GetUserByPing(Args[i], Client)
 
-                    for o, b in pairs(PingedUsers) do
-                        table.insert(PingedMembers, #PingedMembers + 1, MSG.guild:getMember(b.id))
+                    if FoundUser then
+                        local Found = MSG.guild:getMember(FoundUser.id)
+                    else
+                        local Found = nil
                     end
-
-                    for o, b in pairs(PingedMembers) do
-                        if b.name == string.sub(Args[i], 2) then
-                            Found = b
-                        end
-
-                        if b.nickname then
-                            if b.nickname == string.sub(Args[i], 2) then
-                                Found = b
-                            end
-                        end
-
-                        
-
-                    end
-
                     
 
                     if Found == nil then
@@ -132,24 +130,7 @@ function New(Client)
 
                 elseif v.Type == "User" then
 
-                    local Found = nil
-                    local PingedUsers = MSG.mentionedUsers:toArray()
-                    local PingedMembers = {}
-
-                    for o, b in pairs(PingedUsers) do
-                        table.insert(PingedMembers, #PingedMembers + 1, MSG.guild:getMember(b.id))
-                    end
-
-                    for o, b in pairs(PingedMembers) do
-                        if b.name == Args[i] then
-                            Found = b
-                        end
-                        if b.nickname then
-                            if b.nickname == Args[i] then
-                                Found = b
-                            end
-                        end
-                    end
+                    local Found = GetUserByPing(Args[i], Client)
 
                     if Found == nil then
                         MSG:reply("An error occured while parsing argument **`" .. v.Name .. "`**")
@@ -166,7 +147,6 @@ function New(Client)
                 local Found = nil
 
                 Found = tonumber(Args[i])
-                print(Found)
 
                 if Found == nil then
                     MSG:reply("Argument **`" .. v.Name .. "`** must be a number")
