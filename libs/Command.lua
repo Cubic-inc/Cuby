@@ -8,10 +8,7 @@ function GetUserByPing(Text, Client)
     if not Id then return end
     if not tonumber(Id) then return end
 
-    print(Id)
-
     local ToReturn = Client:getUser(Id)
-    --print(nil)
 
     return ToReturn
 end
@@ -114,10 +111,12 @@ function New(Client)
                     
                     local FoundUser = GetUserByPing(Args[i], Client)
 
+                    local Found
+
                     if FoundUser then
-                        local Found = MSG.guild:getMember(FoundUser.id)
+                        Found = MSG.guild:getMember(FoundUser.id)
                     else
-                        local Found = nil
+                        Found = nil
                     end
                     
 
