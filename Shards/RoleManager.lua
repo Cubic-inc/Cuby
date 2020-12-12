@@ -74,6 +74,14 @@ return function(Data)
     
     end)
 
+    coroutine.wrap(function()
+        while true do 
+            Client:getGuild("657227821047087105"):getChannel("787278522787037205"):setName("Member count: " .. tostring(Client:getGuild("657227821047087105").totalMemberCount))
+            require("timer").sleep(5*60*1000)
+        end
+
+    end)()
+
     
 
 end
