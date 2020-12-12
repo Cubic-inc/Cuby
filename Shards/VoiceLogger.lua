@@ -37,7 +37,7 @@ return function(Data)
 
                     {name = "**Channel**", value = "`" .. Channel.name .. "`", inline = true},
                     {name = "**Member**", value = "`" .. Member.tag .. "`", inline = true},
-                    {name = "**Tijd**", value = "`" .. os.date("%c") .. "`", inline = true}
+                    {name = "**Time**", value = "`" .. os.date("%c") .. "`", inline = true}
 
                 },
                 
@@ -71,7 +71,7 @@ return function(Data)
 
                     {name = "**Channel**", value = "`" .. Channel.name .. "`", inline = true},
                     {name = "**Member**", value = "`" .. Member.tag .. "`", inline = true},
-                    {name = "**Tijd**", value = "`" .. os.date("%c") .. "`", inline = true}
+                    {name = "**Time**", value = "`" .. os.date("%c") .. "`", inline = true}
 
                 },
 
