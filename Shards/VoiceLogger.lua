@@ -103,7 +103,7 @@ return function(Data)
 
                     {name = "**Content**", value = "`" .. Message.cleanContent .. "`", inline = true},
                     {name = "**Member**", value = "`" .. Message.author.tag .. "`", inline = true},
-                    {name = "**Tijd**", value = "`" .. os.date("%c") .. "`", inline = true}
+                    {name = "**Time**", value = "`" .. os.date("%c") .. "`", inline = true}
 
                 },
                 
