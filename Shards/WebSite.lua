@@ -17,7 +17,7 @@ return function(Data)
   --App.use(require('weblit-logger'))
 
   App.route({
-    method = "POST", 
+    method = "GET", 
     path = "/invite", 
   }, function (req, res)
     res.body = "<!DOCTYPE html>\n<html>\n<head>\n<meta http-equiv=\"refresh\" content=\"0; url=\'https://discord.gg/JjDEPCvj7z\'\" />\n</head>\n</html>"
