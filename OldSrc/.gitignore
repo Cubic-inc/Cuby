@@ -1,0 +1,11 @@
+/bin/
+/discordia.log
+/gateway.json
+/sqlite3.dll
+/deps/
+/Database/
+
+Tokens.lua
+Config.lua
+
+.DS_Store
