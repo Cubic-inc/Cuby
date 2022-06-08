@@ -1,2 +1,2 @@
 language = "bash"
-run = "clear\ndoitagain=true\nwhile [ $doitagain==true ]; do\n./luvit Bot.lua;\ndone"
+run = "./luvit main"
