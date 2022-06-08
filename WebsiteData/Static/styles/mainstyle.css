@@ -1,0 +1,92 @@
+body {
+    background-color: cyan;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    background-image: url("/static/images/Logo.png");
+    background-size: 500px;
+    animation: 30s linear 0s normal none infinite animate;
+    animation-name: animate;
+}
+
+@keyframes animate{
+    from{background-position:0 0}
+    to{background-position:-500px 500px}
+}
+
+.title {
+    color: white;
+    font-size: 100px;
+}
+
+.holder {
+    background-color: #23272A;
+    width: 500px;
+    text-align: center;
+    margin: auto;
+    box-shadow: 0 0 3px 3px gray;
+    color: white;
+    top: 50%;
+    left: 50%;
+}
+
+.infotitle {
+    background-color: #7289DA;
+    color: white;
+    height: 10%;
+    font-size: 75px;
+}
+
+.joinbutton {
+    background-color: #2C2F33;
+    border-radius: 5px;
+    width: 200px;
+    height: 90px;
+    margin: auto;
+    text-align: center;
+    box-shadow: 0 0 1px 1px #2C2F33;
+    font-size: 75px;
+    color: white;
+    display: inline-block;
+}
+
+.otherbutton {
+    background-color: #2C2F33;
+    border-radius: 5px;
+    width: 150px;
+    height: 30px;
+    margin: auto;
+    text-align: center;
+    box-shadow: 0 0 2px 2px #2C2F33;
+    font-size: 25px;
+    display: inline-block;
+}
+
+.link {
+    color: white;
+    font-weight: 400;
+    text-decoration: none;
+}
+
+.iconholder {
+
+    border-radius: 50%;
+    width: 100;
+    height: 100;
+
+}
+
+.inviteholder {
+
+    background-color: #23272A;
+    width: 250px;
+    text-decoration: none;
+    text-align: right;
+
+}
+
+.credit {
+    position: absolute;
+    bottom: 8px;
+    left: 16px;
+    font-size: 18px;
+}

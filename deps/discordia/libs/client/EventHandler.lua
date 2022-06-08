@@ -537,4 +537,12 @@ function EventHandler.WEBHOOKS_UPDATE(d, client) -- webhook object is not provid
 	return client:emit('webhooksUpdate', channel)
 end
 
+function EventHandler.APPLICATION_COMMAND_DELETE()
+	
+end
+
+function EventHandler.APPLICATION_COMMAND_CREATE()
+	
+end
+
 return EventHandler

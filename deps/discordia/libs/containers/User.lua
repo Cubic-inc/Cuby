@@ -170,6 +170,12 @@ function get.mentionString(self)
 	return format('<@%s>', self._id)
 end
 
+--[=[@p mentionString string A string that, when included in a message content, may resolve as user
+notification in the official Discord client.]=]
+function get.pingString(self)
+	return format('<@%s>', self._id)
+end
+
 --[=[@p mutualGuilds FilteredIterable A iterable cache of all guilds where this user shares a membership with the
 current user. The guild must be cached on the current client and the user's
 member object must be cached in that guild in order for it to appear here.]=]

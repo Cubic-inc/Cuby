@@ -1,3 +1,2 @@
-# Cubyv2
-
-running on luvit: www.luvit.io
+Made for my discord server
+http://cubicdiscord.ga

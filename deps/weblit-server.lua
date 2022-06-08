@@ -153,10 +153,10 @@ local function newServer(run)
       end
       local host = options.host
       if host:match(":") then host = "[" .. host .. "]" end
-      --print("    " .. protocol .. '://' .. host .. port .. '/')
+      print("    " .. protocol .. '://' .. host .. port .. '/')
     end
 
-    --print("Weblit server listening at:")
+    print("Weblit server listening at:")
 
     for i = 1, #bindings do
       local options = bindings[i]

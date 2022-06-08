@@ -30,7 +30,7 @@ local CYAN    = 36
 local config = {
 	{'[ERROR]  ', RED},
 	{'[WARNING]', YELLOW},
-	{'[INFO]   ', GREEN},
+	{'[INFORMATION]   ', GREEN},
 	{'[DEBUG]  ', CYAN},
 }
 
@@ -62,20 +62,23 @@ is formatted according to `string.format` and returned if the message is logged.
 ]=]
 function Logger:log(level, msg, ...)
 
-	if self._level < level then return end
+	coroutine.wrap(function(...)
+		if self._level < level then return end
 
-	local tag = config[level]
-	if not tag then return end
+		local tag = config[level]
+		if not tag then return end
 
-	msg = format(msg, ...)
+		msg = format(msg, ...)
 
-	local d = date(self._dateTime)
-	if self._file then
-		writeSync(self._file, -1, format('%s | %s | %s\n', d, tag[1], msg))
-	end
-	stdout:write(format('%s | %s | %s\n', d, tag[2], msg))
+		local d = date(self._dateTime)
+		if self._file then
+			writeSync(self._file, -1, format('%s | %s | %s\n', d, tag[1], msg))
+		end
+		stdout:write(format('%s | %s | %s\n', d, tag[2], msg))
 
-	return msg
+		return msg
+	end)(...)
+	
 
 end
 
