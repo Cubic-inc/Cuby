@@ -1,0 +1,57 @@
+{
+  "BuildInfo":{
+    "Date":"Sun Apr 10 12:12:48 2022",
+    "TypeWriter":{
+      "Licence":"MIT",
+      "Name":"TypeWriter",
+      "Version":"4.0.0"
+    }
+  },
+  "Package":{
+    "Entrypoints":{
+      "Main":"ga.CoreByte.CoreBase.Test"
+    },
+    "InfoVersion":1,
+    "Version":"1.0.0",
+    "Description":"",
+    "Author":{
+      "Developers":["CoreByte"],
+      "Contributors":[]
+    },
+    "Dependencies":{
+      "Git":[],
+      "Luvit":["SinisterRectus/sqlite3"],
+      "Dua":[]
+    },
+    "Name":"CoreBase",
+    "Contact":{
+      "Source":"",
+      "Socials":[],
+      "Website":""
+    },
+    "ID":"CoreBase"
+  },
+  "Code":{
+    "ga.CoreByte.CoreBase.Test":{
+      "Code":"print(\"Hello World!\")\r\n\r\nlocal Database = Import(\"ga.CoreByte.CoreBase\"):new(\"./Test.db\")\r\n\r\nlocal TestTable = Database:GetTable(\"Test\")\r\np(TestTable:GetValue(\"Test2\"))\r\np(TestTable:SetValue(\"Test2\", 1))\r\np(TestTable:ListKeys())\r\n\r\nfor i = 1, 10000 do\r\n    TestTable:SetValue(i, math.random(1, 100))\r\n    --p(i)\r\nend\r\nrequire(\"timer\").sleep(1000)",
+      "Type":"Code"
+    },
+    "ga.CoreByte.CoreBase.Main":{
+      "Code":"return Import(\"ga.CoreByte.CoreBase.Database\")",
+      "Type":"Code"
+    },
+    "ga.CoreByte.CoreBase.Table":{
+      "Code":"local Table = Object:extend()\r\n\r\nlocal Json = require(\"json\")\r\n\r\nfunction Table:initialize(TableName, Database)\r\n    self.TableName = TableName\r\n    self.Database = Database\r\n    self.SqlConnection = Database.SqlConnection\r\n\r\n    self.SqlConnection:exec('create table if not exists ' .. TableName .. ' ( \"Key\"\tTEXT, \"Value\"\tTEXT, PRIMARY KEY(\"Key\") )')\r\nend\r\n\r\nfunction Table:GetValue(Key)\r\n    local Response = self.SqlConnection:prepare(\"SELECT Value FROM '\" .. self.TableName .. \"' WHERE Key = ?\"):reset():bind(Key):step()\r\n    if not Response then return nil end\r\n    return Json.decode(Response[1])\r\nend\r\n\r\nfunction Table:SetValue(Key, Value)\r\n    self.SqlConnection:prepare(\"INSERT or REPLACE INTO '\" .. self.TableName .. \"' ('Key', 'Value') VALUES (?, ?)\"):reset():bind(Json.encode(Key), Json.encode(Value)):step()\r\n    return true\r\nend\r\n\r\nfunction Table:ListKeys(Max)\r\n    local Keys\r\n    if Max == nil then\r\n        Keys = self.SqlConnection:exec(\"SELECT Key FROM '\" .. self.TableName .. \"'\")[1]\r\n    else\r\n        Keys = self.SqlConnection:exec(\"SELECT Key FROM '\" .. self.TableName .. \"' LIMIT \" .. Max)[1]\r\n    end\r\n    local ReturnKeys = {}\r\n    for i, Key in pairs(Keys) do\r\n        ReturnKeys[i] = Json.decode(Keys[i])\r\n    end\r\n    return ReturnKeys\r\nend\r\n\r\nreturn Table",
+      "Type":"Code"
+    },
+    "ga.CoreByte.CoreBase":{
+      "Type":"Redirect",
+      "RedirectTo":"ga.CoreByte.CoreBase.Main"
+    },
+    "ga.CoreByte.CoreBase.Database":{
+      "Code":"local Database = Object:extend()\r\n\r\nlocal Table = Import(\"ga.CoreByte.CoreBase.Table\")\r\n\r\nlocal Sql = require(\"sqlite3\")\r\n\r\n\r\nfunction Database:initialize(Path)\r\n    self.Path = Path\r\n    self.SqlConnection = Sql.open(Path)\r\n\r\n    self.Tables = {}\r\nend\r\n\r\nfunction Database:Close()\r\n    self.SqlConnection:close()\r\nend\r\n\r\nfunction Database:GetTable(TableName)\r\n    if self.Tables[TableName] == nil then\r\n        self.Tables[TableName] = Table:new(TableName, self)\r\n    end\r\n    return self.Tables[TableName]\r\nend\r\n\r\nfunction Database:ListTables()\r\n    return self.SqlConnection:exec(\"SELECT name FROM sqlite_master WHERE type='table' ORDER BY name\")[1]\r\nend\r\n\r\nreturn Database",
+      "Type":"Code"
+    }
+  },
+  "Resources":[]
+}
