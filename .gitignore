@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 gateway.json
 discordia.log
 gateway.json
@@ -5,3 +6,29 @@ discordia.log
 discordia.log
 discordia.log
 gateway.json
+=======
+lit
+luvi
+luvit
+
+lit.exe
+luvi.exe
+luvit.exe
+
+discordia.log
+gateway.json
+Start.bat
+
+Tokens.lua
+Config.lua
+
+ffmpeg.exe
+opus.dll
+sodium.dll
+youtube-dl.exe
+
+ffmpeg
+
+libopus.so
+libsodium.so
+>>>>>>> Cuby-v5
