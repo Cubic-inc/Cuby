@@ -6,6 +6,7 @@ use twilight_http::Client as HttpClient;
 
 use crate::interactions::InteractionHandlers;
 
+pub mod extensions;
 mod interactions;
 pub mod utility;
 
