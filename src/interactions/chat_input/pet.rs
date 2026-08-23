@@ -6,10 +6,7 @@ use twilight_model::{
         interaction::{InteractionContextType, InteractionData},
     },
     channel::message::MessageFlags,
-    http::{
-        attachment::Attachment,
-        interaction::{InteractionResponse, InteractionResponseType},
-    },
+    http::attachment::Attachment,
 };
 use twilight_util::builder::{
     InteractionResponseDataBuilder,
