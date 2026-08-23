@@ -16,7 +16,10 @@ use twilight_util::builder::{
     command::{CommandBuilder, UserBuilder},
 };
 
-use crate::{interactions::InteractionHandler, utility::cdn::format_avatar_url};
+use crate::{
+    extensions::interaction_response_data::InteractionResponseDataExt,
+    interactions::InteractionHandler, utility::cdn::format_avatar_url,
+};
 
 pub struct PetChatInputCommandHandler;
 
@@ -92,7 +95,7 @@ impl InteractionHandler for PetChatInputCommandHandler {
             target_user.1.mention()
         );
 
-        let response_data = InteractionResponseDataBuilder::new()
+        let response = InteractionResponseDataBuilder::new()
             .content(content)
             .attachments(vec![Attachment::from_bytes(
                 "petpet.gif".to_string(),
@@ -100,12 +103,8 @@ impl InteractionHandler for PetChatInputCommandHandler {
                 1,
             )])
             .flags(MessageFlags::SUPPRESS_NOTIFICATIONS)
-            .build();
-
-        let response = InteractionResponse {
-            kind: InteractionResponseType::ChannelMessageWithSource,
-            data: Some(response_data),
-        };
+            .build()
+            .into_channel_message_with_source();
 
         http.interaction(interaction.application_id)
             .create_response(interaction.id, &interaction.token, &response)
