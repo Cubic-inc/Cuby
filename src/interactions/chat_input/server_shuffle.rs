@@ -8,7 +8,7 @@ use twilight_model::{
 use twilight_util::builder::{InteractionResponseDataBuilder, command::CommandBuilder};
 
 use crate::{
-    extensions::interaction_response_data::InteractionResponseDataExt,
+    State, extensions::interaction_response_data::InteractionResponseDataExt,
     interactions::InteractionHandler,
 };
 
@@ -58,7 +58,7 @@ impl InteractionHandler for ServerShuffleChatInputCommandHandler {
     async fn handler(
         &self,
         interaction: twilight_model::application::interaction::Interaction,
-        http: std::sync::Arc<twilight_http::Client>,
+        state: State,
     ) -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
         let Some(guild_id) = interaction.guild_id else {
             tracing::warn!("servershuffle invoked without a guild_id");
@@ -70,7 +70,7 @@ impl InteractionHandler for ServerShuffleChatInputCommandHandler {
             return Ok(());
         };
 
-        let interaction_client = http.interaction(interaction.application_id);
+        let interaction_client = state.http.interaction(interaction.application_id);
 
         // Rate limit check: only allow one shuffle per guild every 2 minutes.
         if let Some(secs) = self.ratelimit_remaining(guild_id).await {
@@ -93,7 +93,7 @@ impl InteractionHandler for ServerShuffleChatInputCommandHandler {
 
         // Check if the user is in a voice channel by fetching their voice state.
         // The Discord API returns an error if the user is not in a voice channel.
-        let voice_state = http.user_voice_state(guild_id, author_id).await;
+        let voice_state = state.http.user_voice_state(guild_id, author_id).await;
 
         let channel_id = match voice_state.ok() {
             Some(r) => r.model().await.ok().and_then(|v| v.channel_id),
@@ -115,7 +115,7 @@ impl InteractionHandler for ServerShuffleChatInputCommandHandler {
         };
 
         // Fetch the channel to get the current RTC region.
-        let channel = http.channel(channel_id).await?.model().await?;
+        let channel = state.http.channel(channel_id).await?.model().await?;
 
         if channel.kind != ChannelType::GuildVoice {
             let response = InteractionResponseDataBuilder::new()
@@ -151,7 +151,12 @@ impl InteractionHandler for ServerShuffleChatInputCommandHandler {
         };
 
         // Fetch available voice regions and pick one that differs from the current.
-        let regions = http.guild_voice_regions(guild_id).await?.models().await?;
+        let regions = state
+            .http
+            .guild_voice_regions(guild_id)
+            .await?
+            .models()
+            .await?;
 
         let alternative = regions
             .iter()
@@ -185,14 +190,18 @@ impl InteractionHandler for ServerShuffleChatInputCommandHandler {
             .await?;
 
         // Set the channel to the alternative region.
-        http.update_channel(channel_id)
+        state
+            .http
+            .update_channel(channel_id)
             .rtc_region(Some(&new_region))
             .await?;
 
         // Wait a few seconds, then restore the original region.
         tokio::time::sleep(std::time::Duration::from_secs(3)).await;
 
-        http.update_channel(channel_id)
+        state
+            .http
+            .update_channel(channel_id)
             .rtc_region(Some(&original_region))
             .await?;
 

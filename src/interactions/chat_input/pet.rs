@@ -14,7 +14,7 @@ use twilight_util::builder::{
 };
 
 use crate::{
-    extensions::interaction_response_data::InteractionResponseDataExt,
+    State, extensions::interaction_response_data::InteractionResponseDataExt,
     interactions::InteractionHandler, utility::cdn::format_avatar_url,
 };
 
@@ -35,7 +35,7 @@ impl InteractionHandler for PetChatInputCommandHandler {
     async fn handler(
         &self,
         interaction: twilight_model::application::interaction::Interaction,
-        http: std::sync::Arc<twilight_http::Client>,
+        state: State,
     ) -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
         let Some(author) = &interaction.author() else {
             tracing::warn!("Received interaction with no author");
@@ -103,7 +103,9 @@ impl InteractionHandler for PetChatInputCommandHandler {
             .build()
             .into_channel_message_with_source();
 
-        http.interaction(interaction.application_id)
+        state
+            .http
+            .interaction(interaction.application_id)
             .create_response(interaction.id, &interaction.token, &response)
             .await?;
 

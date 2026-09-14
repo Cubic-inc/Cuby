@@ -1,7 +1,7 @@
 use twilight_model::application::command::CommandType;
 use twilight_util::builder::command::CommandBuilder;
 
-use crate::interactions::InteractionHandler;
+use crate::{State, interactions::InteractionHandler};
 
 pub struct PrimaryEntryPointInteractionHandler;
 
@@ -18,7 +18,7 @@ impl InteractionHandler for PrimaryEntryPointInteractionHandler {
     async fn handler(
         &self,
         interaction: twilight_model::application::interaction::Interaction,
-        http: std::sync::Arc<twilight_http::Client>,
+        state: State,
     ) -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
         use twilight_model::http::interaction::{InteractionResponse, InteractionResponseType};
 
@@ -26,7 +26,9 @@ impl InteractionHandler for PrimaryEntryPointInteractionHandler {
             kind: InteractionResponseType::DeferredChannelMessageWithSource,
             data: None,
         };
-        http.interaction(interaction.application_id)
+        state
+            .http
+            .interaction(interaction.application_id)
             .create_response(interaction.id, &interaction.token, &response)
             .await?;
         Ok(())
