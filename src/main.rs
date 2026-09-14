@@ -56,9 +56,6 @@ async fn handle_event(
             let interaction = event.0;
             interactions::handle_interaction(interaction, http, interaction_handlers).await?;
         }
-        Event::MessageCreate(msg) if msg.content == "!ping" => {
-            http.create_message(msg.channel_id).content("Pong!").await?;
-        }
         Event::Ready(event) => {
             let user = event.user;
             tracing::info!("Logged in as {}#{}", user.name, user.discriminator);
