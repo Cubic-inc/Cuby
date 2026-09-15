@@ -40,7 +40,6 @@ impl Into<String> for InputMessage {
 }
 
 pub async fn handle_incoming_message(state: State, message: &Message) {
-    println!("{:#?}", message);
     if message.author.bot {
         return;
     }
