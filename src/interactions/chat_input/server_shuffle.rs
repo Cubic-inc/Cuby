@@ -70,7 +70,7 @@ impl InteractionHandler for ServerShuffleChatInputCommandHandler {
             return Ok(());
         };
 
-        let interaction_client = state.http.interaction(interaction.application_id);
+        let interaction_client = state.discord_http.interaction(interaction.application_id);
 
         // Rate limit check: only allow one shuffle per guild every 2 minutes.
         if let Some(secs) = self.ratelimit_remaining(guild_id).await {
@@ -93,7 +93,10 @@ impl InteractionHandler for ServerShuffleChatInputCommandHandler {
 
         // Check if the user is in a voice channel by fetching their voice state.
         // The Discord API returns an error if the user is not in a voice channel.
-        let voice_state = state.http.user_voice_state(guild_id, author_id).await;
+        let voice_state = state
+            .discord_http
+            .user_voice_state(guild_id, author_id)
+            .await;
 
         let channel_id = match voice_state.ok() {
             Some(r) => r.model().await.ok().and_then(|v| v.channel_id),
@@ -115,7 +118,12 @@ impl InteractionHandler for ServerShuffleChatInputCommandHandler {
         };
 
         // Fetch the channel to get the current RTC region.
-        let channel = state.http.channel(channel_id).await?.model().await?;
+        let channel = state
+            .discord_http
+            .channel(channel_id)
+            .await?
+            .model()
+            .await?;
 
         if channel.kind != ChannelType::GuildVoice {
             let response = InteractionResponseDataBuilder::new()
@@ -152,7 +160,7 @@ impl InteractionHandler for ServerShuffleChatInputCommandHandler {
 
         // Fetch available voice regions and pick one that differs from the current.
         let regions = state
-            .http
+            .discord_http
             .guild_voice_regions(guild_id)
             .await?
             .models()
@@ -191,7 +199,7 @@ impl InteractionHandler for ServerShuffleChatInputCommandHandler {
 
         // Set the channel to the alternative region.
         state
-            .http
+            .discord_http
             .update_channel(channel_id)
             .rtc_region(Some(&new_region))
             .await?;
@@ -200,7 +208,7 @@ impl InteractionHandler for ServerShuffleChatInputCommandHandler {
         tokio::time::sleep(std::time::Duration::from_secs(3)).await;
 
         state
-            .http
+            .discord_http
             .update_channel(channel_id)
             .rtc_region(Some(&original_region))
             .await?;

@@ -1,5 +1,3 @@
-use std::sync::Arc;
-
 use twilight_http::client::InteractionClient;
 use twilight_model::application::interaction::{Interaction, InteractionData::ApplicationCommand};
 use twilight_util::builder::command::CommandBuilder;

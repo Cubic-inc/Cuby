@@ -104,7 +104,7 @@ impl InteractionHandler for PetChatInputCommandHandler {
             .into_channel_message_with_source();
 
         state
-            .http
+            .discord_http
             .interaction(interaction.application_id)
             .create_response(interaction.id, &interaction.token, &response)
             .await?;

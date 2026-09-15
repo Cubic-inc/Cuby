@@ -27,7 +27,7 @@ impl InteractionHandler for PrimaryEntryPointInteractionHandler {
             data: None,
         };
         state
-            .http
+            .discord_http
             .interaction(interaction.application_id)
             .create_response(interaction.id, &interaction.token, &response)
             .await?;
