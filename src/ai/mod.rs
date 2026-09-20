@@ -1,9 +1,12 @@
-use futures_util::StreamExt;
+use std::time::SystemTime;
+
 use ollama_rs::generation::chat::{ChatMessage, request::ChatMessageRequest};
 use serde::Serialize;
 use twilight_model::channel::Message;
 
 use crate::{State, extensions::message::MessageExt};
+
+mod tools;
 
 #[derive(Debug, Clone, Serialize)]
 struct InputMessage {
@@ -12,10 +15,34 @@ struct InputMessage {
     user_id: String,
     user_name: String,
     content: String,
+    posted_at: String,
 }
 
 impl From<&Message> for InputMessage {
     fn from(message: &Message) -> Self {
+        let posted_at = {
+            let now = SystemTime::now()
+                .duration_since(SystemTime::UNIX_EPOCH)
+                .unwrap()
+                .as_secs();
+            let diff = now.saturating_sub(message.timestamp.as_secs() as u64);
+            match diff {
+                0..=59 => "less than 1 minute ago".to_string(),
+                60..=3599 => {
+                    let mins = diff / 60;
+                    format!("{} minute{} ago", mins, if mins == 1 { "" } else { "s" })
+                }
+                3600..=86399 => {
+                    let hours = diff / 3600;
+                    format!("{} hour{} ago", hours, if hours == 1 { "" } else { "s" })
+                }
+                _ => {
+                    let days = diff / 86400;
+                    format!("{} day{} ago", days, if days == 1 { "" } else { "s" })
+                }
+            }
+        };
+
         Self {
             message_id: message.id.to_string(),
             replying_to_id: message
@@ -29,6 +56,7 @@ impl From<&Message> for InputMessage {
                 .clone()
                 .unwrap_or(message.author.name.clone()),
             content: message.content.clone(),
+            posted_at,
         }
     }
 }
@@ -40,11 +68,13 @@ impl Into<String> for InputMessage {
 }
 
 pub async fn handle_incoming_message(state: State, message: &Message) {
-    if message.author.bot {
+    let current_user = state.discord_cache.current_user().unwrap();
+
+    if !message.mentions_user(current_user.id) {
         return;
     }
 
-    if !message.mentions_user(state.discord_cache.current_user().unwrap().id) {
+    if message.author.bot {
         return;
     }
 
@@ -57,6 +87,7 @@ pub async fn handle_incoming_message(state: State, message: &Message) {
         .await;
 
     let system_message = ChatMessage::system(include_str!("./system.md").into());
+    let user_info_message = ChatMessage::system(format!("Your user id is: {}", current_user.id));
 
     // Fetch previous messages from the channel for conversation context
     let context_messages = match state
@@ -84,10 +115,10 @@ pub async fn handle_incoming_message(state: State, message: &Message) {
         }
     };
 
-    let mut messages = vec![system_message];
+    let mut messages = vec![system_message, user_info_message];
 
     for message in &context_messages {
-        if message.author.bot {
+        if message.author.id == current_user.id {
             messages.push(ChatMessage::assistant(message.content.clone()));
         } else {
             messages.push(ChatMessage::user(InputMessage::from(message).into()));
@@ -99,26 +130,14 @@ pub async fn handle_incoming_message(state: State, message: &Message) {
     tracing::info!("Sending messages to Ollama: {:#?}", messages);
 
     let request = ChatMessageRequest::new(model, messages);
-    let mut stream = ollama.send_chat_messages_stream(request).await.unwrap();
+    let response = ollama.send_chat_messages(request).await.unwrap();
 
-    let mut content = String::new();
-
-    while let Some(response) = stream.next().await {
-        match response {
-            Ok(chat_response) => {
-                tracing::info!("AI Response: {:#?}", chat_response);
-                content.push_str(&chat_response.message.content);
-            }
-            Err(e) => {
-                tracing::error!("Error receiving AI response: {:?}", e);
-            }
-        }
-    }
+    tracing::info!("Received response from Ollama: {:#?}", response);
 
     let _ = state
         .discord_http
         .create_message(message.channel_id)
-        .content(&content)
+        .content(&response.message.content)
         .reply(message.id)
         .await;
 }
