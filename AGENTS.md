@@ -9,3 +9,4 @@ Documentation for rust libraries can be found at:
 Other things to know:
 
 - Use the diagnostic tool you have access to instead of compiling manually.
+- The database is sqlite
