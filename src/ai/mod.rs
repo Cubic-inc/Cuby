@@ -1,12 +1,21 @@
 use std::time::SystemTime;
 
-use ollama_rs::generation::chat::{ChatMessage, request::ChatMessageRequest};
-use serde::Serialize;
+use ollama_rs::generation::{
+    chat::{ChatMessage, request::ChatMessageRequest},
+    parameters::{FormatType, JsonStructure},
+};
+use ollama_rs::re_exports::schemars::json_schema;
+use serde::{Deserialize, Serialize};
 use twilight_model::channel::Message;
 
 use crate::{State, extensions::message::MessageExt};
 
 mod tools;
+
+#[derive(Debug, Deserialize)]
+struct OutputMessage {
+    content: String,
+}
 
 #[derive(Debug, Clone, Serialize)]
 struct InputMessage {
@@ -67,33 +76,34 @@ impl Into<String> for InputMessage {
     }
 }
 
-pub async fn handle_incoming_message(state: State, message: &Message) {
+pub async fn handle_incoming_message(state: State, discord_message: &Message) {
     let current_user = state.discord_cache.current_user().unwrap();
 
-    if !message.mentions_user(current_user.id) {
+    if !discord_message.mentions_user(current_user.id) {
         return;
     }
 
-    if message.author.bot {
+    if discord_message.author.bot {
         return;
     }
 
-    let model = state.ollama_model;
-    let ollama = state.ollama_client;
+    let model = state.ollama_model.clone();
+    let ollama = state.ollama_client.clone();
 
     let _ = state
         .discord_http
-        .create_typing_trigger(message.channel_id)
+        .create_typing_trigger(discord_message.channel_id)
         .await;
 
+    let tools = tools::get_tools();
     let system_message = ChatMessage::system(include_str!("./system.md").into());
     let user_info_message = ChatMessage::system(format!("Your user id is: {}", current_user.id));
 
     // Fetch previous messages from the channel for conversation context
     let context_messages = match state
         .discord_http
-        .channel_messages(message.channel_id)
-        .before(message.id)
+        .channel_messages(discord_message.channel_id)
+        .before(discord_message.id)
         .limit(25u16)
         .await
     {
@@ -117,27 +127,97 @@ pub async fn handle_incoming_message(state: State, message: &Message) {
 
     let mut messages = vec![system_message, user_info_message];
 
-    for message in &context_messages {
-        if message.author.id == current_user.id {
-            messages.push(ChatMessage::assistant(message.content.clone()));
+    for msg in &context_messages {
+        let input_message = InputMessage::from(msg);
+        if msg.author.id == current_user.id {
+            messages.push(ChatMessage::assistant(input_message.into()));
         } else {
-            messages.push(ChatMessage::user(InputMessage::from(message).into()));
+            messages.push(ChatMessage::user(input_message.into()));
         }
     }
 
-    messages.push(ChatMessage::user(InputMessage::from(message).into()));
+    messages.push(ChatMessage::user(
+        InputMessage::from(discord_message).into(),
+    ));
 
     tracing::info!("Sending messages to Ollama: {:#?}", messages);
 
-    let request = ChatMessageRequest::new(model, messages);
-    let response = ollama.send_chat_messages(request).await.unwrap();
+    let mut executed_tools: Vec<(String, serde_json::Value)> = Vec::new();
+
+    let response = loop {
+        let request = ChatMessageRequest::new(model.clone(), messages.clone())
+            .tools(tools.iter().map(|tool| tool.info()).collect())
+            .format(FormatType::StructuredJson(Box::new(
+                JsonStructure::new_for_schema(json_schema!({
+                    "type": "object",
+                    "properties": {
+                        "content": {
+                            "type": "string",
+                            "description": "The response message content"
+                        }
+                    },
+                    "required": ["content"]
+                })),
+            )));
+
+        let response = ollama.send_chat_messages(request).await.unwrap();
+        let ai_message = &response.message;
+
+        if ai_message.tool_calls.is_empty() {
+            break response;
+        } else {
+            messages.push(ai_message.clone());
+
+            for tool_call in &ai_message.tool_calls {
+                let tool_name = &tool_call.function.name;
+                let arguments = &tool_call.function.arguments;
+
+                let result = match tools
+                    .iter()
+                    .find(|tool| tool.info().function.name == *tool_name)
+                {
+                    Some(tool) => {
+                        let result = tool.execute(state.clone(), arguments.clone()).await;
+                        executed_tools.push((tool_name.clone(), arguments.clone()));
+                        result
+                    }
+                    None => format!("Tool '{}' not found", tool_name),
+                };
+
+                messages.push(ChatMessage::tool(result));
+            }
+        }
+    };
 
     tracing::info!("Received response from Ollama: {:#?}", response);
 
-    let _ = state
+    // Workaround to stop the model responding in json
+    let content = serde_json::from_str::<OutputMessage>(&response.message.content)
+        .map(|o| o.content)
+        .unwrap_or(response.message.content);
+
+    let result = state
         .discord_http
-        .create_message(message.channel_id)
-        .content(&response.message.content)
-        .reply(message.id)
+        .create_message(discord_message.channel_id)
+        .content(&content)
+        .reply(discord_message.id)
         .await;
+
+    match result {
+        Ok(response_msg) => {
+            let response_message = response_msg.model().await.ok();
+            if let Some(response_message) = &response_message {
+                for (tool_name, arguments) in &executed_tools {
+                    if let Some(tool) = tools.iter().find(|t| t.info().function.name == *tool_name)
+                    {
+                        tool.post_execute(state.clone(), response_message, arguments.clone())
+                            .await;
+                    }
+                }
+            }
+        }
+        Err(e) => {
+            tracing::error!("Failed to create response message: {:?}", e);
+        }
+    }
 }
