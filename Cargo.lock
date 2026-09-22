@@ -1613,7 +1613,7 @@ checksum = "9b4f627cb1b25917193a259e49bdad08f671f8d9708acfd5fe0a8c1455d87220"
 [[package]]
 name = "petpet-rs"
 version = "0.1.0"
-source = "git+https://github.com/CoreBytee/PetPet-API.git?rev=353fb34348b6c73c46a5eae8796da498a9ae8619#353fb34348b6c73c46a5eae8796da498a9ae8619"
+source = "git+https://github.com/CoreBytee/petpet-rs.git?rev=ded503ef70984de16e4779ab58dd749e3cc5e494#ded503ef70984de16e4779ab58dd749e3cc5e494"
 dependencies = [
  "image",
  "rayon",

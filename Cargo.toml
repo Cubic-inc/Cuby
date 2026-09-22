@@ -26,7 +26,7 @@ twilight-util = { version = "0.17.0", features = ["builder"] }
 
 # Petpet
 image = "0.25.10"
-petpet-rs = { git = "https://github.com/CoreBytee/PetPet-API.git", rev = "353fb34348b6c73c46a5eae8796da498a9ae8619", version = "0.1.0" }
+petpet-rs = { git = "https://github.com/CoreBytee/petpet-rs.git", rev = "ded503ef70984de16e4779ab58dd749e3cc5e494" }
 reqwest = "0.13.4"
 
 # Ollama
