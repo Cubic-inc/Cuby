@@ -63,7 +63,21 @@ pub async fn handle_interaction(
                     "No handler found for command"
                 })?;
 
-            handler.handler(interaction, state.clone()).await?;
+            let command_name = data.name.clone();
+            let interaction_id = interaction.id;
+
+            handler
+                .handler(interaction, state.clone())
+                .await
+                .map_err(|e| {
+                    tracing::error!(
+                        command_name = command_name.as_str(),
+                        interaction_id = %interaction_id,
+                        error = ?e,
+                        "Failed to handle interaction"
+                    );
+                    e
+                })?;
             Ok(())
         }
         _ => {
