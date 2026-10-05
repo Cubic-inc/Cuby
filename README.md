@@ -20,7 +20,7 @@ Cuby is a Discord bot built in Rust using the Twilight framework. It integrates 
 - A running [Ollama](https://ollama.com) instance with a model of your choice
 - A Discord bot token ([Discord Developer Portal](https://discord.com/developers/applications))
 
-## Setup
+## Setup development environment
 
 1. Clone the repo:
 
@@ -45,6 +45,15 @@ Cuby is a Discord bot built in Rust using the Twilight framework. It integrates 
     ```
 
     The SQLite database (`cuby.db`) is created automatically on first run.
+
+## Creating a new release
+
+There is a workflow in this repository to publish a new release. To activate it create a new tag and push it to github. The commands used to do this are:
+
+```bash
+git tag v1.0.0
+git push origin --tags
+```
 
 ## License
 
