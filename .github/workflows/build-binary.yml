@@ -1,0 +1,30 @@
+name: Build binary
+on:
+    workflow_dispatch:
+    push:
+        branches:
+            - main
+jobs:
+    build-binary:
+        name: Build binary (${{ matrix.arch }})
+        strategy:
+            matrix:
+                include:
+                    - arch: arm64
+                      runner: ubuntu-24.04-arm
+                    - arch: amd64
+                      runner: ubuntu-24.04
+        runs-on: ${{ matrix.runner }}
+        steps:
+            - uses: actions/checkout@v6
+
+            - name: Build binary
+              run: cargo build --verbose
+
+            - run: cp target/debug/cuby ./cuby-${{ matrix.arch }}
+
+            - uses: actions/upload-artifact@v7
+              with:
+                  name: cuby-${{ matrix.arch }}
+                  path: ./cuby-${{ matrix.arch }}
+                  archive: false

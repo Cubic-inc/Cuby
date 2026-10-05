@@ -1,0 +1,52 @@
+name: Publish release
+
+permissions:
+    contents: write
+
+on:
+    push:
+        tags:
+            - "v*"
+jobs:
+    build:
+        name: Build binary (${{ matrix.arch }})
+        strategy:
+            matrix:
+                include:
+                    - arch: arm64
+                      runner: ubuntu-24.04-arm
+                    - arch: amd64
+                      runner: ubuntu-24.04
+        runs-on: ${{ matrix.runner }}
+        steps:
+            - uses: actions/checkout@v6
+
+            - name: Build binary
+              run: cargo build --release --verbose
+
+            - run: cp target/release/cuby ./cuby-${{ matrix.arch }}
+
+            - uses: actions/upload-artifact@v7
+              with:
+                  name: cuby-${{ matrix.arch }}
+                  path: ./cuby-${{ matrix.arch }}
+                  archive: false
+    publish-release:
+        name: Publish release
+        needs: build
+        runs-on: ubuntu-24.04-arm
+        steps:
+            - uses: actions/download-artifact@v7
+              with:
+                  merge-multiple: true
+                  path: .
+
+            - name: Publish release
+              uses: softprops/action-gh-release@v3
+              with:
+                  files: |
+                      cuby-arm64
+                      cuby-amd64
+                  generate_release_notes: true
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

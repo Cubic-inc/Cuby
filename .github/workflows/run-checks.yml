@@ -1,0 +1,27 @@
+name: Run checks
+on:
+    workflow_dispatch:
+    push:
+        branches:
+            - main
+    pull_request:
+        branches:
+            - main
+jobs:
+    cargo-check:
+        name: Run cargo checks
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v6
+            - name: Run cargo checks
+              run: cargo check
+
+    cargo-test:
+        name: Run cargo tests
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v6
+            - name: Run cargo tests
+              run: cargo test
