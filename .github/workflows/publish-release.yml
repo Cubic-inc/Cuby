@@ -30,7 +30,6 @@ jobs:
               with:
                   name: cuby-${{ matrix.arch }}
                   path: ./cuby-${{ matrix.arch }}
-                  archive: false
     publish-release:
         name: Publish release
         needs: build
