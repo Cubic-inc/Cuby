@@ -55,13 +55,17 @@ async fn main() -> Result<(), Box<dyn Error + Send + Sync>> {
         .build();
 
     let discord_token = std::env::var("DISCORD_TOKEN").expect("DISCORD_TOKEN env var is missing.");
-    let discord_intents =
-        Intents::GUILD_MESSAGES | Intents::DIRECT_MESSAGES | Intents::MESSAGE_CONTENT;
+    let discord_intents = Intents::GUILDS
+        | Intents::GUILD_MESSAGES
+        | Intents::DIRECT_MESSAGES
+        | Intents::MESSAGE_CONTENT;
 
     let mut shard = Shard::new(ShardId::ONE, discord_token.clone(), discord_intents);
     let http = HttpClient::new(discord_token);
     let cache = DefaultInMemoryCache::builder()
-        .resource_types(ResourceType::USER_CURRENT | ResourceType::MESSAGE)
+        .resource_types(
+            ResourceType::USER_CURRENT | ResourceType::MESSAGE | ResourceType::GUILD,
+        )
         .build();
 
     let interaction_client =

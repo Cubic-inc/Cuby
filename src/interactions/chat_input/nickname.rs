@@ -48,6 +48,26 @@ impl InteractionHandler for NicknameChatInputCommandHandler {
         let user_id = command_data.get_user("user").ok_or("No user id found")?;
         let new_nickname = command_data.get_string("name");
 
+        let guild_id = interaction.guild_id.ok_or("Guild id is missing")?;
+
+        // Extract the owner id in its own statement so the cache reference is
+        // dropped before any await point.
+        let cached_owner_id = state
+            .discord_cache
+            .guild(guild_id)
+            .map(|guild| guild.owner_id());
+
+        let owner_id = match cached_owner_id {
+            Some(owner_id) => Some(owner_id),
+            None => match state.discord_http.guild(guild_id).await {
+                Ok(resp) => resp.model().await.ok().map(|guild| guild.owner_id),
+                Err(e) => {
+                    tracing::warn!("Failed to fetch guild for owner check: {:?}", e);
+                    None
+                }
+            },
+        };
+
         let user_is_bot = match state.discord_cache.user(user_id) {
             Some(user) => user.bot,
             None => {
@@ -59,7 +79,9 @@ impl InteractionHandler for NicknameChatInputCommandHandler {
             }
         };
 
-        let content = if user_is_bot {
+        let content = if owner_id == Some(user_id) {
+            "Discord does not allow bots to change the nickname of the server owner".into()
+        } else if user_is_bot {
             "Cannot change nickname of a bot user".into()
         } else {
             let author = interaction.author().ok_or("Author is missing")?;
@@ -67,7 +89,7 @@ impl InteractionHandler for NicknameChatInputCommandHandler {
 
             match state
                 .discord_http
-                .update_guild_member(interaction.guild_id.ok_or("Guild id is missing")?, user_id)
+                .update_guild_member(guild_id, user_id)
                 .nick(new_nickname)
                 .reason(format!("Nickname changed by {}", author_name).as_str())
                 .await
