@@ -12,7 +12,6 @@ Cuby is a Discord bot built in Rust using the Twilight framework. It integrates 
 - **AI Chat**: Mention the bot in any channel to get a response powered by a self-hosted Ollama model. Supports conversation context and tool use.
 - **Reminders**: Set reminders via `/remind`. Cuby stores them in SQLite and sends a ping when they expire, either in-channel or via DM.
 - **PetPet**: Generate petpet GIFs from a user's avatar with `/pet`.
-- **Server Shuffle**: Randomly pick members with `/server-shuffle`.
 
 ## Requirements
 
