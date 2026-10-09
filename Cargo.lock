@@ -425,6 +425,7 @@ dependencies = [
  "image",
  "ollama-rs",
  "petpet-rs",
+ "rand 0.10.2",
  "reqwest 0.13.4",
  "rusqlite",
  "rustls",

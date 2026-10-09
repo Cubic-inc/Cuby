@@ -4,6 +4,8 @@ use twilight_model::channel::Message;
 
 use crate::State;
 
+mod calculate;
+mod random_number;
 mod reminder;
 
 #[allow(dead_code)]
@@ -15,5 +17,9 @@ pub trait Tool: Send + Sync {
 }
 
 pub fn get_tools() -> Vec<Box<dyn Tool>> {
-    vec![Box::new(reminder::ReminderTool)]
+    vec![
+        Box::new(reminder::ReminderTool),
+        Box::new(calculate::CalculateTool),
+        Box::new(random_number::RandomNumberTool),
+    ]
 }

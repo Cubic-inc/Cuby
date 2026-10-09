@@ -36,6 +36,9 @@ ollama-rs = { version = "0.3.6", features = ["headers", "stream", "macros"] }
 serde = "1.0.229"
 serde_json = "1.0.151"
 
+# Randomness
+rand = "0.10"
+
 # Time
 chrono = "0.4"
 
