@@ -32,7 +32,12 @@ impl InteractionHandler for RenameChannelChatInputCommandHandler {
             CommandType::ChatInput,
         )
         .contexts(vec![InteractionContextType::Guild])
-        .option(StringBuilder::new("name", "New channel name").required(true))
+        .option(
+            StringBuilder::new("name", "New channel name")
+                .required(true)
+                .min_length(1)
+                .max_length(100),
+        )
     }
 
     async fn handler(
