@@ -172,6 +172,8 @@ pub async fn handle_incoming_message(state: State, discord_message: &Message) {
                 let tool_name = &tool_call.function.name;
                 let arguments = &tool_call.function.arguments;
 
+                tracing::info!(tool = %tool_name, args = %arguments, "calling tool");
+
                 let result = match tools
                     .iter()
                     .find(|tool| tool.info().function.name == *tool_name)
@@ -181,8 +183,13 @@ pub async fn handle_incoming_message(state: State, discord_message: &Message) {
                         executed_tools.push((tool_name.clone(), arguments.clone()));
                         result
                     }
-                    None => format!("Tool '{}' not found", tool_name),
+                    None => {
+                        tracing::warn!(tool = %tool_name, "model called unknown tool");
+                        format!("Tool '{}' not found", tool_name)
+                    }
                 };
+
+                tracing::info!(tool = %tool_name, result = %result, "tool returned");
 
                 messages.push(ChatMessage::tool(result));
             }
