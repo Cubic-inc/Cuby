@@ -186,7 +186,7 @@ pub async fn handle_incoming_message(state: State, discord_message: &Message) {
                 {
                     Some(tool) => {
                         let result = tool
-                            .execute(state.clone(), &mut draft, arguments.clone())
+                            .execute(state.clone(), discord_message, &mut draft, arguments.clone())
                             .await;
                         executed_tools.push((tool_name.clone(), arguments.clone()));
                         result

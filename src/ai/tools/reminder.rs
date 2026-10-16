@@ -54,6 +54,7 @@ impl Tool for ReminderTool {
     async fn execute(
         &self,
         _state: State,
+        _message: &Message,
         _draft: &mut MessageDraft,
         arguments: serde_json::Value,
     ) -> String {

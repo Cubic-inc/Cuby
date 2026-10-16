@@ -1,6 +1,7 @@
 use std::f64::consts::{E, PI, TAU};
 
 use ollama_rs::{generation::tools::ToolFunctionInfo, re_exports::schemars::json_schema};
+use twilight_model::channel::Message;
 
 use crate::{State, extensions::tool_function_info::ToolFunctionInfoExt};
 
@@ -36,6 +37,7 @@ impl Tool for CalculateTool {
     async fn execute(
         &self,
         _state: State,
+        _message: &Message,
         _draft: &mut MessageDraft,
         arguments: serde_json::Value,
     ) -> String {
@@ -251,11 +253,7 @@ impl Parser<'_> {
             }
             Some(c) if c.is_ascii_digit() || c == '.' => self.parse_number(),
             Some(c) if c.is_ascii_alphabetic() => self.parse_identifier(),
-            Some(c) => Err(format!(
-                "unexpected '{}' at position {}.",
-                c,
-                self.pos + 1
-            )),
+            Some(c) => Err(format!("unexpected '{}' at position {}.", c, self.pos + 1)),
         }
     }
 
@@ -332,10 +330,7 @@ impl Parser<'_> {
                         break;
                     }
                     _ => {
-                        return Err(format!(
-                            "expected ',' or ')' at position {}.",
-                            self.pos + 1
-                        ));
+                        return Err(format!("expected ',' or ')' at position {}.", self.pos + 1));
                     }
                 }
             }
@@ -368,7 +363,11 @@ fn is_known_function(name: &str) -> bool {
 }
 
 fn call_function(name: &str, args: &[f64]) -> Result<f64, String> {
-    let expected = if matches!(name, "min" | "max" | "pow") { 2 } else { 1 };
+    let expected = if matches!(name, "min" | "max" | "pow") {
+        2
+    } else {
+        1
+    };
     if args.len() != expected {
         return Err(format!(
             "'{}' expects {} argument{}, got {}.",
@@ -384,8 +383,9 @@ fn call_function(name: &str, args: &[f64]) -> Result<f64, String> {
             return Err("cannot take the square root of a negative number.".to_string());
         }
         "ln" | "log" | "log10" | "log2" if args[0] <= 0.0 => {
-            return Err("cannot take the logarithm of a number that is zero or negative."
-                .to_string());
+            return Err(
+                "cannot take the logarithm of a number that is zero or negative.".to_string(),
+            );
         }
         "sqrt" => args[0].sqrt(),
         "cbrt" => args[0].cbrt(),

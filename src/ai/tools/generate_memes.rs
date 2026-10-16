@@ -1,6 +1,7 @@
 use ollama_rs::{generation::tools::ToolFunctionInfo, re_exports::schemars::json_schema};
 use reqwest::Url;
 use serde::Deserialize;
+use twilight_model::channel::Message;
 
 use crate::{State, extensions::tool_function_info::ToolFunctionInfoExt};
 
@@ -73,6 +74,7 @@ impl Tool for MemeTool {
     async fn execute(
         &self,
         _state: State,
+        _message: &Message,
         draft: &mut MessageDraft,
         arguments: serde_json::Value,
     ) -> String {

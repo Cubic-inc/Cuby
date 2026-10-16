@@ -1,5 +1,6 @@
 use ollama_rs::{generation::tools::ToolFunctionInfo, re_exports::schemars::json_schema};
 use rand::RngExt;
+use twilight_model::channel::Message;
 
 use crate::{State, extensions::tool_function_info::ToolFunctionInfoExt};
 
@@ -48,6 +49,7 @@ impl Tool for RandomNumberTool {
     async fn execute(
         &self,
         _state: State,
+        _message: &Message,
         _draft: &mut MessageDraft,
         arguments: serde_json::Value,
     ) -> String {

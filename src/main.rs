@@ -63,9 +63,7 @@ async fn main() -> Result<(), Box<dyn Error + Send + Sync>> {
     let mut shard = Shard::new(ShardId::ONE, discord_token.clone(), discord_intents);
     let http = HttpClient::new(discord_token);
     let cache = DefaultInMemoryCache::builder()
-        .resource_types(
-            ResourceType::USER_CURRENT | ResourceType::MESSAGE | ResourceType::GUILD,
-        )
+        .resource_types(ResourceType::USER_CURRENT | ResourceType::MESSAGE | ResourceType::GUILD)
         .build();
 
     let interaction_client =
@@ -126,7 +124,10 @@ async fn handle_gateway_event(
             interactions::handle_interaction(interaction, state).await?;
         }
         Event::MessageCreate(message) => {
-            ai::handle_incoming_message(state, &message).await;
+            // Cuby only works in servers, so ignore direct messages.
+            if message.guild_id.is_some() {
+                ai::handle_incoming_message(state, &message).await;
+            }
         }
         Event::Ready(event) => {
             let user = event.user;

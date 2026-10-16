@@ -34,7 +34,11 @@ impl InteractionHandler for NicknameChatInputCommandHandler {
         )
         .contexts(vec![InteractionContextType::Guild])
         .option(UserBuilder::new("user", "User to change nickname of").required(true))
-        .option(StringBuilder::new("name", "New nickname"))
+        .option(
+            StringBuilder::new("name", "New nickname")
+                .min_length(1)
+                .max_length(32),
+        )
     }
 
     async fn handler(
