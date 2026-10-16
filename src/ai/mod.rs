@@ -101,6 +101,11 @@ pub async fn handle_incoming_message(state: State, discord_message: &Message) {
     let tools = tools::get_tools();
     let system_message = ChatMessage::system(include_str!("./system.md").into());
     let user_info_message = ChatMessage::system(format!("Your user id is: {}", current_user.id));
+    let current_time = chrono::Utc::now();
+    let time_message = ChatMessage::system(format!(
+        "The current UTC date and time is {}.",
+        current_time.format("%A, %d %B %Y, %H:%M")
+    ));
 
     // Fetch previous messages from the channel for conversation context
     let context_messages = match state
@@ -128,7 +133,7 @@ pub async fn handle_incoming_message(state: State, discord_message: &Message) {
         }
     };
 
-    let mut messages = vec![system_message, user_info_message];
+    let mut messages = vec![system_message, user_info_message, time_message];
 
     for msg in &context_messages {
         let input_message = InputMessage::from(msg);
@@ -186,7 +191,12 @@ pub async fn handle_incoming_message(state: State, discord_message: &Message) {
                 {
                     Some(tool) => {
                         let result = tool
-                            .execute(state.clone(), discord_message, &mut draft, arguments.clone())
+                            .execute(
+                                state.clone(),
+                                discord_message,
+                                &mut draft,
+                                arguments.clone(),
+                            )
                             .await;
                         executed_tools.push((tool_name.clone(), arguments.clone()));
                         result

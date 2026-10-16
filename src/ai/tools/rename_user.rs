@@ -1,9 +1,6 @@
 use ollama_rs::{generation::tools::ToolFunctionInfo, re_exports::schemars::json_schema};
 use serde_json::Value;
-use twilight_model::{
-    channel::Message,
-    id::{Id, marker::UserMarker},
-};
+use twilight_model::{channel::Message, id::Id};
 
 use crate::{State, extensions::tool_function_info::ToolFunctionInfoExt};
 
@@ -48,7 +45,13 @@ impl Tool for RenameUserTool {
         _draft: &mut MessageDraft,
         arguments: Value,
     ) -> String {
-        let Some(user_id) = parse_user_id(&arguments) else {
+        let Some(user_id) = arguments
+            .get("user_id")
+            .and_then(|value| value.as_str())
+            .and_then(|raw| raw.trim().parse::<u64>().ok())
+            .filter(|id| *id != 0)
+            .map(Id::new)
+        else {
             return "Error: user_id must be a Discord user id.".to_string();
         };
 
@@ -127,26 +130,6 @@ impl Tool for RenameUserTool {
     }
 }
 
-/// Reads the `user_id` argument, accepting a raw numeric id or a `<@id>` /
-/// `<@!id>` mention.
-fn parse_user_id(arguments: &Value) -> Option<Id<UserMarker>> {
-    let raw = match arguments.get("user_id")? {
-        Value::String(value) => value.trim().to_string(),
-        Value::Number(value) => value.to_string(),
-        _ => return None,
-    };
-
-    let digits = raw.strip_prefix("<@").unwrap_or(&raw);
-    let digits = digits.strip_prefix('!').unwrap_or(digits);
-    let digits = digits.strip_suffix('>').unwrap_or(digits);
-
-    digits
-        .parse::<u64>()
-        .ok()
-        .filter(|id| *id != 0)
-        .map(Id::new)
-}
-
 fn is_valid_nickname(nickname: &str) -> bool {
     nickname.chars().count() <= MAX_NICKNAME_LENGTH
 }
@@ -154,40 +137,6 @@ fn is_valid_nickname(nickname: &str) -> bool {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use serde_json::json;
-
-    #[test]
-    fn parses_plain_ids() {
-        assert_eq!(
-            parse_user_id(&json!({ "user_id": "123" })),
-            Some(Id::new(123))
-        );
-        assert_eq!(
-            parse_user_id(&json!({ "user_id": 123 })),
-            Some(Id::new(123))
-        );
-    }
-
-    #[test]
-    fn parses_mentions() {
-        assert_eq!(
-            parse_user_id(&json!({ "user_id": "<@123>" })),
-            Some(Id::new(123))
-        );
-        assert_eq!(
-            parse_user_id(&json!({ "user_id": "<@!123>" })),
-            Some(Id::new(123))
-        );
-    }
-
-    #[test]
-    fn rejects_invalid_ids() {
-        assert_eq!(parse_user_id(&json!({})), None);
-        assert_eq!(parse_user_id(&json!({ "user_id": "abc" })), None);
-        assert_eq!(parse_user_id(&json!({ "user_id": "" })), None);
-        assert_eq!(parse_user_id(&json!({ "user_id": 0 })), None);
-        assert_eq!(parse_user_id(&json!({ "user_id": true })), None);
-    }
 
     #[test]
     fn nickname_length_is_capped() {
