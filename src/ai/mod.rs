@@ -10,7 +10,10 @@ use twilight_model::channel::Message;
 
 use crate::{State, extensions::message::MessageExt};
 
+mod message_draft;
 mod tools;
+
+use message_draft::MessageDraft;
 
 #[derive(Debug, Deserialize)]
 struct OutputMessage {
@@ -143,6 +146,9 @@ pub async fn handle_incoming_message(state: State, discord_message: &Message) {
     tracing::info!("Sending messages to Ollama: {:#?}", messages);
 
     let mut executed_tools: Vec<(String, serde_json::Value)> = Vec::new();
+    // Tools queue things like image uploads here; the reply is only built once
+    // the model's final content is known.
+    let mut draft = MessageDraft::new();
 
     let response = loop {
         let request = ChatMessageRequest::new(model.clone(), messages.clone())
@@ -179,7 +185,9 @@ pub async fn handle_incoming_message(state: State, discord_message: &Message) {
                     .find(|tool| tool.info().function.name == *tool_name)
                 {
                     Some(tool) => {
-                        let result = tool.execute(state.clone(), arguments.clone()).await;
+                        let result = tool
+                            .execute(state.clone(), &mut draft, arguments.clone())
+                            .await;
                         executed_tools.push((tool_name.clone(), arguments.clone()));
                         result
                     }
@@ -203,12 +211,17 @@ pub async fn handle_incoming_message(state: State, discord_message: &Message) {
         .map(|o| o.content)
         .unwrap_or(response.message.content);
 
-    let result = state
+    let mut request = state
         .discord_http
         .create_message(discord_message.channel_id)
         .content(&content)
-        .reply(discord_message.id)
-        .await;
+        .reply(discord_message.id);
+
+    if !draft.attachments().is_empty() {
+        request = request.attachments(draft.attachments());
+    }
+
+    let result = request.await;
 
     match result {
         Ok(response_msg) => {

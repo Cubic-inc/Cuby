@@ -4,7 +4,7 @@ use ollama_rs::{generation::tools::ToolFunctionInfo, re_exports::schemars::json_
 
 use crate::{State, extensions::tool_function_info::ToolFunctionInfoExt};
 
-use super::Tool;
+use super::{MessageDraft, Tool};
 
 pub struct CalculateTool;
 
@@ -33,7 +33,12 @@ impl Tool for CalculateTool {
         .into_tool_info()
     }
 
-    async fn execute(&self, _state: State, arguments: serde_json::Value) -> String {
+    async fn execute(
+        &self,
+        _state: State,
+        _draft: &mut MessageDraft,
+        arguments: serde_json::Value,
+    ) -> String {
         let Some(expression) = arguments.get("expression").and_then(|v| v.as_str()) else {
             return "Error: missing required argument expression.".to_string();
         };

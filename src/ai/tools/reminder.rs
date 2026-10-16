@@ -7,7 +7,7 @@ use crate::{
     reminder::{compute_remind_at, format_duration, RemindLocation},
 };
 
-use super::Tool;
+use super::{MessageDraft, Tool};
 
 pub struct ReminderTool;
 
@@ -51,7 +51,12 @@ impl Tool for ReminderTool {
         .into_tool_info()
     }
 
-    async fn execute(&self, _state: State, arguments: serde_json::Value) -> String {
+    async fn execute(
+        &self,
+        _state: State,
+        _draft: &mut MessageDraft,
+        arguments: serde_json::Value,
+    ) -> String {
         let get_int = |name: &str| -> Option<i64> {
             arguments.get(name).and_then(|v| v.as_i64())
         };

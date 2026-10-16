@@ -3,7 +3,7 @@ use rand::RngExt;
 
 use crate::{State, extensions::tool_function_info::ToolFunctionInfoExt};
 
-use super::{Tool, calculate::format_number};
+use super::{MessageDraft, Tool, calculate::format_number};
 
 pub struct RandomNumberTool;
 
@@ -45,7 +45,12 @@ impl Tool for RandomNumberTool {
         .into_tool_info()
     }
 
-    async fn execute(&self, _state: State, arguments: serde_json::Value) -> String {
+    async fn execute(
+        &self,
+        _state: State,
+        _draft: &mut MessageDraft,
+        arguments: serde_json::Value,
+    ) -> String {
         let get_number = |name: &str| arguments.get(name).and_then(|v| v.as_f64());
         let get_int = |name: &str| arguments.get(name).and_then(|v| v.as_i64());
 
