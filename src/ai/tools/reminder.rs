@@ -1,5 +1,8 @@
 use ollama_rs::{generation::tools::ToolFunctionInfo, re_exports::schemars::json_schema};
-use twilight_model::channel::Message;
+use twilight_model::{
+    channel::Message,
+    id::{Id, marker::UserMarker},
+};
 
 use crate::{
     State,
@@ -59,7 +62,7 @@ impl Tool for ReminderTool {
 
     async fn execute(
         &self,
-        _state: State,
+        state: State,
         _message: &Message,
         _draft: &mut MessageDraft,
         arguments: serde_json::Value,
@@ -76,6 +79,12 @@ impl Tool for ReminderTool {
         let reason = arguments.get("reason").and_then(|v| v.as_str());
 
         let target = target_user_id(&arguments);
+
+        if let Some(id) = target {
+            if user_is_bot(&state, id).await {
+                return "Cannot set a reminder for a bot.".to_string();
+            }
+        }
 
         let Some(_remind_at) =
             compute_remind_at(seconds, minutes, hours, days, weeks, months, years)
@@ -117,7 +126,15 @@ impl Tool for ReminderTool {
         };
 
         let author_id: i64 = message.author.id.get() as i64;
-        let created_for_id = target_user_id(&arguments).unwrap_or(author_id);
+        let created_for_id = match target_user_id(&arguments) {
+            Some(id) => {
+                if user_is_bot(&state, id).await {
+                    return;
+                }
+                id
+            }
+            None => author_id,
+        };
         let channel_id: i64 = message.channel_id.get() as i64;
         let guild_id: i64 = message.guild_id.map(|id| id.get() as i64).unwrap_or(0);
         let message_id: i64 = message.id.get() as i64;
@@ -150,4 +167,18 @@ fn target_user_id(arguments: &serde_json::Value) -> Option<i64> {
         .and_then(|value| value.as_str())
         .and_then(|raw| raw.trim().parse::<i64>().ok())
         .filter(|id| *id != 0)
+}
+
+/// Checks whether the given user id belongs to a bot, preferring the cache and
+/// falling back to a REST lookup. Unknown users are treated as non-bots.
+async fn user_is_bot(state: &State, user_id: i64) -> bool {
+    let user_id = Id::<UserMarker>::new(user_id as u64);
+
+    match state.discord_cache.user(user_id) {
+        Some(user) => user.bot,
+        None => match state.discord_http.user(user_id).await {
+            Ok(resp) => resp.model().await.map(|user| user.bot).unwrap_or(false),
+            Err(_) => false,
+        },
+    }
 }

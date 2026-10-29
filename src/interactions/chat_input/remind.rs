@@ -1,7 +1,6 @@
 use twilight_mention::Mention;
 use twilight_model::{
-    application::command::CommandType,
-    application::interaction::InteractionContextType,
+    application::command::CommandType, application::interaction::InteractionContextType,
     channel::message::MessageFlags,
 };
 use twilight_util::builder::{
@@ -15,7 +14,7 @@ use crate::{
         interaction::InteractionExt, interaction_response_data::InteractionResponseDataExt,
     },
     interactions::InteractionHandler,
-    reminder::{compute_remind_at, format_duration, RemindLocation},
+    reminder::{RemindLocation, compute_remind_at, format_duration},
 };
 
 pub struct RemindChatInputCommandHandler;
@@ -191,6 +190,36 @@ impl InteractionHandler for RemindChatInputCommandHandler {
                     tracing::warn!("remind them invoked without a user option");
                     return Ok(());
                 };
+
+                let resolved_is_bot = cmd
+                    .resolved
+                    .as_ref()
+                    .and_then(|r| r.users.get(&target_user_id))
+                    .map(|u| u.bot);
+
+                let is_bot = match resolved_is_bot {
+                    Some(is_bot) => is_bot,
+                    None => match state.discord_cache.user(target_user_id) {
+                        Some(user) => user.bot,
+                        None => match state.discord_http.user(target_user_id).await {
+                            Ok(resp) => resp.model().await.map(|user| user.bot).unwrap_or(false),
+                            Err(_) => false,
+                        },
+                    },
+                };
+
+                if is_bot {
+                    let response = InteractionResponseDataBuilder::new()
+                        .content("Cannot set a reminder for a bot.")
+                        .flags(MessageFlags::EPHEMERAL)
+                        .build()
+                        .into_channel_message_with_source();
+
+                    interaction_client
+                        .create_response(interaction.id, &interaction.token, &response)
+                        .await?;
+                    return Ok(());
+                }
 
                 let mention = cmd
                     .resolved
