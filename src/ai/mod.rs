@@ -2,7 +2,7 @@ use std::time::SystemTime;
 
 use ollama_rs::generation::{
     chat::{ChatMessage, request::ChatMessageRequest},
-    parameters::{FormatType, JsonStructure},
+    parameters::{FormatType, JsonStructure, ThinkType},
 };
 use ollama_rs::re_exports::schemars::json_schema;
 use serde::{Deserialize, Serialize};
@@ -169,7 +169,8 @@ pub async fn handle_incoming_message(state: State, discord_message: &Message) {
                     },
                     "required": ["content"]
                 })),
-            )));
+            )))
+            .think(ThinkType::Low);
 
         let response = ollama.send_chat_messages(request).await.unwrap();
         let ai_message = &response.message;
